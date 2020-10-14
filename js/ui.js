@@ -5,4 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // add recipe form
   const forms = document.querySelectorAll('.side-form');
   M.Sidenav.init(forms, {edge: 'left'});
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('../sw.js').then( () => {
+        console.log('Service Worker Registered')
+      })
+    })
+  }
 });
