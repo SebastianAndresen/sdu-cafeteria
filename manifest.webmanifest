@@ -1,13 +1,13 @@
 {
-  "name": "Food Ninja",
-  "short_name": "FoodNinja",
+  "name": "SDU Cafeteria",
+  "short_name": "SDU",
   "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#FFE9D2",
   "theme_color": "#FFE1C4",
   "orientation": "portrait-primary",
   "icons": [
-    {
+{
       "src": "/img/icons/icon-72x72.png",
       "type": "image/png",
       "sizes": "72x72"
@@ -47,6 +47,5 @@
       "type": "image/png",
       "sizes": "512x512"
     }
-
   ]
 }
