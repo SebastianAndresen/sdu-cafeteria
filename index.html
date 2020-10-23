@@ -59,6 +59,11 @@
         <i class="material-icons">add</i>
     </a>
 </div>
+<br><br>
+<div class="center">
+    <button class="btn-large" id="btnLogout">Logout</button>
+    <p>NOTE: Logout changes uid</p>
+</div>
 
 <!-- add recipe side nav -->
 <div id="side-form" class="sidenav side-form">
@@ -86,6 +91,7 @@
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
 
 <script>
     // Your web app's Firebase configuration
@@ -104,7 +110,22 @@
     firebase.initializeApp(firebaseConfig);
     firebase.analytics();
 
+    firebase.auth().signInAnonymously().catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+    });
+    firebase.auth().onAuthStateChanged(firebaseUser => {
+        console.log(firebaseUser);
+        console.log('Hello anonymous user: ' + firebaseUser.uid);
+    });
+
     const db = firebase.firestore();
+
+    document.getElementById('btnLogout').addEventListener('click', e => {
+        firebase.auth().signOut();
+    });
 </script>
 <script src="js/ui.js"></script>
 <script src="js/db.js"></script>
