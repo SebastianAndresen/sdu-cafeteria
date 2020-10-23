@@ -52,21 +52,7 @@
 <!-- recipes -->
 <div class="recipes container grey-text text-darken-1">
     
-    <!-- add recipe side nav -->
-    <div id="side-form" class="sidenav side-form">
-        <form class="add-recipe container section">
-            <h6 >New Recipe</h6>
-            <div class="divider"></div>
-            <div class="input-field">
-                <input placeholder="e.g. Ninja soup" id="title" type="text" class="validate">
-                <label for="title">Recipe Title</label>
-            </div>
-            <div class="input-field">
-                <input placeholder="e.g. Tofu, mushroom, garlic" id="ingredients" type="text" class="validate">
-                <label for="ingredients">Ingredients</label>
-            </div>
-        </form>
-    </div>
+
 
 
     <script>
@@ -130,9 +116,9 @@
             <i class="material-icons">thumb_down</i>
             <i class="material-icons">delete_outline</i>         </div>
     </div>
-    <h6 class="center">Recipes</h6>
+    <br>
+    <h6 class="center">Recipes from Database</h6>
 </div>
-
 <div class="center">
     <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
         <i class="material-icons">add</i>
@@ -157,7 +143,6 @@
         </div>
     </form>
 </div>
-
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
