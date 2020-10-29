@@ -34,3 +34,17 @@ const removeRecipe = (id) => {
   const recipe = document.querySelector(`.recipe[data-id=${id}]`);
   recipe.remove();
 };
+
+const userInfo = document.querySelector('#user_info');
+
+const setupUserInfo = (data) => {
+  let html = '';
+  //console.log(data);
+  data.forEach(doc => {
+    const user = doc.data();
+    console.log(user);
+    html += `${JSON.stringify(user, null, 4)}`;
+  });
+
+  userInfo.innerHTML = html;
+};
