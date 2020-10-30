@@ -33,19 +33,25 @@ form.addEventListener('submit', evt => {
 
     const recipe = {
         title: form.title.value,
-        ingredients: form.ingredients.value
+        ingredients: form.ingredients.value,
+        price: form.price.value,
+        path: form.path.value
     };
     db.collection('recipes').add(recipe).catch(err => console.log(err));
     form.title.value = '';
     form.ingredients.value = '';
+    form.price.value = '';
+    form.path.value = '';
 });
 
 // remove recipe
 const recipeContainer = document.querySelector('.recipes');
 recipes.addEventListener('click', evt => {
-    //console.log(evt);
     if (evt.target.tagName === 'I') {
-        const id = evt.target.getAttribute('data-id');
-        db.collection('recipes').doc(id).delete();
+        if(evt.target.textContent === 'delete_outline') {
+            console.log('delete');
+            const id = evt.target.getAttribute('data-id');
+            db.collection('recipes').doc(id).delete();
+        }
     }
 });

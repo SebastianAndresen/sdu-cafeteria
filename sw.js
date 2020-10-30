@@ -1,6 +1,6 @@
-const dynamicCache = 'site-dynamic-v7'
-const dynamicCache_MAXSIZE = 15;
-const staticCache = 'site-static-v7' //Increment whenever a change is made to one of the following assets
+const dynamicCache = 'site-dynamic-v103'
+const dynamicCache_MAXSIZE = 511;
+const staticCache = 'site-static-v29' //Increment whenever a change is made to one of the following assets
 const assets = [
     '/',
     '/index.html',

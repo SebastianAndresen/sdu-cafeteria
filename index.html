@@ -36,9 +36,7 @@
 <!-- side nav -->
 <ul id="side-menu" class="sidenav side-menu">
     <li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
-
-    <li><a href="index.html" class="waves-effect"><i class="material-icons">local_dining</i>Menu</a></li>
-
+    <li><a href="pages/menu.html" class="waves-effect"><i class="material-icons">local_dining</i>Menu</a></li>
     <li><a href="pages/filter.html" class="waves-effect"><i class="material-icons">filter_alt</i>Filter</a></li>
     <li><a href="pages/favorite.html" class="waves-effect"><i class="material-icons">favorite</i>Favorites</a></li>
     <li><a href="pages/notify.html" class="waves-effect"><i class="material-icons">notifications</i>Notify</a></li>
@@ -49,84 +47,69 @@
     <li><a href="pages/contact.html" class="waves-effect"><i class="material-icons">mail_outline</i>Contact</a></li>
 </ul>
 
+<!-- Title Screen-->
+<div class = "welcome container center black-text">
+        <img src="img/icons/SDU_192.png" alt="welcome thumb">
+        <div class="cantina">Cantina</div>
+</div>
+
 <!-- recipes -->
-<div class="recipes container grey-text text-darken-1">
-    
-
-
+<!-- <div class="recipes container grey-text text-darken-1">
 
     <script>
         function changeColor(id)
         {
-          document.getElementById(id).style.color = "#0000ff"; // forecolor
+          document.getElementByC(id).style.color = "#0000ff"; // forecolor
         }
     </script>
 
     <div class="card-panel recipe white row">
-        <img src="img/SpaghettiBolognese.png" alt="recipe thumb">
-        <div class="recipe-details">
-            <div class="recipe-title">Edamame Noodles</div>
-            <div class="recipe-ingredients">Edamame Beans, Noodles, Garlic oil</div>
+        <div class=top>
+            <img src="img/dish.png" alt="recipe thumb">
+            <div class="recipe-details">
+                <div class="recipe-title">Edamame Noodles</div>
+                <div class="recipe-ingredients">Edamame Beans, Noodles, Garlic oil</div>
+            </div>
+            <div class="recipe-price">35.00,-</div>
         </div>
-        <div class="recipe-delete">
-            <input type="checkbox" name="Vegetarian"> Vegetarian
-            <i class="material-icons blue-text">star</i>
-            <i class="material-icons">thumb_up</i>
-            <i class="material-icons">thumb_down</i>
-            <i class="material-icons">delete_outline</i>         
+        <div class=bottom>
+            <div class="recipe-up">
+                <i class="material-icons">thumb_up</i>
+            </div>
+            <div class="recipe-down">
+                <i class="material-icons">thumb_down</i>
+            </div>
+            <div class="recipe-favourite">
+                <i class="material-icons">star</i>
+            </div>
         </div>
     </div>
 
-               
-
     <div class="card-panel recipe white row">
-        <img src="img/dish.png" alt="recipe thumb">
-        <div class="recipe-details">
-            <div class="recipe-title">Edamame Noodles</div>
-            <div class="recipe-ingredients">Edamame Beans, Noodles, Garlic oil</div>
+        <div class=top>
+            <img src="img/dish.png" alt="recipe thumb">
+            <div class="recipe-details">
+                <div class="recipe-title">Edamame Noodles</div>
+                <div class="recipe-ingredients">Edamame Beans, Noodles, Garlic oil</div>
+            </div>
+            <div class="recipe-price">35.00,-</div>
         </div>
-        <div class="recipe-delete">
-            <i class="material-icons blue-text">star</i>
-            <i class="material-icons">thumb_up</i>
-            <i class="material-icons">thumb_down</i>
-            <i class="material-icons">delete_outline</i>         
+        <div class=bottom>
+            <div class="recipe-up">
+                <i class="material-icons">thumb_up</i>
+            </div>
+            <div class="recipe-down">
+                <i class="material-icons">thumb_down</i>
+            </div>
+            <div class="recipe-favourite">
+                <i class="material-icons">star</i>
+            </div>
         </div>
     </div>
-    <div class="card-panel recipe white row">
-        <img src="img/dish.png" alt="recipe thumb">
-        <div class="recipe-details">
-            <div class="recipe-title">Edamame Noodles</div>
-            <div class="recipe-ingredients">Edamame Beans, Noodles, Garlic oil</div>
-        </div>
-        <div class="recipe-delete">
-            <i class="material-icons">star</i>
-            <i class="material-icons">thumb_up</i>
-            <i class="material-icons">thumb_down</i>
-            <i class="material-icons">delete_outline</i>         </div>
-    </div>
-    <div class="card-panel recipe white row">
-        <img src="img/dish.png" alt="recipe thumb">
-        <div class="recipe-details">
-            <div class="recipe-title">Edamame Noodles</div>
-            <div class="recipe-ingredients">Edamame Beans, Noodles, Garlic oil</div>
-        </div>
-        <div class="recipe-delete">
-            <i class="material-icons">star</i>
-            <i class="material-icons">thumb_up</i>
-            <i class="material-icons">thumb_down</i>
-            <i class="material-icons">delete_outline</i>         </div>
-    </div>
-    <br>
-    <h6 class="center">Recipes from Database</h6>
-</div>
-<div class="center">
-    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
-        <i class="material-icons">add</i>
-    </a>
-</div>
+</div> -->
 
 <!-- add recipe side nav -->
-<div id="side-form" class="sidenav side-form">
+<!-- <div id="side-form" class="sidenav side-form">
     <form class="add-recipe container section">
         <h6 >New Recipe</h6>
         <div class="divider"></div>
@@ -142,34 +125,7 @@
             <button class="btn-small">Add</button>
         </div>
     </form>
-</div>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
-
-<script>
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    var firebaseConfig = {
-        apiKey: "AIzaSyAFl469L0-MjT-zsmG8y0F8xgsPJpKRDV4",
-        authDomain: "stl-e20.firebaseapp.com",
-        databaseURL: "https://stl-e20.firebaseio.com",
-        projectId: "stl-e20",
-        storageBucket: "stl-e20.appspot.com",
-        messagingSenderId: "779712017147",
-        appId: "1:779712017147:web:1d95a4e8fc851d9375765e",
-        measurementId: "G-61P2PH6C0N"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-
-    const db = firebase.firestore();
-</script>
+</div> -->
 <script src="js/ui.js"></script>
 <script src="js/db.js"></script>
 <script src="js/app.js"></script>
