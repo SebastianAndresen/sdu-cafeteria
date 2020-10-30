@@ -1,9 +1,11 @@
 const user_span = document.querySelector('#user_id')
 let user ='';
+
 auth.signInAnonymously().catch(function (error) {
     // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
+    let errorCode = error.code;
+    let errorMessage = error.message;
+    console.log(errorMessage, errorCode);
     // ...
 });
 auth.onAuthStateChanged(firebaseUser => {
@@ -39,9 +41,6 @@ auth.onAuthStateChanged(firebaseUser => {
         console.log('User logged out.');
     }
 });
-
-
-
 
 document.getElementById('btnLogout').addEventListener('click', e => {
     firebase.auth().signOut();
