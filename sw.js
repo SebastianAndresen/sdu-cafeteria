@@ -1,6 +1,6 @@
-const dynamicCache = 'site-dynamic-v1-2'
+const dynamicCache = 'site-dynamic-v1-2';
 const dynamicCache_MAXSIZE = 15;
-const staticCache = 'site-static-v1-2' //Increment whenever a change is made to one of the following assets
+const staticCache = 'site-static-v1-2'; //Increment whenever a change is made to one of the following assets
 const assets = [
     '/',
     '/index.html',
@@ -22,7 +22,7 @@ const limitCacheSize = (name, size) => {
             }
         });
     });
-}
+};
 
 self.addEventListener('install', evt => {
     evt.waitUntil(
@@ -31,7 +31,6 @@ self.addEventListener('install', evt => {
             cache.addAll(assets);
         }));
     console.log('service worker has been installed.');
-
 });
 
 //listen to activate event

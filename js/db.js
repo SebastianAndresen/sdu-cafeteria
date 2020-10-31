@@ -1,10 +1,10 @@
 // offline data
 db.enablePersistence()
     .catch(err => {
-        if (err.code == 'failed-precondition') {
+        if (err.code === 'failed-precondition') {
             //probably multiple open tabs
             console.log('persistence failed (close other open tabs)');
-        } else if (err.code == 'unimplemented') {
+        } else if (err.code === 'unimplemented') {
             //lack of browser support
             console.log('persistence is not available');
         }

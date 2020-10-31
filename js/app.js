@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // add recipe form
     const forms = document.querySelectorAll('.side-form');
     M.Sidenav.init(forms, {edge: 'left'});
-
 });
 
 // add new recipe to DB
@@ -82,5 +81,3 @@ const setupUserInfo = (data) => {
 
     userInfo.innerHTML = html;
 };
-
-

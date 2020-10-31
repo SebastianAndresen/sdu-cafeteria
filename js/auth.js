@@ -1,4 +1,4 @@
-const user_span = document.querySelector('#user_id')
+const user_span = document.querySelector('#user_id');
 let user ='';
 
 auth.signInAnonymously().catch(function (error) {
@@ -8,6 +8,7 @@ auth.signInAnonymously().catch(function (error) {
     console.log(errorMessage, errorCode);
     // ...
 });
+
 auth.onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
         user = firebaseUser.uid;
