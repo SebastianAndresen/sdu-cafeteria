@@ -21,7 +21,19 @@ db.collection('recipes').onSnapshot((snapshot) => {
         }
         if (change.type === 'removed') {
             // remove document data from web page
-            removeRecipe(change.doc.id)
+            removeRecipe(change.doc.id);
+        }
+    });
+});
+
+// food-items real-time listener
+db.collection('fooditems').onSnapshot(snapshot => {
+    snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+            renderFoodItem(change.doc.data(), change.doc.id);
+        }
+        if (change.type === 'removed') {
+            removeFoodItem(change.doc.id);
         }
     });
 });

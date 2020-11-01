@@ -1,6 +1,9 @@
-const dynamicCache = 'site-dynamic-v1-2';
+let sharedVersionNum = 108;
+const dynamicCache = `site-dynamic-v1.3.${sharedVersionNum}`;
 const dynamicCache_MAXSIZE = 15;
-const staticCache = 'site-static-v1-2'; //Increment whenever a change is made to one of the following assets
+const staticCache = `site-static-v1.3.${sharedVersionNum}`; //Increment whenever a change is made to one of the following assets
+console.log(dynamicCache, staticCache);
+
 const assets = [
     '/',
     '/index.html',
