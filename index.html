@@ -20,6 +20,9 @@
     <meta name="apple-mobile-wep-app-status-bar" content="#aa7700">
 
     <meta name="theme-color" content="#FFE1C4">
+
+    <!-- Application styles -->
+    <link type="text/css" href="css/sections/menu.css" rel="stylesheet">
 </head>
 <body class="grey lighten-4">
 
@@ -40,6 +43,19 @@
     <li><a href="#" class="waves-effect"><i class="material-icons">favorite</i>Favorites</a></li>
     <li><a href="#" class="waves-effect"><i class="material-icons">notifications</i>Notify</a></li>
 </ul>
+
+<div id="food_items" class="container grey-text text-darken-1">
+    <h5 class="center">Menu</h5>
+    <div id="food_category_news" class="food_category container grey-text text-darken-1">
+        <h6>News</h6>
+    </div>
+    <div id="food_category_daily" class="food_category container grey-text text-darken-1">
+        <h6>Daily</h6>
+    </div>
+    <div id="food_category_drinks" class="food_category container grey-text text-darken-1">
+        <h6>Drinks</h6>
+    </div>
+</div>
 
 <!-- recipes -->
 <div class="recipes container grey-text text-darken-1">
@@ -193,6 +209,8 @@
 <script src="js/db.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/app.js"></script>
+
+<script src="js/sections/menu.js"></script>
 
 </body>
 </html>
