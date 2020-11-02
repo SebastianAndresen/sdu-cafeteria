@@ -12,11 +12,12 @@ auth.signInAnonymously().catch(function (error) {
 auth.onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
+
         let uid = user.uid;
-        let docRef = db.collection('users');
-        console.log(uid);
-        console.log(user)
         user_span.innerHTML = `Username: ${uid}`;
+        let docRef = db.collection('users');
+        //console.log(uid);
+        console.log(user.isAnonymous)
         docRef.doc(uid).get().then(doc => {
             if (doc.exists) {
                 console.log('Document data', doc.data());
