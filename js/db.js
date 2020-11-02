@@ -33,19 +33,21 @@ db.collection('recipes').onSnapshot((snapshot) => {
 const foodItemCollection = 'fooditems';
 
 // food-items real-time listener
-db.collection(foodItemCollection).onSnapshot(snapshot => {
-    snapshot.docChanges().forEach(change => {
-        if (change.type === 'added') {
-            renderFoodItem(change.doc.data(), change.doc.id);
-        }
-        if (change.type === 'modified') {
-            modifyFoodItem(change.doc.data(), change.doc.id);
-        }
-        if (change.type === 'removed') {
-            removeFoodItem(change.doc.id);
-        }
+const setupFoodItemListener = () => {
+    db.collection(foodItemCollection).onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+            if (change.type === 'added') {
+                renderFoodItem(change.doc.data(), change.doc.id);
+            }
+            if (change.type === 'modified') {
+                modifyFoodItem(change.doc.data(), change.doc.id);
+            }
+            if (change.type === 'removed') {
+                removeFoodItem(change.doc.id);
+            }
+        });
     });
-});
+};
 
 const clickUpvote = (itemid, isUpvoted) => {
     if (isUpvoted) {
@@ -58,7 +60,7 @@ const clickUpvote = (itemid, isUpvoted) => {
             user_downvotes: firebase.firestore.FieldValue.arrayRemove(user)
         });
     }
-}
+};
 
 const clickDownvote = (itemid, isDownvoted) => {
     if (isDownvoted) {
@@ -71,16 +73,31 @@ const clickDownvote = (itemid, isDownvoted) => {
             user_upvotes: firebase.firestore.FieldValue.arrayRemove(user)
         });
     }
-}
+};
 
 const clickFavorite = (itemid, isFavorite) => {
     if (isFavorite) {
-        db.collection('users').doc(user).update({
-            favorites: firebase.firestore.FieldValue.arrayRemove(itemid)
+        db.collection(foodItemCollection).doc(itemid).update({
+            user_favorites: firebase.firestore.FieldValue.arrayRemove(user)
         });
     } else {
-        db.collection('users').doc(user).update({
-            favorites: firebase.firestore.FieldValue.arrayUnion(itemid)
+        db.collection(foodItemCollection).doc(itemid).update({
+            user_favorites: firebase.firestore.FieldValue.arrayUnion(user)
         });
     }
-}
+};
+
+  /** **** **/
+ /** USER **/
+/** **** **/
+
+/*const setupUserDBListener = (uid) => {
+    console.log("Listen to user");
+    db.collection('users').doc(uid).onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+            if (change.type === "modified") {
+                console.log("Modified User: ", change.doc.data());
+            }
+        });
+    });
+};*/
