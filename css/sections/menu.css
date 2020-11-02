@@ -1,0 +1,22 @@
+
+.fooditem img {
+    width: 100%;
+}
+
+.fooditem .btn_upvote,
+.fooditem .btn_downvote,
+.fooditem .btn_favorite {
+    color: gray;
+}
+
+.fooditem .btn_upvote.active {
+    color: green;
+}
+
+.fooditem .btn_downvote.active {
+    color: red;
+}
+
+.fooditem .btn_favorite.active {
+    color: yellow;
+}

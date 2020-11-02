@@ -74,5 +74,13 @@ const clickDownvote = (itemid, isDownvoted) => {
 }
 
 const clickFavorite = (itemid, isFavorite) => {
-    console.log(`USer ${user} favorites ${itemid} (DB)`);
+    if (isFavorite) {
+        db.collection('users').doc(user).update({
+            favorites: firebase.firestore.FieldValue.arrayRemove(itemid)
+        });
+    } else {
+        db.collection('users').doc(user).update({
+            favorites: firebase.firestore.FieldValue.arrayUnion(itemid)
+        });
+    }
 }

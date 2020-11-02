@@ -13,7 +13,7 @@ const renderFoodItem = (data, id) => {
 
     const isUpvoted = data.user_upvotes.includes(user);
     const isDownvoted = data.user_downvotes.includes(user);
-    const isFavorite = false;
+    const isFavorite = false; //TODO - check if item id is in user's "favorite" array (also, change user's "favorite" from map to array)
 
     const html = `
         <div class="fooditem card-panel white row" data-id="${id}">
@@ -26,9 +26,9 @@ const renderFoodItem = (data, id) => {
             <div class="food-upvotes">Upvotes: ${data.user_upvotes.length}</div>
             <div class="food-downvotes">Downvotes: ${data.user_downvotes.length}</div>
 
-            <i class="btn_upvote material-icons" data-id="${id}" data-upvoted="${isUpvoted}" style="color: ${isUpvoted ? 'green' : 'gray'}">arrow_circle_up</i>
-            <i class="btn_downvote material-icons" data-id="${id}" data-downvoted="${isDownvoted}" style="color: ${isDownvoted ? 'red' : 'gray'}">arrow_circle_down</i>
-            <i class="btn_favorite material-icons" data-id="${id}" data-favorite="${isFavorite}" style="color: ${isFavorite ? 'yellow' : 'gray'}">star_rate</i>
+            <i class="btn_upvote material-icons${isUpvoted ? ' active':''}" data-id="${id}" data-upvoted="${isUpvoted}">arrow_circle_up</i>
+            <i class="btn_downvote material-icons${isDownvoted ? ' active':''}" data-id="${id}" data-downvoted="${isDownvoted}">arrow_circle_down</i>
+            <i class="btn_favorite material-icons${isFavorite ? ' active':''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
         </div>
     `;
 
@@ -61,8 +61,41 @@ fooditems.addEventListener('click', evt => {
     }
 });
 
-const modifyFoodItem = () => {
+const modifyFoodItem = (data, id) => {
     console.log("MODIFY FOOD ITEM");
+    console.log(data);
+
+    if (!data.visible) return;
+
+    const fooditem = document.querySelector(`.fooditem[data-id=${id}]`);
+    // TODO - update image
+    fooditem.querySelector('.food-title').innerHTML = data.title;
+    fooditem.querySelector('.food-diets').innerHTML = data.diets;
+    fooditem.querySelector('.food-allergies').innerHTML = data.allergies;
+    fooditem.querySelector('.food-price').innerHTML = data.price;
+
+    fooditem.querySelector('.food-upvotes').innerHTML = `Upvotes: ${data.user_upvotes.length}`;
+    fooditem.querySelector('.food-downvotes').innerHTML = `Downvotes: ${data.user_downvotes.length}`;
+
+    const isUpvoted = data.user_upvotes.includes(user);
+    const isDownvoted = data.user_downvotes.includes(user);
+    const isFavorite = false; //TODO - check if item id is in user's "favorite" array (also, change user's "favorite" from map to array)
+
+    const btnUpvote = fooditem.querySelector('.btn_upvote');
+    const btnDownvote = fooditem.querySelector('.btn_downvote');
+    const btnFavorite = fooditem.querySelector('.btn_favorite');
+
+    btnUpvote.setAttribute('data-upvoted', isUpvoted);
+    btnDownvote.setAttribute('data-downvoted', isDownvoted);
+    btnFavorite.setAttribute('data-favorite', isFavorite);
+
+    btnUpvote.classList.remove("active");
+    btnDownvote.classList.remove("active");
+    btnFavorite.classList.remove("active");
+
+    if (isUpvoted) btnUpvote.classList.add("active");
+    if (isDownvoted) btnDownvote.classList.add("active");
+    if (isFavorite) btnFavorite.classList.add("active");
 }
 
 const removeFoodItem = () => {
