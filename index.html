@@ -38,10 +38,87 @@
 
 <!-- side nav -->
 <ul id="side-menu" class="sidenav side-menu">
-    <li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
+    <div class="notifications container white grey-text text-darken-1">
+        <h5>Notify</h5>
+        <div>
+            <form action="#">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Favorites</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegan</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegatarian</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Halal</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+        <hr>
+    </div>
+
+    <div class="preferences container white grey-text text-darken-1">
+        <h5>Diet Preferences</h5>
+        <div>
+            <form action="#">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegetarian</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegan</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Halal</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+        <hr>
+        <h5>Allergies</h5>
+        <div>
+            <form action="#">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Shellfish</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Nut</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!--<li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
     <li><a href="#" class="waves-effect"><i class="material-icons">filter_alt</i>Filter</a></li>
     <li><a href="#" class="waves-effect"><i class="material-icons">favorite</i>Favorites</a></li>
-    <li><a href="#" class="waves-effect"><i class="material-icons">notifications</i>Notify</a></li>
+    <li><a href="#" class="waves-effect"><i class="material-icons">notifications</i>Notify</a></li>-->
 </ul>
 
 <div id="food_items" class="container grey-text text-darken-1">
@@ -76,85 +153,15 @@
     <br>
     <div id="user_info"></div>
 </div>
-
-<div class="notifications container white grey-text text-darken-1">
-    <h5>Notify</h5>
-    <div>
-        <form action="#">
-            <p>
-                <label>
-                    <input type="checkbox" class="filled-in" />
-                    <span>Favorites</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="filled-in" />
-                    <span>Vegan</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="filled-in" />
-                    <span>Vegatarian</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="filled-in" />
-                    <span>Halal</span>
-                </label>
-            </p>
-        </form>
-    </div>
+<br><br>
+<div class="center">
+    <button class="btn-large call" id="btnTest">Test callable function</button>
 </div>
+
 
 <br>
 <hr>
 <br>
-<div class="preferences container white grey-text text-darken-1">
-    <h5>Diet Preferences</h5>
-    <div>
-        <form action="#">
-            <p>
-                <label>
-                    <input type="checkbox" class="filled-in" />
-                    <span>Vegetarian</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="filled-in" />
-                    <span>Vegan</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="filled-in" />
-                    <span>Halal</span>
-                </label>
-            </p>
-        </form>
-    </div>
-
-    <h5>Allergies</h5>
-    <div>
-        <form action="#">
-            <p>
-                <label>
-                    <input type="checkbox" class="filled-in" />
-                    <span>Shellfish</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="filled-in" />
-                    <span>Nut</span>
-                </label>
-            </p>
-        </form>
-    </div>
-</div>
 
 
 
@@ -180,6 +187,8 @@
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-functions.js"></script>
+
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->

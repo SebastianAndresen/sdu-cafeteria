@@ -81,3 +81,14 @@ const setupUserInfo = (data) => {
 
     userInfo.innerHTML = html;
 };
+
+//test callable http function
+const btn = document.querySelector('.call')
+btn.addEventListener('click', () => {
+    //get function reference
+    const testCall = firebase.functions().httpsCallable('testCall');
+    testCall().then(result => {
+        window.location = result.data;
+    });
+
+});

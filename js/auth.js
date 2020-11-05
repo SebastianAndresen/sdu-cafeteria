@@ -16,6 +16,7 @@ auth.signInAnonymously().catch(function (error) {
     // ...
 });
 
+/*
 auth.onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
         user = firebaseUser.uid;
@@ -47,6 +48,7 @@ auth.onAuthStateChanged(firebaseUser => {
         console.log('User logged out.');
     }
 });
+*/
 
 document.getElementById('btnLogout').addEventListener('click', e => {
     firebase.auth().signOut();

@@ -26,8 +26,8 @@ db.collection('recipes').onSnapshot((snapshot) => {
     });
 });
 
-  /** ********** **/
- /** FOOD ITEMS **/
+/** ********** **/
+/** FOOD ITEMS **/
 /** ********** **/
 
 const foodItemCollection = 'fooditems';
@@ -85,8 +85,8 @@ const clickFavorite = (itemid, isFavorite) => {
     }
 };
 
-  /** **** **/
- /** USER **/
+/** **** **/
+/** USER **/
 /** **** **/
 
 /*const setupUserDBListener = (uid) => {
@@ -99,3 +99,17 @@ const clickFavorite = (itemid, isFavorite) => {
         });
     });
 };*/
+
+
+const ref = db.collection('users');
+
+ref.onSnapshot(snapshot => {
+    let userData = snapshot.docs.find(doc => doc.id === auth.currentUser.uid).data();
+    let html =
+        `<h5>${auth.currentUser.uid}</h5>
+         <p>${JSON.stringify(userData, null, 20)}</p>`;
+    console.log(userData);
+    userInfo.innerHTML = html;
+
+
+});
