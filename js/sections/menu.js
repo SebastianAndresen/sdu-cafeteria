@@ -40,7 +40,7 @@ fooditems.addEventListener('click', evt => {
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
         switch (evt.target.className.split(" ")[0]) {
-            case 'btn_upvote': 
+            case 'btn_upvote':
                 clickUpvote(id,
                     evt.target.getAttribute('data-upvoted') == 'true'
                     );
@@ -100,3 +100,10 @@ const modifyFoodItem = (data, id) => {
 const removeFoodItem = () => {
     console.log("REMOVE FOOD ITEM");
 }
+
+const renderUser = (data, id) => {
+    let html =
+    `<h5>${id}</h5>
+         <p>${JSON.stringify(data, null, 20)}</p>`;
+    userInfo.innerHTML = html;
+};

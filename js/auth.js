@@ -16,11 +16,11 @@ auth.signInAnonymously().catch(function (error) {
     // ...
 });
 
-/*
 auth.onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
         user = firebaseUser.uid;
-        //console.log(firebaseUser);
+        setupUser(user);
+        /*console.log(firebaseUser);
         console.log('Hello anonymous user: ' + firebaseUser.uid);
         user_span.innerHTML = `Username: ${firebaseUser.uid}`;
 
@@ -43,13 +43,13 @@ auth.onAuthStateChanged(firebaseUser => {
         // TODO - remove this i guess ?
         db.collection('users').where(firebase.firestore.FieldPath.documentId(),'==', firebaseUser.uid).get().then(snapshot => {
             setupUserInfo(snapshot.docs)
-        });
+        });*/
     } else {
         console.log('User logged out.');
     }
 });
-*/
 
 document.getElementById('btnLogout').addEventListener('click', e => {
     firebase.auth().signOut();
+    console.log('logged out..');
 });

@@ -9,7 +9,7 @@ const userObj = {
   notifications: [],
   favorites: []
 };
-
+/*
 // ======== TEST FUNCTIONS ===============
 exports.helloWorld = functions.https.onRequest((request, response) => {
   functions.logger.info("Hello logs!", {structuredData: true});
@@ -24,7 +24,7 @@ exports.redirect = functions.https.onRequest((req, res) => {
 //http callable function
 exports.testCall = functions.https.onCall((data, context) => {
   return `https://www.youtube.com/watch?v=dQw4w9WgXcQ`;
-});
+});*/
 // =========================================
 
 
