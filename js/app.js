@@ -92,3 +92,78 @@ btn.addEventListener('click', () => {
     });
 
 });
+
+
+
+// ============= MORTEN ========================
+const clickFavouritesSideBar = document.querySelector('.favorites');
+clickFavouritesSideBar.addEventListener('click', evt => {
+    const id = evt.target.getAttribute('data-id');
+    console.log(evt.target.getElementById);
+    console.log(id);
+    document.getElementById("favorites").style.display = "block";
+    document.getElementById("notifications").style.display = "none";
+    document.getElementById("filters").style.display = "none";
+    document.getElementById("recipes").style.display = "none";
+    document.getElementById("food_items").style.display = "none";
+    document.getElementById("add").style.display = "none";
+    document.getElementById("logout").style.display = "none";
+});
+
+const clickMenuSideBar = document.querySelector('.menu');
+clickMenuSideBar.addEventListener('click', evt => {
+    const id = evt.target.getAttribute('data-id');
+    console.log(evt.target.getElementById);
+    console.log(id);
+    console.log("someone clicked menu");
+    document.getElementById("favorites").style.display = "none";
+    document.getElementById("notifications").style.display = "none";
+    document.getElementById("filters").style.display = "none";
+    document.getElementById("recipes").style.display = "block";
+    document.getElementById("food_items").style.display = "block";
+    document.getElementById("add").style.display = "block";
+    document.getElementById("logout").style.display = "block";
+});
+
+const clickFilterSideBar = document.querySelector('.filters');
+clickFilterSideBar.addEventListener('click', evt => {
+    const id = evt.target.getAttribute('data-id');
+    console.log(evt.target.getElementById);
+    console.log(id);
+    document.getElementById("favorites").style.display = "none";
+    document.getElementById("notifications").style.display = "none";
+    document.getElementById("filters").style.display = "block";
+    document.getElementById("recipes").style.display = "none";
+    document.getElementById("food_items").style.display = "none";
+    document.getElementById("add").style.display = "none";
+    document.getElementById("logout").style.display = "none";
+});
+
+const clickNotifySideBar = document.querySelector('.notifications');
+clickNotifySideBar.addEventListener('click', evt => {
+    const id = evt.target.getAttribute('data-id');
+    console.log(evt.target.getElementById);
+    console.log(id);
+    document.getElementById("favorites").style.display = "none";
+    document.getElementById("notifications").style.display = "block";
+    document.getElementById("filters").style.display = "none";
+    document.getElementById("recipes").style.display = "none";
+    document.getElementById("food_items").style.display = "none";
+    document.getElementById("add").style.display = "none";
+    document.getElementById("logout").style.display = "none";
+});
+/*
+function showMenu(menuSelector){
+    switch (menuSelector) {
+        case "menu":
+            break;
+        case "filters":
+            break;
+        case "notifications":
+            break;
+        case "favorites":
+            break;
+        c
+    }
+};*/
+
