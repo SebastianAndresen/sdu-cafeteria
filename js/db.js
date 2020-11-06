@@ -1,5 +1,4 @@
 // offline data
-console.log(user);
 db.enablePersistence()
     .catch(err => {
         if (err.code === 'failed-precondition') {
@@ -90,44 +89,10 @@ const clickFavorite = (itemid, isFavorite) => {
 /** USER **/
 /** **** **/
 
-/*const setupUserDBListener = (uid) => {
-    console.log("Listen to user");
-    db.collection('users').doc(uid).onSnapshot(snapshot => {
-        snapshot.docChanges().forEach(change => {
-            if (change.type === "modified") {
-                console.log("Modified User: ", change.doc.data());
-            }
-        });
-    });
-};*/
 
 const setupUser = (uid) => {
     const ref = db.collection('users').where(firebase.firestore.FieldPath.documentId(), '==', uid);
     ref.onSnapshot(snapshot => {
-        //let userData = snapshot.docs.find(doc => doc.id === user).data();
-        console.log(`Logging data of user: ${uid}`);
-        //console.log(snapshot);
-        console.log(snapshot.docs.find(doc => doc.id === uid).data());
         renderUser(snapshot.docs.find(doc => doc.id === uid).data(), uid);
-
     });
 };
-/*const query = db.collection('users').where(firebase.firestore.FieldPath.documentId(), '==', '21FLtA2xlbRU9wDXjheAxE5TlgJ3');
-
-const observer = query.onSnapshot(querySnapshot => {
-    console.log(`Received query snapshot of size ${querySnapshot.size}`);
-    // ...
-}, err => {
-    console.log(`Encountered error: ${err}`);
-});*/
-
-/*
-
-
-const doc = db.collection('users').where(firebase.firestore.FieldPath.documentId(),'==', user);
-doc.onSnapshot(snapshot => {
-
-    console.log('current user:', user);
-    console.log(snapshot);
-});
-*/
