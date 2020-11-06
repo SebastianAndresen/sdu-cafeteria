@@ -21,6 +21,18 @@ nav .sidenav-trigger{
   margin: 0;
 }
 
+#filters{
+  display:none;
+}
+
+#notifications{
+  display:none;
+}
+
+#favorites{
+  display:none;
+}
+
 /* recipe styles */
 .recipes{
   margin-top: 20px;
