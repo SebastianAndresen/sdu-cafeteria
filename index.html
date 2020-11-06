@@ -39,9 +39,108 @@
 <!-- side nav -->
 <ul id="side-menu" class="sidenav side-menu">
     <li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
+    <div>
+    <a class="menu" data-id="${id}">
+      <i class="material-icons">local_dining</i>Menu
+    </a>
+    </div>
+    <div>
+    <a class="filters" data-id="${id}">
+      <i class="material-icons">filter_alt</i>Filters
+    </a>
+    </div>
+    <div>
+    <a class="favorites" data-id="${id}">
+      <i class="material-icons" >favorite</i>Favorites
+    </a>
+    </div>
+    <div>
+    <a class="notifications" data-id="${id}">
+      <i class="material-icons">notifications</i>Notify
+    </a>
+    </div>
+    <!-- ================== JAKOBS HERUNDER =======  -->
+    <!--<div class="notifications container white grey-text text-darken-1">
+        <h5>Notify</h5>
+        <div>
+            <form action="#">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Favorites</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegan</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegatarian</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Halal</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+        <hr>
+    </div>-->
+<!-- =================== SLUT JAKOB ================== -->
+    <div class="preferences container white grey-text text-darken-1">
+        <h5>Diet Preferences</h5>
+        <div>
+            <form action="#">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegetarian</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegan</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Halal</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+        <hr>
+        <h5>Allergies</h5>
+        <div>
+            <form action="#">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Shellfish</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Nut</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!--<li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
     <li><a href="#" class="waves-effect"><i class="material-icons">filter_alt</i>Filter</a></li>
     <li><a href="#" class="waves-effect"><i class="material-icons">favorite</i>Favorites</a></li>
-    <li><a href="#" class="waves-effect"><i class="material-icons">notifications</i>Notify</a></li>
+    <li><a href="#" class="waves-effect"><i class="material-icons">notifications</i>Notify</a></li>-->
 </ul>
 
 <div id="food_items" class="container grey-text text-darken-1">
@@ -58,17 +157,17 @@
 </div>
 
 <!-- recipes -->
-<div class="recipes container grey-text text-darken-1">
+<div class="recipes container grey-text text-darken-1" id="recipes">
     <h6 class="center">Recipes</h6>
 </div>
 
-<div class="center">
+<div class="center" id="add">
     <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
         <i class="material-icons">add</i>
     </a>
 </div>
 <br><br>
-<div class="center">
+<div class="center" id="logout">
     <button class="btn-large" id="btnLogout">Logout</button>
     <p>NOTE: Logout changes uid</p>
     <br>
@@ -76,6 +175,17 @@
     <br>
     <div id="user_info"></div>
 </div>
+<br><br>
+<div class="center">
+    <button class="btn-large call" id="btnTest">Test callable function</button>
+</div>
+
+
+<br>
+<hr>
+<br>
+
+
 
 <!-- add recipe side nav -->
 <div id="side-form" class="sidenav side-form">
@@ -96,9 +206,67 @@
     </form>
 </div>
 
+<div id="favorites">This is an empty favorites container</div>
+
+<div id="filters">
+  <h5 class="center">Filters</h5>
+  <form action="#">
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" />
+              <span>Vegetarian</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" />
+              <span>Vegan</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" />
+              <span>Halal</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" />
+              <span>Shell-fish allergy</span>
+          </label>
+      </p>
+  </form>
+</div>
+
+<div id="notifications">
+  <h5 class="center">Filters</h5>
+  <form action="#">
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" />
+              <span>Vegetarian</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" />
+              <span>Vegan</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" />
+              <span>Favorites</span>
+          </label>
+      </p>
+  </form>
+</div>
+
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-functions.js"></script>
+
 
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -125,11 +293,11 @@
     const auth = firebase.auth();
 
 </script>
-<script src="js/db.js"></script>
 <script src="js/auth.js"></script>
-<script src="js/app.js"></script>
+<script defer src="js/db.js"></script>
+<script defer src="js/app.js"></script>
 
-<script src="js/sections/menu.js"></script>
+<script defer src="js/sections/menu.js"></script>
 
 </body>
 </html>
