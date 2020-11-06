@@ -102,6 +102,7 @@ const removeFoodItem = () => {
 }
 
 const renderUser = (data, id) => {
+    console.log(`User found! rendering ${id}`);
     let html =
     `<h5>${id}</h5>
          <p>${JSON.stringify(data, null, 20)}</p>`;

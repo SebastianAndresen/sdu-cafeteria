@@ -109,7 +109,7 @@ const setupUser = (uid) => {
         //console.log(snapshot);
         console.log(snapshot.docs.find(doc => doc.id === uid).data());
         renderUser(snapshot.docs.find(doc => doc.id === uid).data(), uid);
-
+        //console.log(snapshot);
     });
 };
 /*const query = db.collection('users').where(firebase.firestore.FieldPath.documentId(), '==', '21FLtA2xlbRU9wDXjheAxE5TlgJ3');
