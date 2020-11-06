@@ -77,7 +77,6 @@ btn.addEventListener('click', () => {
     testCall().then(result => {
         window.location = result.data;
     });
-
 });
 
 
