@@ -20,6 +20,9 @@
     <meta name="apple-mobile-wep-app-status-bar" content="#aa7700">
 
     <meta name="theme-color" content="#FFE1C4">
+
+    <!-- Application styles -->
+    <link type="text/css" href="css/sections/menu.css" rel="stylesheet">
 </head>
 <body class="grey lighten-4">
 
@@ -36,80 +39,63 @@
 <!-- side nav -->
 <ul id="side-menu" class="sidenav side-menu">
     <li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
-    <li><a href="pages/menu.html" class="waves-effect"><i class="material-icons">local_dining</i>Menu</a></li>
-    <li><a href="pages/filter.html" class="waves-effect"><i class="material-icons">filter_alt</i>Filter</a></li>
-    <li><a href="pages/favorite.html" class="waves-effect"><i class="material-icons">favorite</i>Favorites</a></li>
-    <li><a href="pages/notify.html" class="waves-effect"><i class="material-icons">notifications</i>Notify</a></li>
-
-    <li><div class="divider"></div></li>
-
-    <li><a href="pages/about.html" class="waves-effect"><i class="material-icons">info_outline</i>About</a></li>
-    <li><a href="pages/contact.html" class="waves-effect"><i class="material-icons">mail_outline</i>Contact</a></li>
+    <div>
+    <a class="menu" data-id="${id}">
+      <i class="material-icons">local_dining</i>Menu
+    </a>
+    </div>
+    <div>
+    <a class="filters" data-id="${id}">
+      <i class="material-icons">filter_alt</i>Filters
+    </a>
+    </div>
+    <div>
+    <a class="favorites" data-id="${id}">
+      <i class="material-icons" >favorite</i>Favorites
+    </a>
+    </div>
+    <div>
+    <a class="notifications" data-id="${id}">
+      <i class="material-icons">notifications</i>Notify
+    </a>
+    </div>
 </ul>
 
-<!-- Title Screen-->
-<div class = "welcome container center black-text">
-        <img src="img/icons/SDU_192.png" alt="welcome thumb">
-        <div class="cantina">Cantina</div>
+<div id="food_items" class="container grey-text text-darken-1">
+    <h5 class="center">Menu</h5>
+    <div id="food_category_news" class="food_category container grey-text text-darken-1">
+        <h6>News</h6>
+    </div>
+    <div id="food_category_daily" class="food_category container grey-text text-darken-1">
+        <h6>Daily</h6>
+    </div>
+    <div id="food_category_drinks" class="food_category container grey-text text-darken-1">
+        <h6>Drinks</h6>
+    </div>
 </div>
 
 <!-- recipes -->
-<!-- <div class="recipes container grey-text text-darken-1">
+<div class="recipes container grey-text text-darken-1" id="recipes">
+    <h6 class="center">Recipes</h6>
+</div>
 
-    <script>
-        function changeColor(id)
-        {
-          document.getElementByC(id).style.color = "#0000ff"; // forecolor
-        }
-    </script>
-
-    <div class="card-panel recipe white row">
-        <div class=top>
-            <img src="img/dish.png" alt="recipe thumb">
-            <div class="recipe-details">
-                <div class="recipe-title">Edamame Noodles</div>
-                <div class="recipe-ingredients">Edamame Beans, Noodles, Garlic oil</div>
-            </div>
-            <div class="recipe-price">35.00,-</div>
-        </div>
-        <div class=bottom>
-            <div class="recipe-up">
-                <i class="material-icons">thumb_up</i>
-            </div>
-            <div class="recipe-down">
-                <i class="material-icons">thumb_down</i>
-            </div>
-            <div class="recipe-favourite">
-                <i class="material-icons">star</i>
-            </div>
-        </div>
-    </div>
-
-    <div class="card-panel recipe white row">
-        <div class=top>
-            <img src="img/dish.png" alt="recipe thumb">
-            <div class="recipe-details">
-                <div class="recipe-title">Edamame Noodles</div>
-                <div class="recipe-ingredients">Edamame Beans, Noodles, Garlic oil</div>
-            </div>
-            <div class="recipe-price">35.00,-</div>
-        </div>
-        <div class=bottom>
-            <div class="recipe-up">
-                <i class="material-icons">thumb_up</i>
-            </div>
-            <div class="recipe-down">
-                <i class="material-icons">thumb_down</i>
-            </div>
-            <div class="recipe-favourite">
-                <i class="material-icons">star</i>
-            </div>
-        </div>
-    </div>
-</div> -->
+<div class="center" id="add">
+    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
+        <i class="material-icons">add</i>
+    </a>
+</div>
+<br><br>
+<div class="center" id="logout">
+    <button class="btn-large" id="btnLogout">Logout</button>
+    <p>NOTE: Logout changes uid</p>
+    <br>
+    <span id="user_id"></span>
+    <br>
+    <div id="user_info"></div>
+</div>
 
 <!-- add recipe side nav -->
-<!-- <div id="side-form" class="sidenav side-form">
+<div id="side-form" class="sidenav side-form">
     <form class="add-recipe container section">
         <h6 >New Recipe</h6>
         <div class="divider"></div>
@@ -125,10 +111,98 @@
             <button class="btn-small">Add</button>
         </div>
     </form>
-</div> -->
-<script src="js/ui.js"></script>
+</div>
+
+<div id="favorites">This is an empty favorites container</div>
+
+<div id="filters">
+  <h5 class="center">Filters</h5>
+  <form action="#">
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" /> 
+              <span>Vegetarian</span> 
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" /> 
+              <span>Vegan</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" /> 
+              <span>Halal</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" /> 
+              <span>Shell-fish allergy</span>
+          </label>
+      </p>
+  </form>
+</div>
+
+<div id="notifications">
+  <h5 class="center">Filters</h5>
+  <form action="#">
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" /> 
+              <span>Vegetarian</span> 
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" /> 
+              <span>Vegan</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="filled-in" /> 
+              <span>Favorites</span>
+          </label>
+      </p>
+  </form>
+</div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-auth.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+        apiKey: "AIzaSyAFl469L0-MjT-zsmG8y0F8xgsPJpKRDV4",
+        authDomain: "stl-e20.firebaseapp.com",
+        databaseURL: "https://stl-e20.firebaseio.com",
+        projectId: "stl-e20",
+        storageBucket: "stl-e20.appspot.com",
+        messagingSenderId: "779712017147",
+        appId: "1:779712017147:web:1d95a4e8fc851d9375765e",
+        measurementId: "G-61P2PH6C0N"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+</script>
 <script src="js/db.js"></script>
+<script src="js/auth.js"></script>
 <script src="js/app.js"></script>
+
+<script src="js/sections/menu.js"></script>
 
 </body>
 </html>

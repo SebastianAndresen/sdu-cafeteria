@@ -1,10 +1,10 @@
 // offline data
 db.enablePersistence()
     .catch(err => {
-        if (err.code == 'failed-precondition') {
+        if (err.code === 'failed-precondition') {
             //probably multiple open tabs
-            console.log('persistence failed');
-        } else if (err.code == 'unimplemented') {
+            console.log('persistence failed (close other open tabs)');
+        } else if (err.code === 'unimplemented') {
             //lack of browser support
             console.log('persistence is not available');
         }
@@ -14,44 +14,88 @@ db.enablePersistence()
 db.collection('recipes').onSnapshot((snapshot) => {
     //console.log(snapshot.docChanges());
     snapshot.docChanges().forEach(change => {
-        console.log(change, change.doc.data(), change.doc.id);
+        //console.log(change, change.doc.data(), change.doc.id);
         if (change.type === 'added') {
             // add document data to web page
             renderRecipe(change.doc.data(), change.doc.id);
         }
         if (change.type === 'removed') {
             // remove document data from web page
-            removeRecipe(change.doc.id)
+            removeRecipe(change.doc.id);
         }
     });
 });
 
-// add new recipe
-const form = document.querySelector('form');
-form.addEventListener('submit', evt => {
-    evt.preventDefault();
+  /** ********** **/
+ /** FOOD ITEMS **/
+/** ********** **/
 
-    const recipe = {
-        title: form.title.value,
-        ingredients: form.ingredients.value,
-        price: form.price.value,
-        path: form.path.value
-    };
-    db.collection('recipes').add(recipe).catch(err => console.log(err));
-    form.title.value = '';
-    form.ingredients.value = '';
-    form.price.value = '';
-    form.path.value = '';
-});
+const foodItemCollection = 'fooditems';
 
-// remove recipe
-const recipeContainer = document.querySelector('.recipes');
-recipes.addEventListener('click', evt => {
-    if (evt.target.tagName === 'I') {
-        if(evt.target.textContent === 'delete_outline') {
-            console.log('delete');
-            const id = evt.target.getAttribute('data-id');
-            db.collection('recipes').doc(id).delete();
+// food-items real-time listener
+db.collection(foodItemCollection).onSnapshot(snapshot => {
+    snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+            renderFoodItem(change.doc.data(), change.doc.id);
         }
-    }
+        if (change.type === 'modified') {
+            modifyFoodItem(change.doc.data(), change.doc.id);
+        }
+        if (change.type === 'removed') {
+            removeFoodItem(change.doc.id);
+        }
+    });
 });
+
+const clickUpvote = (itemid, isUpvoted) => {
+    if (isUpvoted) {
+        db.collection(foodItemCollection).doc(itemid).update({
+            user_upvotes: firebase.firestore.FieldValue.arrayRemove(user)
+        });
+    } else {
+        db.collection(foodItemCollection).doc(itemid).update({
+            user_upvotes: firebase.firestore.FieldValue.arrayUnion(user),
+            user_downvotes: firebase.firestore.FieldValue.arrayRemove(user)
+        });
+    }
+};
+
+const clickDownvote = (itemid, isDownvoted) => {
+    if (isDownvoted) {
+        db.collection(foodItemCollection).doc(itemid).update({
+            user_downvotes: firebase.firestore.FieldValue.arrayRemove(user)
+        });
+    } else {
+        db.collection(foodItemCollection).doc(itemid).update({
+            user_downvotes: firebase.firestore.FieldValue.arrayUnion(user),
+            user_upvotes: firebase.firestore.FieldValue.arrayRemove(user)
+        });
+    }
+};
+
+const clickFavorite = (itemid, isFavorite) => {
+    if (isFavorite) {
+        db.collection(foodItemCollection).doc(itemid).update({
+            user_favorites: firebase.firestore.FieldValue.arrayRemove(user)
+        });
+    } else {
+        db.collection(foodItemCollection).doc(itemid).update({
+            user_favorites: firebase.firestore.FieldValue.arrayUnion(user)
+        });
+    }
+};
+
+  /** **** **/
+ /** USER **/
+/** **** **/
+
+/*const setupUserDBListener = (uid) => {
+    console.log("Listen to user");
+    db.collection('users').doc(uid).onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+            if (change.type === "modified") {
+                console.log("Modified User: ", change.doc.data());
+            }
+        });
+    });
+};*/
