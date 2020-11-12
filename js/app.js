@@ -69,19 +69,6 @@ recipes.addEventListener('click', evt => {
     }
 });
 
-// render user information - TEMP FUNCTION
-const setupUserInfo = (data) => {
-    let html = '';
-    //console.log(data);
-    data.forEach(doc => {
-        const user = doc.data();
-        //console.log(user);
-        html += `${JSON.stringify(user, null, 4)}`;
-    });
-
-    userInfo.innerHTML = html;
-};
-
 //test callable http function
 const btn = document.querySelector('.call')
 btn.addEventListener('click', () => {
@@ -90,7 +77,6 @@ btn.addEventListener('click', () => {
     testCall().then(result => {
         window.location = result.data;
     });
-
 });
 
 

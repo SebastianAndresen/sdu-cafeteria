@@ -26,34 +26,49 @@ const renderFoodItem = (data, id) => {
             <div class="food-upvotes">Upvotes: ${data.user_upvotes.length}</div>
             <div class="food-downvotes">Downvotes: ${data.user_downvotes.length}</div>
 
-            <i class="btn_upvote material-icons${isUpvoted ? ' active':''}" data-id="${id}" data-upvoted="${isUpvoted}">arrow_circle_up</i>
-            <i class="btn_downvote material-icons${isDownvoted ? ' active':''}" data-id="${id}" data-downvoted="${isDownvoted}">arrow_circle_down</i>
-            <i class="btn_favorite material-icons${isFavorite ? ' active':''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
+            <i class="btn_upvote material-icons${isUpvoted ? ' active' : ''}" data-id="${id}" data-upvoted="${isUpvoted}">arrow_circle_up</i>
+            <i class="btn_downvote material-icons${isDownvoted ? ' active' : ''}" data-id="${id}" data-downvoted="${isDownvoted}">arrow_circle_down</i>
+            <i class="btn_favorite material-icons${isFavorite ? ' active' : ''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
         </div>
     `;
 
-    if (data.category < foodcategoriesDOM.length);
+    if (data.category < foodcategoriesDOM.length) ;
     foodcategoriesDOM[data.category].innerHTML += html;
 }
 
 fooditems.addEventListener('click', evt => {
+    const upvote = firebase.functions().httpsCallable('upvote');
+    const downvote = firebase.functions().httpsCallable('downvote');
+    const favorite = firebase.functions().httpsCallable('favorite');
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
         switch (evt.target.className.split(" ")[0]) {
             case 'btn_upvote':
-                clickUpvote(id,
+                upvote(id).catch(err => {
+                    //TODO: make nice and shiny error message for user
+                    console.log('ERROR: ', err.message);
+                });
+                /*clickUpvote(id,
                     evt.target.getAttribute('data-upvoted') == 'true'
-                    );
+                );*/
                 break;
             case 'btn_downvote':
-                clickDownvote(id,
+                downvote(id).catch(err => {
+                    //TODO: make nice and shiny error message for user
+                    console.log('ERROR:', err.message);
+                });
+                /*clickDownvote(id,
                     evt.target.getAttribute('data-downvoted') == 'true'
-                    );
+                );*/
                 break;
             case 'btn_favorite':
-                clickFavorite(id,
+                favorite(id).catch(err => {
+                    //TODO: make nice and shiny error message for user
+                    console.log('ERROR:', err.message);
+                });
+                /*clickFavorite(id,
                     evt.target.getAttribute('data-favorite') == 'true'
-                    );
+                );*/
                 break;
             default:
                 console.log(`Unknown class: ${evt.target.className.split(" ")[0]}`);
@@ -104,7 +119,25 @@ const removeFoodItem = () => {
 const renderUser = (data, id) => {
     console.log(`User found! rendering ${id}`);
     let html =
-    `<h5>${id}</h5>
+        `<h5>${id}</h5>
          <p>${JSON.stringify(data, null, 20)}</p>`;
     userInfo.innerHTML = html;
 };
+
+//cloudbased upvote function
+/*const upvoteBtn = document.querySelector('.btn_upvote');
+upvoteBtn.addEventListener('click', () => {
+    const upvote = firebase.functions().httpsCallable('upvote');
+    upvote().then(result => {
+        console.log('upvoted!', result);
+    });
+});*/
+
+/*
+btn.addEventListener('click', () => {
+    //get function reference
+    const testCall = firebase.functions().httpsCallable('testCall');
+    testCall().then(result => {
+        window.location = result.data;
+    });
+});*/
