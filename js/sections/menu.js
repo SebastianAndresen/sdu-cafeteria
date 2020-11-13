@@ -44,7 +44,10 @@ fooditems.addEventListener('click', evt => {
         const id = evt.target.getAttribute('data-id');
         switch (evt.target.className.split(" ")[0]) {
             case 'btn_upvote':
-                upvote(id).catch(err => {
+                upvote({
+                    id,
+                    upvoted: evt.target.getAttribute('data-upvoted') == 'true'
+                }).catch(err => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR: ', err.message);
                 });
@@ -65,7 +68,10 @@ fooditems.addEventListener('click', evt => {
                 );*/
                 break;
             case 'btn_favorite':
-                favorite(id).catch(err => {
+                favorite({
+                    id,
+                    favorited: evt.target.getAttribute('data-favorite') == 'true'
+                }).catch(err => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR:', err.message);
                 });

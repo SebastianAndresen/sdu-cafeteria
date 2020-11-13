@@ -34,6 +34,19 @@ exports.upvote = functions.https.onCall((data, context) => {
   if (!context.auth) {
     throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
   }
+
+  if (data.upvoted) {
+    return admin.firestore().collection('fooditems').doc(data.id).update({
+      user_upvotes: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
+    });
+  } else {
+    return admin.firestore().collection('fooditems').doc(data.id).update({
+      user_upvotes: admin.firestore.FieldValue.arrayUnion(context.auth.uid),
+      user_downvotes: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
+    });
+  }
+  
+  /*
   // get ref for fooditem doc
   const foodItem = admin.firestore().collection('fooditems').doc(data);
   return foodItem.get().then(doc => {
@@ -55,6 +68,7 @@ exports.upvote = functions.https.onCall((data, context) => {
       }
     });
   });
+  */
 });
 
 // ===================== DOWNVOTE ====================
@@ -64,13 +78,13 @@ exports.downvote = functions.https.onCall((data, context) => {
   }
   
   if (data.downvoted) {
-    admin.firestore().collection('fooditems').doc(data.id).update({
-      user_downvotes: firebase.firestore.FieldValue.arrayRemove(context.auth.uid)
+    return admin.firestore().collection('fooditems').doc(data.id).update({
+      user_downvotes: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
     });
   } else {
-    admin.firestore().collection('fooditems').doc(data.id).update({
-      user_downvotes: firebase.firestore.FieldValue.arrayUnion(context.auth.uid),
-      user_upvotes: firebase.firestore.FieldValue.arrayRemove(context.auth.uid)
+    return admin.firestore().collection('fooditems').doc(data.id).update({
+      user_downvotes: admin.firestore.FieldValue.arrayUnion(context.auth.uid),
+      user_upvotes: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
     });
   }
 
@@ -100,7 +114,18 @@ exports.favorite = functions.https.onCall((data, context) => {
   if (!context.auth) {
     throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
   }
-  const foodItem = admin.firestore().collection('fooditems').doc(data);
+
+  if (data.favorited) {
+    return admin.firestore().collection('fooditems').doc(data.id).update({
+      user_favorites: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
+    });
+  } else {
+    return admin.firestore().collection('fooditems').doc(data.id).update({
+      user_favorites: admin.firestore.FieldValue.arrayUnion(context.auth.uid)
+    });
+  }
+
+  /*const foodItem = admin.firestore().collection('fooditems').doc(data);
 
   return foodItem.get().then(doc => {
     // check if user has favorited already
@@ -113,7 +138,7 @@ exports.favorite = functions.https.onCall((data, context) => {
     return foodItem.update({
       user_favorites: [...doc.data().user_favorites, context.auth.uid]
     });
-  });
+  });*/
 });
 
 //for background triggers a value/promise must be returned
