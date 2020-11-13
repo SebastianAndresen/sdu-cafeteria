@@ -37,9 +37,9 @@ const renderFoodItem = (data, id) => {
 }
 
 fooditems.addEventListener('click', evt => {
-    const upvote = firebase.functions().httpsCallable('upvote');
-    const downvote = firebase.functions().httpsCallable('downvote');
-    const favorite = firebase.functions().httpsCallable('favorite');
+    const upvote = firebase.app().functions('europe-west1').httpsCallable('EU_upvote');
+    const downvote = firebase.app().functions('europe-west1').httpsCallable('EU_downvote');
+    const favorite = firebase.app().functions('europe-west1').httpsCallable('EU_favorite');
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
         switch (evt.target.className.split(" ")[0]) {
