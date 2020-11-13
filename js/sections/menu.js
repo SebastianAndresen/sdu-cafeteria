@@ -44,7 +44,10 @@ fooditems.addEventListener('click', evt => {
         const id = evt.target.getAttribute('data-id');
         switch (evt.target.className.split(" ")[0]) {
             case 'btn_upvote':
-                upvote(id).catch(err => {
+                upvote({
+                    id,
+                    upvoted: evt.target.getAttribute('data-upvoted') == 'true'
+                }).catch(err => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR: ', err.message);
                 });
@@ -53,7 +56,10 @@ fooditems.addEventListener('click', evt => {
                 );*/
                 break;
             case 'btn_downvote':
-                downvote(id).catch(err => {
+                downvote({
+                    id,
+                    downvoted: evt.target.getAttribute('data-downvoted') == 'true'
+                }).catch(err => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR:', err.message);
                 });
@@ -62,7 +68,10 @@ fooditems.addEventListener('click', evt => {
                 );*/
                 break;
             case 'btn_favorite':
-                favorite(id).catch(err => {
+                favorite({
+                    id,
+                    favorited: evt.target.getAttribute('data-favorite') == 'true'
+                }).catch(err => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR:', err.message);
                 });
@@ -117,6 +126,7 @@ const removeFoodItem = () => {
 }
 
 const renderUser = (data, id) => {
+    console.log(`User found! rendering ${id}`);
     let html =
         `<h5>${id}</h5>
          <p>${JSON.stringify(data, null, 20)}</p>`;
