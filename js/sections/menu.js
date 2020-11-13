@@ -53,7 +53,10 @@ fooditems.addEventListener('click', evt => {
                 );*/
                 break;
             case 'btn_downvote':
-                downvote(id).catch(err => {
+                downvote({
+                    id,
+                    downvoted: evt.target.getAttribute('data-downvoted') == 'true'
+                }).catch(err => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR:', err.message);
                 });

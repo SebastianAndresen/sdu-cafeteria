@@ -62,7 +62,19 @@ exports.downvote = functions.https.onCall((data, context) => {
   if (!context.auth) {
     throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
   }
-  const foodItem = admin.firestore().collection('fooditems').doc(data);
+  
+  if (data.downvoted) {
+    admin.firestore().collection('fooditems').doc(data.id).update({
+      user_downvotes: firebase.firestore.FieldValue.arrayRemove(context.auth.uid)
+    });
+  } else {
+    admin.firestore().collection('fooditems').doc(data.id).update({
+      user_downvotes: firebase.firestore.FieldValue.arrayUnion(context.auth.uid),
+      user_upvotes: firebase.firestore.FieldValue.arrayRemove(context.auth.uid)
+    });
+  }
+
+  /*const foodItem = admin.firestore().collection('fooditems').doc(data);
   return foodItem.get().then(doc => {
     // check if user has downvoted already (in that case -> remove downvote status)
     if (doc.data().user_downvotes.includes(context.auth.uid)) {
@@ -80,7 +92,7 @@ exports.downvote = functions.https.onCall((data, context) => {
         return foodItem.update({user_upvotes: temp_user_upvotes.filter(user_id => user_id !== context.auth.uid)})
       }
     });
-  });
+  });*/
 });
 
 // ===================== FAVORITE ========================
