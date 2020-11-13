@@ -29,7 +29,7 @@ exports.testCall = functions.https.onCall((data, context) => {
 
 // ================= UPVOTE =======================
 
-exports.upvote = functions.region('europe-west1').https.onCall((data, context) => {
+exports.upvote = functions.https.onCall((data, context) => {
   // check if authenticated
   if (!context.auth) {
     throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
