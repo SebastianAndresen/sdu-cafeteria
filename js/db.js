@@ -47,6 +47,7 @@ db.collection(foodItemCollection).onSnapshot(snapshot => {
     });
 });
 
+//TODO: Remove Sebs click functions - No write access from client.
 const clickUpvote = (itemid, isUpvoted) => {
     if (isUpvoted) {
         db.collection(foodItemCollection).doc(itemid).update({
