@@ -137,7 +137,41 @@ clickNotifySideBar.addEventListener('click', evt => {
     document.getElementById("food_items").style.display = "none";
     document.getElementById("add").style.display = "none";
     document.getElementById("logout").style.display = "none";
+    getUserNotifications(auth.currentUser.uid);
+    //load user settings here
+    /**
+     * on load:
+     * read from DB and update checkboxes if match in notification array is found (completed)
+     *
+     * on select:
+     * write to DB to add/remove value based on boolean checked/unchecked (work in progress)
+     */
 });
+
+const getUserNotifications = (id) => {
+    let db_notifications;
+    const doc = db.collection('users').doc(id);
+
+    // get list of notification settings available on the page and put into an array
+    const notification_settings = document.getElementsByClassName('notification_setting');
+    let span_array = Array.from(notification_settings, element => element.innerHTML.toLowerCase());
+
+    doc.get().then((doc) => {
+        if (doc.exists) {
+            db_notifications = doc.data().notifications.map(value => value.toLowerCase());
+
+            //compare values in db notifications and actual notification settings on page
+            const compare = span_array.filter(element => db_notifications.includes(element));
+
+            //for each match, check the corresponding checkbox
+            for (const val of compare) {
+                document.querySelector(`#notification_${val}`).checked = true;
+            }
+        } else {
+            console.log('no data found..');
+        }
+    });
+};
 /*
 function showMenu(menuSelector){
     switch (menuSelector) {
