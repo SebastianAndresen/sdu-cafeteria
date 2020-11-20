@@ -47,7 +47,10 @@ btn.addEventListener('click', () => {
     });
 });
 
-
+const  notifications = document.querySelector('#notifications');
+notifications.addEventListener('click', () => {
+    setUserNotifications();
+});
 
 // ============= MORTEN ========================
 // render recipe data to DOM
@@ -110,6 +113,11 @@ const getUserNotifications = (id) => {
             console.log('no data found..');
         }
     });
+};
+
+const setUserNotifications = () => {
+    let checkedBoxes = document.querySelectorAll('input[class=notification_checkbox]');
+    console.log('checked checkboxes: ',checkedBoxes);
 };
 
 // render recipe data to DOM
