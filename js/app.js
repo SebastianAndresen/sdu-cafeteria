@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //DOM content refs
-const recipes = document.querySelector('.recipes');
+//const recipes = document.querySelector('.recipes');
 const userInfo = document.querySelector('#user_info');
 const form = document.querySelector('form');
 
@@ -37,8 +37,56 @@ form.addEventListener('submit', evt => {
     form.ingredients.value = '';
 });
 
+//test callable http function
+const btn = document.querySelector('.call')
+btn.addEventListener('click', () => {
+    //get function reference
+    const testCall = firebase.functions().httpsCallable('testCall');
+    testCall().then(result => {
+        window.location = result.data;
+    });
+});
+
+
+
+// ============= MORTEN ========================
 // render recipe data to DOM
-const renderRecipe = (data, id) => {
+
+const sidebar = document.querySelector('.sidenav')
+sidebar.addEventListener('click', evt => {
+    hideAll();
+    console.log(evt.target.className);
+    switch(evt.target.className){
+        case 'menu sidenav-close':
+            document.getElementById("food_items").style.display = "block";
+            document.getElementById("add").style.display = "block";
+            document.getElementById("logout").style.display = "block";
+            break;
+        case 'filters sidenav-close':
+            document.getElementById("filters").style.display = "block";
+            break;
+        case 'favorites sidenav-close':
+            document.getElementById("favorites").style.display = "block";
+            break;
+        case 'notifications sidenav-close':
+            document.getElementById("notifications").style.display = "block";
+            break;
+        default:
+            break;
+    }
+});
+
+function hideAll(){
+    document.getElementById("favorites").style.display = "none";
+    document.getElementById("notifications").style.display = "none";
+    document.getElementById("filters").style.display = "none";
+    document.getElementById("food_items").style.display = "none";
+    document.getElementById("add").style.display = "none";
+    document.getElementById("logout").style.display = "none";
+};
+
+// render recipe data to DOM
+/*const renderRecipe = (data, id) => {
     const html = `
         <div class="card-panel recipe white row" data-id="${id}">
             <img src="img/dish.png" alt="recipe thumb">
@@ -53,103 +101,18 @@ const renderRecipe = (data, id) => {
   `;
 
     recipes.innerHTML += html;
-};
+};*/
 
 // remove recipe from DOM function
-const removeRecipe = (id) => {
+/*const removeRecipe = (id) => {
     const recipe = document.querySelector(`.recipe[data-id=${id}]`);
     recipe.remove();
-};
+};*/
 
 // remove recipe from DB
-recipes.addEventListener('click', evt => {
+/*recipes.addEventListener('click', evt => {
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
         db.collection('recipes').doc(id).delete();
     }
-});
-
-//test callable http function
-const btn = document.querySelector('.call')
-btn.addEventListener('click', () => {
-    //get function reference
-    const testCall = firebase.functions().httpsCallable('testCall');
-    testCall().then(result => {
-        window.location = result.data;
-    });
-});
-
-
-
-// ============= MORTEN ========================
-const clickFavouritesSideBar = document.querySelector('.favorites');
-clickFavouritesSideBar.addEventListener('click', evt => {
-    const id = evt.target.getAttribute('data-id');
-    console.log(evt.target.getElementById);
-    console.log(id);
-    document.getElementById("favorites").style.display = "block";
-    document.getElementById("notifications").style.display = "none";
-    document.getElementById("filters").style.display = "none";
-    document.getElementById("recipes").style.display = "none";
-    document.getElementById("food_items").style.display = "none";
-    document.getElementById("add").style.display = "none";
-    document.getElementById("logout").style.display = "none";
-});
-
-const clickMenuSideBar = document.querySelector('.menu');
-clickMenuSideBar.addEventListener('click', evt => {
-    const id = evt.target.getAttribute('data-id');
-    console.log(evt.target.getElementById);
-    console.log(id);
-    console.log("someone clicked menu");
-    document.getElementById("favorites").style.display = "none";
-    document.getElementById("notifications").style.display = "none";
-    document.getElementById("filters").style.display = "none";
-    document.getElementById("recipes").style.display = "block";
-    document.getElementById("food_items").style.display = "block";
-    document.getElementById("add").style.display = "block";
-    document.getElementById("logout").style.display = "block";
-});
-
-const clickFilterSideBar = document.querySelector('.filters');
-clickFilterSideBar.addEventListener('click', evt => {
-    const id = evt.target.getAttribute('data-id');
-    console.log(evt.target.getElementById);
-    console.log(id);
-    document.getElementById("favorites").style.display = "none";
-    document.getElementById("notifications").style.display = "none";
-    document.getElementById("filters").style.display = "block";
-    document.getElementById("recipes").style.display = "none";
-    document.getElementById("food_items").style.display = "none";
-    document.getElementById("add").style.display = "none";
-    document.getElementById("logout").style.display = "none";
-});
-
-const clickNotifySideBar = document.querySelector('.notifications');
-clickNotifySideBar.addEventListener('click', evt => {
-    const id = evt.target.getAttribute('data-id');
-    console.log(evt.target.getElementById);
-    console.log(id);
-    document.getElementById("favorites").style.display = "none";
-    document.getElementById("notifications").style.display = "block";
-    document.getElementById("filters").style.display = "none";
-    document.getElementById("recipes").style.display = "none";
-    document.getElementById("food_items").style.display = "none";
-    document.getElementById("add").style.display = "none";
-    document.getElementById("logout").style.display = "none";
-});
-/*
-function showMenu(menuSelector){
-    switch (menuSelector) {
-        case "menu":
-            break;
-        case "filters":
-            break;
-        case "notifications":
-            break;
-        case "favorites":
-            break;
-        c
-    }
-};*/
-
+});*/

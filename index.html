@@ -23,6 +23,9 @@
 
     <!-- Application styles -->
     <link type="text/css" href="css/sections/menu.css" rel="stylesheet">
+    <link type="text/css" href="css/sections/favorites.css" rel="stylesheet">
+
+
 </head>
 <body class="grey lighten-4">
 
@@ -40,22 +43,22 @@
 <ul id="side-menu" class="sidenav side-menu">
     <li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
     <div>
-    <a class="menu" data-id="${id}">
+    <a class="menu sidenav-close" data-id="${id}">
       <i class="material-icons">local_dining</i>Menu
     </a>
     </div>
     <div>
-    <a class="filters" data-id="${id}">
+    <a class="filters sidenav-close" data-id="${id}">
       <i class="material-icons">filter_alt</i>Filters
     </a>
     </div>
     <div>
-    <a class="favorites" data-id="${id}">
+    <a class="favorites sidenav-close" data-id="${id}">
       <i class="material-icons" >favorite</i>Favorites
     </a>
     </div>
     <div>
-    <a class="notifications" data-id="${id}">
+    <a class="notifications sidenav-close" data-id="${id}">
       <i class="material-icons">notifications</i>Notify
     </a>
     </div>
@@ -159,10 +162,6 @@
 </div>
 
 <!-- recipes -->
-<div class="recipes container grey-text text-darken-1" id="recipes">
-    <h6 class="center">Recipes</h6>
-</div>
-
 <div class="center" id="add">
     <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
         <i class="material-icons">add</i>
@@ -178,7 +177,7 @@
     <div id="user_info"></div>
 </div>
 <br><br>
-<div class="center">
+<div class="callable center">
     <button class="btn-large call" id="btnTest">Test callable function</button>
 </div>
 
@@ -208,40 +207,42 @@
     </form>
 </div>
 
-<div id="favorites">This is an empty favorites container</div>
+<div class="favorites container grey-text text-darken-1" id="favorites">
+    <h5 class="center">Favorites</h5>
+</div>
 
 <div id="filters">
   <h5 class="center">Filters</h5>
-  <form action="#">
-      <p>
-          <label>
-              <input type="checkbox" class="filled-in" />
-              <span>Vegetarian</span>
-          </label>
-      </p>
-      <p>
-          <label>
-              <input type="checkbox" class="filled-in" />
-              <span>Vegan</span>
-          </label>
-      </p>
-      <p>
-          <label>
-              <input type="checkbox" class="filled-in" />
-              <span>Halal</span>
-          </label>
-      </p>
-      <p>
-          <label>
-              <input type="checkbox" class="filled-in" />
-              <span>Shell-fish allergy</span>
-          </label>
-      </p>
-  </form>
+    <form action="#">
+        <p>
+            <label>
+                <input type="checkbox" class="filled-in" />
+                <span>Vegetarian</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filled-in" />
+                <span>Vegan</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filled-in" />
+                <span>Halal</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filled-in" />
+                <span>Shell-fish allergy</span>
+            </label>
+        </p>
+    </form>
 </div>
 
 <div id="notifications">
-  <h5 class="center">Filters</h5>
+  <h5 class="center">Notifications</h5>
   <form action="#">
       <p>
           <label>
@@ -301,6 +302,8 @@
 <script defer src="js/app.js"></script>
 
 <script defer src="js/sections/menu.js"></script>
+<script defer src="js/sections/favorites.js"></script>
+
 
 </body>
 </html>
