@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //DOM content refs
-const recipes = document.querySelector('.recipes');
+//const recipes = document.querySelector('.recipes');
 const userInfo = document.querySelector('#user_info');
 const form = document.querySelector('form');
 
@@ -37,8 +37,56 @@ form.addEventListener('submit', evt => {
     form.ingredients.value = '';
 });
 
+//test callable http function
+const btn = document.querySelector('.call')
+btn.addEventListener('click', () => {
+    //get function reference
+    const testCall = firebase.functions().httpsCallable('testCall');
+    testCall().then(result => {
+        window.location = result.data;
+    });
+});
+
+
+
+// ============= MORTEN ========================
 // render recipe data to DOM
-const renderRecipe = (data, id) => {
+
+const sidebar = document.querySelector('.sidenav')
+sidebar.addEventListener('click', evt => {
+    hideAll();
+    console.log(evt.target.className);
+    switch(evt.target.className){
+        case 'menu sidenav-close':
+            document.getElementById("food_items").style.display = "block";
+            document.getElementById("add").style.display = "block";
+            document.getElementById("logout").style.display = "block";
+            break;
+        case 'filters sidenav-close':
+            document.getElementById("filters").style.display = "block";
+            break;
+        case 'favorites sidenav-close':
+            document.getElementById("favorites").style.display = "block";
+            break;
+        case 'notifications sidenav-close':
+            document.getElementById("notifications").style.display = "block";
+            break;
+        default:
+            break;
+    }
+});
+
+function hideAll(){
+    document.getElementById("favorites").style.display = "none";
+    document.getElementById("notifications").style.display = "none";
+    document.getElementById("filters").style.display = "none";
+    document.getElementById("food_items").style.display = "none";
+    document.getElementById("add").style.display = "none";
+    document.getElementById("logout").style.display = "none";
+};
+
+// render recipe data to DOM
+/*const renderRecipe = (data, id) => {
     const html = `
         <div class="card-panel recipe white row" data-id="${id}">
             <img src="img/dish.png" alt="recipe thumb">
@@ -53,137 +101,18 @@ const renderRecipe = (data, id) => {
   `;
 
     recipes.innerHTML += html;
-};
+};*/
 
 // remove recipe from DOM function
-const removeRecipe = (id) => {
+/*const removeRecipe = (id) => {
     const recipe = document.querySelector(`.recipe[data-id=${id}]`);
     recipe.remove();
-};
+};*/
 
 // remove recipe from DB
-recipes.addEventListener('click', evt => {
+/*recipes.addEventListener('click', evt => {
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
         db.collection('recipes').doc(id).delete();
     }
-});
-
-//test callable http function
-const btn = document.querySelector('.call')
-btn.addEventListener('click', () => {
-    //get function reference
-    const testCall = firebase.functions().httpsCallable('testCall');
-    testCall().then(result => {
-        window.location = result.data;
-    });
-});
-
-
-
-// ============= MORTEN ========================
-const clickFavouritesSideBar = document.querySelector('.favorites');
-clickFavouritesSideBar.addEventListener('click', evt => {
-    const id = evt.target.getAttribute('data-id');
-    console.log(evt.target.getElementById);
-    console.log(id);
-    document.getElementById("favorites").style.display = "block";
-    document.getElementById("notifications").style.display = "none";
-    document.getElementById("filters").style.display = "none";
-    document.getElementById("recipes").style.display = "none";
-    document.getElementById("food_items").style.display = "none";
-    document.getElementById("add").style.display = "none";
-    document.getElementById("logout").style.display = "none";
-});
-
-const clickMenuSideBar = document.querySelector('.menu');
-clickMenuSideBar.addEventListener('click', evt => {
-    const id = evt.target.getAttribute('data-id');
-    console.log(evt.target.getElementById);
-    console.log(id);
-    console.log("someone clicked menu");
-    document.getElementById("favorites").style.display = "none";
-    document.getElementById("notifications").style.display = "none";
-    document.getElementById("filters").style.display = "none";
-    document.getElementById("recipes").style.display = "block";
-    document.getElementById("food_items").style.display = "block";
-    document.getElementById("add").style.display = "block";
-    document.getElementById("logout").style.display = "block";
-});
-
-const clickFilterSideBar = document.querySelector('.filters');
-clickFilterSideBar.addEventListener('click', evt => {
-    const id = evt.target.getAttribute('data-id');
-    console.log(evt.target.getElementById);
-    console.log(id);
-    document.getElementById("favorites").style.display = "none";
-    document.getElementById("notifications").style.display = "none";
-    document.getElementById("filters").style.display = "block";
-    document.getElementById("recipes").style.display = "none";
-    document.getElementById("food_items").style.display = "none";
-    document.getElementById("add").style.display = "none";
-    document.getElementById("logout").style.display = "none";
-});
-
-const clickNotifySideBar = document.querySelector('.notifications');
-clickNotifySideBar.addEventListener('click', evt => {
-    const id = evt.target.getAttribute('data-id');
-    console.log(evt.target.getElementById);
-    console.log(id);
-    document.getElementById("favorites").style.display = "none";
-    document.getElementById("notifications").style.display = "block";
-    document.getElementById("filters").style.display = "none";
-    document.getElementById("recipes").style.display = "none";
-    document.getElementById("food_items").style.display = "none";
-    document.getElementById("add").style.display = "none";
-    document.getElementById("logout").style.display = "none";
-    getUserNotifications(auth.currentUser.uid);
-    //load user settings here
-    /**
-     * on load:
-     * read from DB and update checkboxes if match in notification array is found (completed)
-     *
-     * on select:
-     * write to DB to add/remove value based on boolean checked/unchecked (work in progress)
-     */
-});
-
-const getUserNotifications = (id) => {
-    let db_notifications;
-    const doc = db.collection('users').doc(id);
-
-    // get list of notification settings available on the page and put into an array
-    const notification_settings = document.getElementsByClassName('notification_setting');
-    let span_array = Array.from(notification_settings, element => element.innerHTML.toLowerCase());
-
-    doc.get().then((doc) => {
-        if (doc.exists) {
-            db_notifications = doc.data().notifications.map(value => value.toLowerCase());
-
-            //compare values in db notifications and actual notification settings on page
-            const compare = span_array.filter(element => db_notifications.includes(element));
-
-            //for each match, check the corresponding checkbox
-            for (const val of compare) {
-                document.querySelector(`#notification_${val}`).checked = true;
-            }
-        } else {
-            console.log('no data found..');
-        }
-    });
-};
-/*
-function showMenu(menuSelector){
-    switch (menuSelector) {
-        case "menu":
-            break;
-        case "filters":
-            break;
-        case "notifications":
-            break;
-        case "favorites":
-            break;
-        c
-    }
-};*/
-
+});*/

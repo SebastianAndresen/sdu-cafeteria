@@ -1,0 +1,12 @@
+
+.favoriteItem img {
+    width: 100%;
+}
+
+.favoriteItem .btn_favorite {
+    color: gray;
+}
+
+.favoriteItem .btn_favorite.active {
+    color: blue;
+}

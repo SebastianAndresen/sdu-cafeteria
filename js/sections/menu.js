@@ -42,6 +42,8 @@ fooditems.addEventListener('click', evt => {
     const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
+        console.log(id);
+        console.log(user);
         switch (evt.target.className.split(" ")[0]) {
             case 'btn_upvote':
                 const upvoted = evt.target.getAttribute('data-upvoted') == 'true';
@@ -90,6 +92,7 @@ fooditems.addEventListener('click', evt => {
 
 const modifyFoodItem = (data, id) => {
     if (!data.visible) return;
+    console.log("modifyFoodItemCalled");
 
     const fooditem = document.querySelector(`.fooditem[data-id=${id}]`);
     // TODO - update image

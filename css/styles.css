@@ -36,6 +36,7 @@ nav .sidenav-trigger{
 /* recipe styles */
 .recipes{
   margin-top: 20px;
+  display: none;
 }
 .card-panel.recipe{
   border-radius: 8px;
@@ -45,34 +46,42 @@ nav .sidenav-trigger{
   grid-template-columns: 2fr 6fr 1fr;
   grid-template-areas: "image details delete";
   position: relative;
+  display: none;
 }
 .recipe img{
   grid-area: image;
   max-width: 60px;
+  display: none;
 }
 .recipe-details{
   grid-area: details;
   margin-top: 6px;
+  display: none;
 }
 .recipe-delete{
   grid-area: delete;
   position: absolute;
   bottom: 0px;
   right: 0px;
+  display: none;
 }
 .recipe-delete i{
   font-size: 18px;
+  display: none;
 }
 .recipe-title{
   font-weight: bold;
+  display: none;
 }
 .recipe-ingredients{
   font-size: 0.8em;
+  display: none;
 }
 
 /* form-styles */
 .add-btn{
   background: var(--title) !important;
+  display: none;
 }
 
 input{
@@ -85,4 +94,8 @@ input{
 }
 form .input-field{
   margin-top: 30px;
+}
+
+.callable{
+  display: none;
 }
