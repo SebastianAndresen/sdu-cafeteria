@@ -46,7 +46,7 @@ fooditems.addEventListener('click', evt => {
         console.log(user);
         switch (evt.target.className.split(" ")[0]) {
             case 'btn_upvote':
-                const upvoted = evt.target.getAttribute('data-upvoted') == 'true'; 
+                const upvoted = evt.target.getAttribute('data-upvoted') == 'true';
                 upvote({
                     id,
                     upvoted
