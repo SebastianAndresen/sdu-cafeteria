@@ -58,19 +58,19 @@ sidebar.addEventListener('click', evt => {
     switch(evt.target.className.split(" ")[0]){
         case 'menu':
             hideAll();
-            document.getElementById("food_items").style.display = "block";
+            document.getElementById("food_items").style.visibility = "visible";
             break;
         case 'filters':
             hideAll();
-            document.getElementById("filters").style.display = "block";
+            document.getElementById("filters").style.visibility = "visible";
             break;
         case 'favorites':
             hideAll();
-            document.getElementById("favorites").style.display = "block";
+            document.getElementById("favorites").style.visibility = "visible";
             break;
         case 'notifications':
             hideAll();
-            document.getElementById("notifications").style.display = "block";
+            document.getElementById("notifications").style.visibility = "visible";
             break;
         default:
             break;
@@ -78,12 +78,11 @@ sidebar.addEventListener('click', evt => {
 });
 
 function hideAll(){
-    document.getElementById("favorites").style.display = "none";
-    document.getElementById("notifications").style.display = "none";
-    document.getElementById("filters").style.display = "none";
-    document.getElementById("food_items").style.display = "none";
-};
-
+    document.getElementById("favorites").style.visibility = "hidden";
+    document.getElementById("notifications").style.visibility = "hidden";
+    document.getElementById("filters").style.visibility = "hidden";
+    document.getElementById("food_items").style.visibility = "hidden";
+}
 // render recipe data to DOM
 /*const renderRecipe = (data, id) => {
     const html = `

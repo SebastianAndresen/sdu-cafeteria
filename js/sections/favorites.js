@@ -4,7 +4,7 @@ const favorites = document.querySelector('#favorites');
 
 const renderFavorite = (data, id) => {
     if (!data.visible) return;
-    
+
     const isFavorite = data.user_favorites.includes(user);
 
     if (isFavorite) {
@@ -12,7 +12,6 @@ const renderFavorite = (data, id) => {
             <div class="favoriteItem card-panel white row" data-id="${id}">
             <img src="${data.image}" alt="${data.title} image">
             <div class="favorite-title">${data.title}</div>
-            <div class="favorite-title">${data.price}</div>
 
             <i class="btn_favorite material-icons${isFavorite ? ' active' : ''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
         </div>
@@ -74,10 +73,9 @@ const modifyFavorite = (data, id) => {
     console.log("modifyFavorite called");
 
     const favoriteItem = document.querySelector(`.favoriteItem[data-id=${id}]`);
-    // TODO - update image
-    favoriteItem.querySelector('.favorite-title').innerHTML = data.title;
-    favoriteItem.querySelector('.favorite-price').innerHTML = data.price;
 
+    console.log(favoriteItem);
+    // TODO - update image
     const isFavorite = data.user_favorites.includes(user);
 
     const btnFavorite = favoriteItem.querySelector('.btn_favorite');

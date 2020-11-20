@@ -37,11 +37,9 @@ db.collection(foodItemCollection).onSnapshot(snapshot => {
     snapshot.docChanges().forEach(change => {
         if (change.type === 'added') {
             renderFoodItem(change.doc.data(), change.doc.id);
-            renderFavorite(change.doc.data(), change.doc.id);
         }
         if (change.type === 'modified') {
             modifyFoodItem(change.doc.data(), change.doc.id);
-            modifyFavorite(change.doc.data(), change.doc.id);
         }
         if (change.type === 'removed') {
             removeFoodItem(change.doc.id);
