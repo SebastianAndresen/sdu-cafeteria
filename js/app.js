@@ -54,21 +54,22 @@ btn.addEventListener('click', () => {
 
 const sidebar = document.querySelector('.sidenav')
 sidebar.addEventListener('click', evt => {
-    hideAll();
     console.log(evt.target.className);
-    switch(evt.target.className){
-        case 'menu sidenav-close':
+    switch(evt.target.className.split(" ")[0]){
+        case 'menu':
+            hideAll();
             document.getElementById("food_items").style.display = "block";
-            document.getElementById("add").style.display = "block";
-            document.getElementById("logout").style.display = "block";
             break;
-        case 'filters sidenav-close':
+        case 'filters':
+            hideAll();
             document.getElementById("filters").style.display = "block";
             break;
-        case 'favorites sidenav-close':
+        case 'favorites':
+            hideAll();
             document.getElementById("favorites").style.display = "block";
             break;
-        case 'notifications sidenav-close':
+        case 'notifications':
+            hideAll();
             document.getElementById("notifications").style.display = "block";
             break;
         default:
@@ -81,8 +82,6 @@ function hideAll(){
     document.getElementById("notifications").style.display = "none";
     document.getElementById("filters").style.display = "none";
     document.getElementById("food_items").style.display = "none";
-    document.getElementById("add").style.display = "none";
-    document.getElementById("logout").style.display = "none";
 };
 
 // render recipe data to DOM

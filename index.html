@@ -161,6 +161,74 @@
     </div>
 </div>
 
+<div class="favorites container grey-text text-darken-1" id="favorites">
+    <h5 class="center">Favorites</h5>
+</div>
+
+<div class="filters container grey-text text-darken-1" id="filters">
+  <h5 class="center">Filters</h5>
+  <div class="filters card-panel white row" data-id="${id}">
+    <form action="#">
+        <p>
+            <label>
+                <input type="checkbox" class="vegetarian filled-in" data-id="${id}"  />
+                <span>Vegetarian</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="vegan filled-in" />
+                <span>Vegan</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="halal filled-in" />
+                <span>Halal</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="shell-fish filled-in" />
+                <span>Shell-fish allergy</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="nuts filled-in" />
+                <span>nuts allergy</span>
+            </label>
+        </p>
+    </form>
+  </div>
+</div>
+
+<div class="notifications container grey-text text-darken-1" id="notifications">
+  <h5 class="center">Notifications</h5>
+  <div class="notifications card-panel white row" data-id="${id}">
+  <form action="#">
+      <p>
+          <label>
+              <input type="checkbox" class="vegatarian filled-in" />
+              <span>Vegetarian</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="vegan filled-in" />
+              <span>Vegan</span>
+          </label>
+      </p>
+      <p>
+          <label>
+              <input type="checkbox" class="favorites filled-in" />
+              <span>Favorites</span>
+          </label>
+      </p>
+  </form>
+  </div>
+</div>
+
 <!-- recipes -->
 <div class="center" id="add">
     <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
@@ -207,64 +275,6 @@
     </form>
 </div>
 
-<div class="favorites container grey-text text-darken-1" id="favorites">
-    <h5 class="center">Favorites</h5>
-</div>
-
-<div id="filters">
-  <h5 class="center">Filters</h5>
-    <form action="#">
-        <p>
-            <label>
-                <input type="checkbox" class="filled-in" />
-                <span>Vegetarian</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="filled-in" />
-                <span>Vegan</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="filled-in" />
-                <span>Halal</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="filled-in" />
-                <span>Shell-fish allergy</span>
-            </label>
-        </p>
-    </form>
-</div>
-
-<div id="notifications">
-  <h5 class="center">Notifications</h5>
-  <form action="#">
-      <p>
-          <label>
-              <input type="checkbox" class="filled-in" />
-              <span>Vegetarian</span>
-          </label>
-      </p>
-      <p>
-          <label>
-              <input type="checkbox" class="filled-in" />
-              <span>Vegan</span>
-          </label>
-      </p>
-      <p>
-          <label>
-              <input type="checkbox" class="filled-in" />
-              <span>Favorites</span>
-          </label>
-      </p>
-  </form>
-</div>
-
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
@@ -303,6 +313,8 @@
 
 <script defer src="js/sections/menu.js"></script>
 <script defer src="js/sections/favorites.js"></script>
+<script defer src="js/sections/notifications.js"></script>
+<script defer src="js/sections/filters.js"></script>
 
 
 </body>

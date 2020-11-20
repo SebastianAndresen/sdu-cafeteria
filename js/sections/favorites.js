@@ -4,13 +4,10 @@ const favorites = document.querySelector('#favorites');
 
 const renderFavorite = (data, id) => {
     if (!data.visible) return;
-
-    const isUpvoted = data.user_upvotes.includes(user);
-    const isDownvoted = data.user_downvotes.includes(user);
+    
     const isFavorite = data.user_favorites.includes(user);
 
     if (isFavorite) {
-            console.log("This is a favorite");
             const html = `
             <div class="favoriteItem card-panel white row" data-id="${id}">
             <img src="${data.image}" alt="${data.title} image">
@@ -22,11 +19,6 @@ const renderFavorite = (data, id) => {
         `;
         favorites.innerHTML += html;
     }
-    else{
-        console.log("Not a favorite");
-    }
-
-    
 }
 
 favorites.addEventListener('click', evt => {
