@@ -47,10 +47,6 @@ btn.addEventListener('click', () => {
     });
 });
 
-const  notifications = document.querySelector('#notifications');
-notifications.addEventListener('click', () => {
-    setUserNotifications();
-});
 
 // ============= MORTEN ========================
 // render recipe data to DOM
@@ -115,9 +111,21 @@ const getUserNotifications = (id) => {
     });
 };
 
+const notifications = document.querySelector('#notifications')
+notifications.addEventListener('click', (evt) => {
+    console.log('clicked: ', evt.target);
+});
 const setUserNotifications = () => {
-    let checkedBoxes = document.querySelectorAll('input[class=notification_checkbox]');
-    console.log('checked checkboxes: ',checkedBoxes);
+    const checked_boxes = Array
+        .from(document.querySelectorAll('input[type="checkbox"]'))
+        .filter((checkbox) => checkbox.checked)
+        .map((checkbox) => checkbox.value);
+/*    let checkedBoxes = document.querySelectorAll('input:checked');
+    console.log('checked checkboxes: ',checkedBoxes);*/
+    //let checkedBoxes = [].slice.call(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.name);
+    console.log(checked_boxes);
+
+    //checkedBoxes = [];
 };
 
 // render recipe data to DOM
