@@ -124,7 +124,13 @@ const modifyFoodItem = (data, id) => {
 
     if (isUpvoted) btnUpvote.classList.add("active");
     if (isDownvoted) btnDownvote.classList.add("active");
-    if (isFavorite) btnFavorite.classList.add("active");
+    if (isFavorite) {
+        btnFavorite.classList.add("active");
+        renderFavorite(data, id);
+    }
+    else{
+        removeFavorite(id);
+    }
 }
 
 const removeFoodItem = () => {

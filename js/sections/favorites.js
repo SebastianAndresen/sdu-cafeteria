@@ -21,50 +21,20 @@ const renderFavorite = (data, id) => {
 }
 
 favorites.addEventListener('click', evt => {
-    const isFavorite = data.user_favorites.includes(user);
-    const favorite = firebase.functions().httpsCallable('favorite');
+    const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
         console.log(id);
         console.log(user);
-        switch (evt.target.className.split(" ")[0]) {
-            case 'btn_upvote':
-                upvote(id).catch(err => {
-                    //TODO: make nice and shiny error message for user
-                    console.log('ERROR: ', err.message);
-                });
-                /*clickUpvote(id,
-                    evt.target.getAttribute('data-upvoted') == 'true'
-                );*/
-                break;
-            case 'btn_downvote':
-                downvote(id).catch(err => {
-                    //TODO: make nice and shiny error message for user
-                    console.log('ERROR:', err.message);
-                });
-                /*clickDownvote(id,
-                    evt.target.getAttribute('data-downvoted') == 'true'
-                );*/
-                break;
-            case 'btn_favorite':
-                favorite(id).catch(err => {
-                    //TODO: make nice and shiny error message for user
-                    console.log('ERROR:', err.message);
-                });
-                if(isFavorite){
-                    removeFavorite(id);
-                }
-                else{
-                    renderFavorite(change.doc.data(), change.doc.id);
-                }
 
-                /*clickFavorite(id,
-                    evt.target.getAttribute('data-favorite') == 'true'
-                );*/
-                break;
-            default:
-                console.log(`Unknown class: ${evt.target.className.split(" ")[0]}`);
-        }
+                const favorited = evt.target.getAttribute('data-favorite') == 'true';
+                favorite({
+                    id,
+                    favorited
+                }).catch(err => {
+                    //TODO: make nice and shiny error message for user
+                    console.log('ERROR:', err.message);
+                });
     }
 });
 
@@ -92,9 +62,4 @@ const modifyFavorite = (data, id) => {
 const removeFavorite = (id) => {
     const favoriteItem = document.querySelector(`.favoriteItem[data-id=${id}]`);
     favoriteItem.remove();
-};
-
-const removeRecipe = (id) => {
-    const recipe = document.querySelector(`.recipe[data-id=${id}]`);
-    recipe.remove();
 };
