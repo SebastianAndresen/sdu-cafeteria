@@ -1,4 +1,3 @@
-console.log('food item script loaded');
 
 const renderFoodItem = (data, id) => {
     console.log(`Render food item ${id} : ${data}`);
@@ -14,9 +13,9 @@ const renderFoodItem = (data, id) => {
             <div class="food-upvotes">Upvotes: ${data.user_upvotes.length}</div>
             <div class="food-downvotes">Downvotes: ${data.user_downvotes.length}</div>
 
-            <i>arrow_circle_up</i>
-            <i>arrow_circle_down</i>
-            <i>star_rate</i>
+            <i class="material-icons">arrow_circle_up</i>
+            <i class="material-icons">arrow_circle_down</i>
+            <i class="material-icons">star_rate</i>
         </div>
     `;
 
