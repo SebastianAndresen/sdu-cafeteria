@@ -1,0 +1,24 @@
+/* colours */
+:root{
+  --primary: #272727;
+  --secondary: #747474;
+  --orange: #ff6525;
+  --yellow: #ffe400;
+  --green: #14a76c;
+}
+
+/* layout styles */
+nav{
+  background: var(--primary);
+  border-bottom: 10px solid var(--secondary);
+}
+nav a{
+  text-transform: uppercase;
+  color: var(--orange);
+}
+nav a span{
+  font-weight: bold;
+}
+nav .sidenav-trigger{
+  margin: 0;
+}
