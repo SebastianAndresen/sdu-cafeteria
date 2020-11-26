@@ -104,3 +104,60 @@ exports.deleteUser = functions.auth.user().onDelete(user => {
     return doc.delete();
 
 });
+
+exports.notifyVegan = functions.https.onCall((data, context) => {
+  console.log('TODO: notify vegan')
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+  }
+});
+
+exports.notifyVegetarian = functions.https.onCall((data, context) => {
+  console.log('TODO: notify vegetarian')
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+  }
+});
+
+exports.notifyFavorites = functions.https.onCall((data, context) => {
+  console.log('TODO: notify favorites')
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+  }
+});
+
+exports.filterVegan = functions.https.onCall((data, context) => {
+  console.log('TODO: filter vegan')
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+  }
+});
+
+exports.filterVegetarian = functions.https.onCall((data, context) => {
+  console.log('TODO: filter vegetarian')
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+  }
+});
+
+exports.filterNuts = functions.https.onCall((data, context) => {
+  console.log('TODO: filter nuts')
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+  }
+});
+
+exports.filterHalal = functions.https.onCall((data, context) => {
+  console.log('TODO: filter halal')
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+  }
+});
+
+exports.filterShellFish = functions.https.onCall((data, context) => {
+  console.log('TODO: filter shell-fish')
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+  }
+});
+

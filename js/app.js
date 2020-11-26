@@ -48,28 +48,29 @@ btn.addEventListener('click', () => {
 });
 
 
+
 // ============= MORTEN ========================
 // render recipe data to DOM
 
 const sidebar = document.querySelector('.sidenav')
 sidebar.addEventListener('click', evt => {
-    hideAll();
     console.log(evt.target.className);
-    switch(evt.target.className){
-        case 'menu sidenav-close':
-            document.getElementById("food_items").style.display = "block";
-            document.getElementById("add").style.display = "block";
-            document.getElementById("logout").style.display = "block";
+    switch(evt.target.className.split(" ")[0]){
+        case 'menu':
+            hideAll();
+            document.getElementById("food_items").style.visibility = "visible";
             break;
-        case 'filters sidenav-close':
-            document.getElementById("filters").style.display = "block";
+        case 'filters':
+            hideAll();
+            document.getElementById("filters").style.visibility = "visible";
             break;
-        case 'favorites sidenav-close':
-            document.getElementById("favorites").style.display = "block";
-
+        case 'favorites':
+            hideAll();
+            document.getElementById("favorites").style.visibility = "visible";
             break;
-        case 'notifications sidenav-close':
-            document.getElementById("notifications").style.display = "block";
+        case 'notifications':
+            hideAll();
+            document.getElementById("notifications").style.visibility = "visible";
             getUserNotifications(auth.currentUser.uid);
             break;
         default:
@@ -78,12 +79,10 @@ sidebar.addEventListener('click', evt => {
 });
 
 function hideAll(){
-    document.getElementById("favorites").style.display = "none";
-    document.getElementById("notifications").style.display = "none";
-    document.getElementById("filters").style.display = "none";
-    document.getElementById("food_items").style.display = "none";
-    document.getElementById("add").style.display = "none";
-    document.getElementById("logout").style.display = "none";
+    document.getElementById("favorites").style.visibility = "hidden";
+    document.getElementById("notifications").style.visibility = "hidden";
+    document.getElementById("filters").style.visibility = "hidden";
+    document.getElementById("food_items").style.visibility = "hidden";
 };
 
 const getUserNotifications = (id) => {
