@@ -1,3 +1,4 @@
+/*
 console.log("NOTIFICATIONS SCRIPT LOADED v1");
 
 const notifications = document.querySelector('#notifications');
@@ -44,4 +45,4 @@ notifications.addEventListener('click', evt => {
                 break;
         }
     }
-});
+});*/

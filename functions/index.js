@@ -105,7 +105,7 @@ exports.deleteUser = functions.auth.user().onDelete(user => {
 
 });
 
-exports.notifyVegan = functions.https.onCall((data, context) => {
+/*exports.notifyVegan = functions.https.onCall((data, context) => {
   console.log('TODO: notify vegan')
   if (!context.auth) {
     throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
@@ -159,5 +159,5 @@ exports.filterShellFish = functions.https.onCall((data, context) => {
   if (!context.auth) {
     throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
   }
-});
+});*/
 

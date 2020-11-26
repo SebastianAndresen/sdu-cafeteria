@@ -110,68 +110,10 @@ const getUserNotifications = (id) => {
     });
 };
 
-/*const notifications = document.querySelector('#notifications')
-notifications.addEventListener('click', (evt) => {
-    console.log('clicked: ', evt.target);
-});*/
-
-const setUserNotifications = () => {
-    //let checked_boxes =
-    const checked_boxes = Array
-        .from(document.querySelectorAll('input[type="checkbox"]'))
-        .filter((checkbox) => checkbox.checked)
-        .map((checkbox) => checkbox.value);
-    let checkedBoxes = document.querySelectorAll('input:checked');
-    console.log('checked checkboxes: ',checkedBoxes);
-    //let checkedBoxes = [].slice.call(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.name);
-    //console.log(checked_boxes);
-
-    //checkedBoxes = [];
-};
 $(() => {
     $('#notifications').on('click', ':checkbox', e => {
         const cb_arr = [].slice.call(document.querySelectorAll('input:checked')).map(e => e.name);
-        console.log(cb_arr);
-
-        //write to db
         const setNotifications = firebase.app().functions('europe-west1').httpsCallable('setNotifications');
         setNotifications(cb_arr);
-
-        //console.log('logging checked checkboxes names..');
-        //cb_arr.forEach(cb => console.log(cb.name));
-
     });
 });
-//$(".notification_setting").on('click', console.log('clicked'));
-
-// render recipe data to DOM
-/*const renderRecipe = (data, id) => {
-    const html = `
-        <div class="card-panel recipe white row" data-id="${id}">
-            <img src="img/dish.png" alt="recipe thumb">
-            <div class="recipe-details">
-                <div class="recipe-title">${data.title}</div>
-                <div class="recipe-ingredients">${data.ingredients}</div>
-            </div>
-            <div class="recipe-delete">
-                    <i class="material-icons" data-id="${id}">delete_outline</i>
-            </div>
-        </div>
-  `;
-
-    recipes.innerHTML += html;
-};*/
-
-// remove recipe from DOM function
-/*const removeRecipe = (id) => {
-    const recipe = document.querySelector(`.recipe[data-id=${id}]`);
-    recipe.remove();
-};*/
-
-// remove recipe from DB
-/*recipes.addEventListener('click', evt => {
-    if (evt.target.tagName === 'I') {
-        const id = evt.target.getAttribute('data-id');
-        db.collection('recipes').doc(id).delete();
-    }
-});*/
