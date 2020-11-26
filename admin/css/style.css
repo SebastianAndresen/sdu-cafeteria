@@ -14,6 +14,7 @@
 nav{
   background: var(--primary);
   border-bottom: 10px solid var(--secondary);
+  margin-left: 160px;
 }
 nav a{
   text-transform: uppercase;
@@ -113,25 +114,34 @@ nav .sidenav-trigger{
 }
 
   /*** ****** ***/
- /** dropdown **/
+ /** sidebar **/
 /*** ****** ***/
 
-#navbar_categories_dropdown {
-  position: relative;
-  display: inline-block;
+#content {
+  margin-left: 160px;
 }
 
-#navbar_categories_dropdown_content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 12px 16px;
+#food_sidebar {
+  height: 100%;
+  width: 160px;
+  position: fixed;
   z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--primary);
+  /*overflow-x: hidden;*/
+  padding-top: 20px;
 }
 
-#navbar_categories_dropdown:hover #navbar_categories_dropdown_content {
-  display: block;
+#food_sidebar p {
+  color: lightgray;
+  padding: 4px 8px 4px 16px;
 }
 
+#food_sidebar p:hover,
+#food_sidebar p.active {
+  color: black;
+  background-color: var(--orange);
+  font-weight: bold;
+  width: 163px;
+}

@@ -1,6 +1,6 @@
 
 const renderFoodItem = (data, id) => {
-    console.log(`Render food item ${id} : ${data}`);
+    console.log(data);
 
     const html = `
         <div id="${id}" class="fooditem card-panel white row" data-id="${id}">
