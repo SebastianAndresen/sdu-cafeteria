@@ -9,7 +9,7 @@ const renderFoodItem = (data, id) => {
                     <td rowspan="3" colspan="3" class="fooditemImage">
                         <img src="${data.image ? data.image : 'https://thumbs.dreamstime.com/b/no-photo-available-missing-image-coming-soon-web-39680127.jpg'}" alt="${data.title} image">
                     </td>
-                    <td><p class="desc">Title:</p><h3>${data.title ? data.title : 'missing'}</h3></td>
+                    <td><p class="desc">Title:</p><h4>${data.title ? data.title : 'missing'}</h4></td>
                     <td><p class="desc">Diets:</p><p>${data.diets ? data.diets : 'missing'}</p></td>
                     <td>
                         <button type="button" onclick="editfooditem('${id}')">Edit</button>
