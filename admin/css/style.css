@@ -90,3 +90,20 @@ nav .sidenav-trigger{
 #food_item_list .floatright {
   float: right;
 }
+
+#food_item_list table span {
+  font-size: large;
+  vertical-align: top;
+}
+
+#food_item_list i.upscore {
+  color: green;
+}
+
+#food_item_list i.downscore {
+  color: red;
+}
+
+#food_item_list i.starscore {
+  color: orange;
+}

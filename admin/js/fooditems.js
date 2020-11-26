@@ -28,9 +28,9 @@ const renderFoodItem = (data, id) => {
                     </td>
                 </tr>
                 <tr>
-                    <td class="fooditemUpvote">${data.user_upvotes.length} <i class="material-icons">arrow_circle_up</i></td>
-                    <td class="fooditemDownvote">${data.user_downvotes.length} <i class="material-icons">arrow_circle_down</i></td>
-                    <td class="fooditemFavorite">${data.user_favorites.length} <i class="material-icons">star_rate</i></td>
+                    <td><span>${data.user_upvotes.length}</span> <i class="upscore material-icons">arrow_circle_up</i></td>
+                    <td><span>${data.user_downvotes.length}</span> <i class="downscore material-icons">arrow_circle_down</i></td>
+                    <td><span>${data.user_favorites.length}</span> <i class="starscore material-icons">star_rate</i></td>
                     <td colspan="2"><p class="subinfo">Score reset status</p></td>
                     <td>
                         <button type="button" onclick="resetscore('${id}')">Reset Score</button>
