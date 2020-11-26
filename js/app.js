@@ -111,22 +111,39 @@ const getUserNotifications = (id) => {
     });
 };
 
-const notifications = document.querySelector('#notifications')
+/*const notifications = document.querySelector('#notifications')
 notifications.addEventListener('click', (evt) => {
     console.log('clicked: ', evt.target);
-});
+});*/
+
 const setUserNotifications = () => {
+    //let checked_boxes =
     const checked_boxes = Array
         .from(document.querySelectorAll('input[type="checkbox"]'))
         .filter((checkbox) => checkbox.checked)
         .map((checkbox) => checkbox.value);
-/*    let checkedBoxes = document.querySelectorAll('input:checked');
-    console.log('checked checkboxes: ',checkedBoxes);*/
+    let checkedBoxes = document.querySelectorAll('input:checked');
+    console.log('checked checkboxes: ',checkedBoxes);
     //let checkedBoxes = [].slice.call(document.querySelectorAll('input[type=checkbox]:checked')).map(e => e.name);
-    console.log(checked_boxes);
+    //console.log(checked_boxes);
 
     //checkedBoxes = [];
 };
+$(() => {
+    $('#notifications').on('click', ':checkbox', e => {
+        const cb_arr = [].slice.call(document.querySelectorAll('input:checked')).map(e => e.name);
+        console.log(cb_arr);
+
+        //write to db
+        const setNotifications = firebase.app().functions('europe-west1').httpsCallable('setNotifications');
+        setNotifications(cb_arr);
+
+        //console.log('logging checked checkboxes names..');
+        //cb_arr.forEach(cb => console.log(cb.name));
+
+    });
+});
+//$(".notification_setting").on('click', console.log('clicked'));
 
 // render recipe data to DOM
 /*const renderRecipe = (data, id) => {

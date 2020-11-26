@@ -86,8 +86,9 @@ exports.setNotifications = functions.https.onCall((data, context) => {
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
     }
-
-    // DO NOTIFICATION STUFF HERE
+    return admin.firestore().collection('users').doc(context.auth.uid).update({
+        notifications: data
+    });
 });
 
 // auth trigger (new user)
