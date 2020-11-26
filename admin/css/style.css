@@ -52,8 +52,12 @@ nav .sidenav-trigger{
   margin: 0;
 }
 
+#food_item_list tr:first-child td:nth-child(2) {  
+  width: 440px;
+}
+
 #food_item_list tr td:last-child,
-#food_item_list button {
+#food_item_list table button {
   float: right;
 }
 
@@ -63,11 +67,11 @@ nav .sidenav-trigger{
   min-width: 200px;
 }
 
-#food_item_list img {
+#food_item_list table img {
   width: 100%;
 }
 
-#food_item_list p:not(.desc) {
+#food_item_list table p:not(.desc) {
   font-weight: bold;
 }
 

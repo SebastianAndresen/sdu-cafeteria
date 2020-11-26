@@ -7,18 +7,18 @@ const renderFoodItem = (data, id) => {
             <table>
                 <tr>
                     <td rowspan="3" colspan="3" class="fooditemImage">
-                        <img src="${data.image}" alt="${data.title} image">
+                        <img src="${data.image ? data.image : 'https://thumbs.dreamstime.com/b/no-photo-available-missing-image-coming-soon-web-39680127.jpg'}" alt="${data.title} image">
                     </td>
-                    <td><p class="desc">Title:</p><h3>${data.title}</h3></td>
-                    <td><p class="desc">Diets:</p><p>${data.diets}</p></td>
+                    <td><p class="desc">Title:</p><h3>${data.title ? data.title : 'missing'}</h3></td>
+                    <td><p class="desc">Diets:</p><p>${data.diets ? data.diets : 'missing'}</p></td>
                     <td>
                         <button type="button" onclick="editfooditem('${id}')">Edit</button>
                         <p class="subinfo">${'latest edit'}</p>
                     </td>
                 </tr>
                 <tr>
-                    <td><p class="desc">Price:</p><p>${data.price}</p></td>
-                    <td><p class="desc">Allergies</p><p>${data.allergies}</p></td>
+                    <td><p class="desc">Price:</p><p>${data.price ? data.price : 'missing'}</p></td>
+                    <td><p class="desc">Allergies:</p><p>${data.allergies ? data.allergies : 'missing'}</p></td>
                     <td></td>
                 </tr>
                 <tr>
