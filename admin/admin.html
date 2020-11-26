@@ -60,19 +60,48 @@
 
     <div id="editor_wrapper">
         <div id="editor">
-            <h3>Editor</h3>
-            <div id="editor_exitsave">
-                <button>Save</button>
-                <button>Close</button>
-            </div>
+            <table>
+                <tr>
+                    <td>
+                        <h3>Editor</h3>
+                    </td>
+                    <td>
+                        <button>Save</button>
+                        <button>Cancel</button>
+                    </td>
+                </tr>
+            </table>
             <div>
                 <label for="title">Title:</label>
-                <input type="text" id="title" name="title">
+                <input type="text" id="form_title" name="title">
             </div>
             <div>
                 <label for="image">Image:</label>
-                <input type='file' onchange="readURL(this);" />
-                <img id="preview_image" src="#" alt="your image"/>
+                <input type="text" id="form_image" name="image">
+            </div>
+            <div>
+                <ul id="form_diets">
+                    <li>Dairy free</li>
+                    <li>Gluten free</li>
+                    <li>Low-calorie</li>
+                    <li>Calorie free</li>
+                    <li>Low-sugar</li>
+                    <li>Sugar free</li>
+                    <li>Vegan</li>
+                    <li>Vegetarian</li>
+                </ul>
+            </div>
+            <div>
+                <ul id="form_allergies">
+                    <li>Dairy</li>
+                    <li>Eggs</li>
+                    <li>Tree Nuts</li>
+                    <li>Peanuts</li>
+                    <li>Shellfish</li>
+                    <li>Wheat</li>
+                    <li>Soy</li>
+                    <li>Fish</li>
+                </ul>
             </div>
         </div>
     </div>

@@ -173,3 +173,66 @@ nav .sidenav-trigger{
 #editor {
   background-color: white;
 }
+
+#editor table,
+#editor tr,
+#editor td {
+  border: none;
+  vertical-align: top;
+}
+
+#editor table h3 {
+  margin: 0;
+  padding: 0 0 0 16px;
+}
+
+#editor table tr td:last-child {
+  float: right;
+  padding-right: 20px;
+}
+
+#editor ul {
+  margin: 0;
+  padding: 0;
+}
+
+#editor ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 8px 8px 8px 40px;
+  list-style-type: none;
+  background: #eee;
+  font-size: 14px;
+  transition: 0.2s;
+  
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#editor ul li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+#editor ul li:hover {
+  background: #ddd;
+}
+
+#editor ul li.checked {
+  background: #222;
+  color: #fff;
+}
+
+#editor ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
