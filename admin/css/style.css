@@ -7,7 +7,10 @@
   --green: #14a76c;
 }
 
-/* layout styles */
+  /*** **** ***/
+ /** navbar **/
+/*** **** ***/
+
 nav{
   background: var(--primary);
   border-bottom: 10px solid var(--secondary);
@@ -23,18 +26,58 @@ nav .sidenav-trigger{
   margin: 0;
 }
 
-/* food items */
+  /*** ******** ***/
+ /** food items **/
+/*** ******** ***/
+
 #food_item_list {
   width: 90%;
   margin: auto;
 }
 
+#food_item_list table,
+#food_item_list tr,
+#food_item_list td {
+  border: none;
+  padding: 0;
+}
+
+#food_item_list td {
+  vertical-align: bottom;
+}
+
+#food_item_list table h3,
+#food_item_list table p {
+  padding: 0;
+  margin: 0;
+}
+
+#food_item_list tr td:last-child,
+#food_item_list button {
+  float: right;
+}
+
 #food_item_list .fooditemImage {
   width: 25%;
+  padding: 0 10px 10px 0;
+  min-width: 200px;
 }
 
 #food_item_list img {
   width: 100%;
+}
+
+#food_item_list p:not(.desc) {
+  font-weight: bold;
+}
+
+#food_item_list .desc {
+  font-style: oblique;
+}
+
+#food_item_list .subinfo {
+  color: grey;
+  font-style: oblique;
 }
 
 #food_item_list .fooditemUpvote,
