@@ -172,6 +172,7 @@ nav .sidenav-trigger{
 
 #editor {
   background-color: white;
+  padding: 20px;
 }
 
 #editor table,
@@ -179,16 +180,25 @@ nav .sidenav-trigger{
 #editor td {
   border: none;
   vertical-align: top;
+  border: 1px solid black;
+  padding: 0;
+  margin: 0;
 }
 
 #editor table h3 {
   margin: 0;
-  padding: 0 0 0 16px;
 }
 
-#editor table tr td:last-child {
+#editor td {
+  padding: 0 5px;
+}
+
+#editor table tr:first-child td:last-child {
   float: right;
-  padding-right: 20px;
+}
+
+#editor table tr:last-child td {
+  width: 33%;
 }
 
 #editor ul {

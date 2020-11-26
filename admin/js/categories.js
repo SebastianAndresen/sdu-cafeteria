@@ -11,8 +11,13 @@ for (let i = 0; i < sidebar_btns.length; i++) {
     });
 }
 
-const editor_checkbox = document.querySelector('ul');
-editor_checkbox.addEventListener('click', function (ev) {
+document.querySelector('#form_diets').addEventListener('click', function (ev) {
+    if (ev.target.tagName === 'LI') {
+        ev.target.classList.toggle('checked');
+    }
+}, false);
+
+document.querySelector('#form_allergies').addEventListener('click', function (ev) {
     if (ev.target.tagName === 'LI') {
         ev.target.classList.toggle('checked');
     }
