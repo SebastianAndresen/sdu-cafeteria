@@ -14,7 +14,7 @@
 nav{
   background: var(--primary);
   border-bottom: 10px solid var(--secondary);
-  margin-left: 160px;
+  padding-left: 160px;
 }
 nav a{
   text-transform: uppercase;
@@ -144,4 +144,32 @@ nav .sidenav-trigger{
   background-color: var(--orange);
   font-weight: bold;
   width: 163px;
+}
+
+  /*** **************** ***/
+ /** create food button **/
+/*** **************** ***/
+
+#create_btn {
+  text-align: center;
+  padding: 20px 0;
+}
+
+  /*** **** ***/
+ /** editor **/
+/*** **** ***/
+
+#editor_wrapper {
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  min-height: 100%;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  padding: 20 60px;
+}
+
+#editor {
+  background-color: white;
 }
