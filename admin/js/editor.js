@@ -90,6 +90,15 @@ Date.prototype.toDateInputValue = (function () {
     return local.toJSON().slice(0, 10);
 });
 
+console.log("ASDASDASDAD");
+console.log(form_allergies_li);
+console.log(form_diets_li);
+
+//form_allergies_li = [...form_diets_li];
+//console.log(form_allergies_li);
+//const concatContainsLiItems = form_allergies_li.concat(form_diets_li);
+//console.log(concatContainsLiItems);
+
 const titleInput = document.getElementById('form_title');
 const priceInput = document.getElementById('form_price');
 const imageInput = document.getElementById('form_image');
@@ -130,6 +139,20 @@ const prefillEditor = (itemdata) => {
     titleInput.value = itemdata.title;
     priceInput.value = itemdata.price;
     imageInput.value = itemdata.image;
+    visibility_btns[0].className = '';
+    visibility_btns[itemdata.visible].className = 'active';
+    if (itemdata.visible == 2) {
+        let presetdate = new Date(0);
+        presetdate.setUTCSeconds(itemdata.visibledate.seconds);
+        datepicker.value = presetdate.toDateInputValue();
+    }
+    for (let i = 0; i < categories_btns.length; i++) {
+        categories_btns[i].className = '';
+    }
+    categories_btns[itemdata.category].className = 'active';
+    /*for (let i = 0; i < itemdata.contains.length; i++) {
+        concatContainsLiItems[itemdata.contains[i]].className = 'select';
+    }*/
 };
 
 const showCreateBtn = () => {
