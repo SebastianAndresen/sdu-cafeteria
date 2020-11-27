@@ -127,9 +127,9 @@ const clearEditor = () => {
 }
 
 const prefillEditor = (itemdata) => {
-    console.log("PREFILLING EDITOR");
-    console.log(itemdata);
-    console.log("WITH THIS");
+    titleInput.value = itemdata.title;
+    priceInput.value = itemdata.price;
+    imageInput.value = itemdata.image;
 };
 
 const showCreateBtn = () => {
