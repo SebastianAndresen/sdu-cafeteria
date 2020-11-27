@@ -126,6 +126,12 @@ const clearEditor = () => {
     imageInput.value = '';
 }
 
+const prefillEditor = (itemdata) => {
+    console.log("PREFILLING EDITOR");
+    console.log(itemdata);
+    console.log("WITH THIS");
+};
+
 const showCreateBtn = () => {
     editorCreateBtn.style.display = 'inline';
     editorEditBtn.style.display = 'none';

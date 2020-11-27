@@ -2,8 +2,21 @@
 const renderFoodItem = (data, id) => {
     console.log(data);
 
+    let dataToKeep = {
+        id: id,
+        allergies: data.allergies,
+        category: data.category,
+        daily_reset: data.daily_reset,
+        diets: data.diets,
+        image: data.image,
+        lastreset: data.lastreset,
+        price: data.price,
+        title: data.title,
+        visible: data.visible
+    }
+
     const html = `
-        <div id="${id}" class="fooditem card-panel white row" data-id="${id}">
+        <div id="${id}" class="fooditem card-panel white row" data-id="${id}" data-info='${JSON.stringify(dataToKeep)}'>
             <table>
                 <tr>
                     <td rowspan="3" colspan="3" class="fooditemImage">
@@ -44,9 +57,10 @@ const renderFoodItem = (data, id) => {
 }
 
 const editfooditem = (itemid) => {
-    console.log(`edit item ${itemid}`);
+    let itemdata = JSON.parse(document.getElementById(itemid).getAttribute('data-info'))
     clearEditor();
     showEditBtn();
+    prefillEditor(itemdata);
     openEditor();
 };
 
