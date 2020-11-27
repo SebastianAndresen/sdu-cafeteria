@@ -45,6 +45,9 @@ const renderFoodItem = (data, id) => {
 
 const editfooditem = (itemid) => {
     console.log(`edit item ${itemid}`);
+    clearEditor();
+    showEditBtn();
+    openEditor();
 };
 
 const showhide = (itemid) => {

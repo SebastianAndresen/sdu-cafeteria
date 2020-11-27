@@ -50,13 +50,6 @@
         <p data-cat="10">Drinks</p>
         <p data-cat="0">All</p>
     </div>
-    
-    <div id="content">
-        <div id="food_item_list"></div>
-        <div id="create_btn">
-            <button>Create New</button>
-        </div>
-    </div>
 
     <div id="editor_wrapper">
         <div id="editor">
@@ -66,8 +59,9 @@
                         <h3>Menu Editor</h3>
                     </td>
                     <td>
-                        <button>Save</button>
-                        <button>Cancel</button>
+                        <button id="editorBtnCreate" type="button" onclick="editorCreate()">Create</button>
+                        <button id="editorBtnSave" type="button" onclick="editorSave()">Save</button>
+                        <button type="button" onclick="editorCancel()">Cancel</button>
                     </td>
                 </tr>
                 <tr>
@@ -98,7 +92,6 @@
                     </td>
                 </tr>
                 <tr>
-                    
                     <td rowspan="2">
                         <h5>Diets</h5>
                         <ul id="form_diets">
@@ -144,6 +137,13 @@
         </div>
     </div>
 
+    <div id="content">
+        <div id="food_item_list"></div>
+        <div id="create_btn">
+            <button type="button" onclick="editorCreateNew()">Create New</button>
+        </div>
+    </div>
+
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-firestore.js"></script>
@@ -177,8 +177,8 @@
     <script defer src="js/db.js"></script>
     <script defer src="js/admin.js"></script>
 
+    <script defer src="js/editor.js"></script>
     <script defer src="js/fooditems.js"></script>
-    <script defer src="js/categories.js"></script>
 
 </body>
 </html>

@@ -1,4 +1,6 @@
 
+let currentCategory = 1;
+
 // admin sidebar
 const sidebar = document.getElementById('food_sidebar');
 const sidebar_btns = sidebar.getElementsByTagName('p');
@@ -9,7 +11,7 @@ for (let i = 0; i < sidebar_btns.length; i++) {
         current[0].className = current[0].className.replace('active', '');
         this.className += ' active';
         this.className = this.className.trim();
-        console.log(this.getAttribute('data-cat'));
+        currentCategory = this.getAttribute('data-cat');
     });
 }
 
@@ -64,4 +66,56 @@ for (let i = 0; i < categories_btns.length; i++) {
         this.className += ' active';
         this.className = this.className.trim();
     });
+}
+
+  /** ************ **/
+ /* editor buttons */
+/** ************ **/
+
+const editorWrapper = document.getElementById('editor_wrapper');
+
+// setup
+const openEditor = () => {
+    editorWrapper.className += "active";
+}
+
+const closeEditor = () => {
+    editorWrapper.className = '';
+}
+
+const clearEditor = () => {
+    for (let i = 0; i < categories_btns.length; i++) {
+        categories_btns[i].className = '';
+    }
+    categories_btns[Math.max(0, currentCategory - 1)].className = 'active';
+}
+
+const showCreateBtn = () => {
+
+}
+
+const showEditBtn = () => {
+
+}
+
+// buttons
+const editorCreateNew = () => {
+    clearEditor();
+    showCreateBtn();
+    openEditor();
+};
+
+const editorCreate = () => {
+    
+    console.log("EDITOR CREATE");
+}
+
+const editorSave = () => {
+    console.log("EDITOR SAVE");
+}
+
+const editorCancel = () => {
+    if (confirm("Are you sure you want to cancel?")) {
+        closeEditor();
+    }
 }

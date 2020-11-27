@@ -168,6 +168,11 @@ nav .sidenav-trigger{
   top: 0;
   left: 0;
   padding: 20 60px;
+  display: none;
+}
+
+#editor_wrapper.active {
+  display: block;
 }
 
 #editor {
