@@ -24,6 +24,7 @@
     <!-- Application styles -->
     <link type="text/css" href="css/sections/menu.css" rel="stylesheet">
     <link type="text/css" href="css/sections/favorites.css" rel="stylesheet">
+    <link type="text/css" href="css/sections/filters.css" rel="stylesheet">
 
 
 </head>
@@ -161,7 +162,7 @@
     </div>
 </div>
 
-<div class="favorites container grey-text text-darken-1" id="favorites">
+<div  id="favorites" class="container grey-text text-darken-1">
     <h5 class="center">Favorites</h5>
 </div>
 
@@ -171,36 +172,57 @@
     <form action="#">
         <p>
             <label>
-                <input type="checkbox" class="vegetarian filled-in" data-id="${id}"></input>
+                <input type="checkbox" class="vegetarian filter-check filled-in" id="vegetarian" onclick="checkboxClicked('vegetarian')"></input>
                 <span>Vegetarian</span>
             </label>
         </p>
         <p>
             <label>
-                <input type="checkbox" class="vegan filled-in"></input>
+                <input type="checkbox" class="vegan filter-check filled-in" id="vegan" onclick="checkboxClicked('vegan')"></input>
                 <span>Vegan</span>
             </label>
         </p>
         <p>
             <label>
-                <input type="checkbox" class="halal filled-in"></input>
+                <input type="checkbox" class="halal filter-check filled-in" id="halal" onclick="checkboxClicked('halal')"></input>
                 <span>Halal</span>
             </label>
         </p>
         <p>
             <label>
-                <input type="checkbox" class="shell-fish filled-in"></input>
-                <span>Shell-fish allergy</span>
+                <input type="checkbox" class="meat filter-check filled-in" id="meat" onclick="checkboxClicked('meat')"></input>
+                <span>Meat Lover</span>
             </label>
         </p>
         <p>
             <label>
-                <input type="checkbox" class="nuts filled-in"></input>
-                <span>nuts allergy</span>
+                <input type="checkbox" class="seafood filter-check filled-in" id="seafood" onclick="checkboxClicked('seafood')"></input>
+                <span>Sea Food</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="shellfish filter-check filled-in" id="shellfish" onclick="checkboxClicked('shellfish')"></input>
+                <span>Shell-fish Allergy</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="nuts filter-check filled-in" id="nuts" onclick="checkboxClicked('nuts')"></input>
+                <span>Nuts Allergy</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="lactose filter-check filled-in" id="lactose" onclick="checkboxClicked('lactose')"></input>
+                <span>Lactose Intolerance</span>
             </label>
         </p>
     </form>
   </div>
+  <div id="filtered" class="container grey-text text-darken-1">
+    <h6 class="center">Filtered:</h6>
+</div>
 </div>
 
 <div class="notifications container grey-text text-darken-1" id="notifications">
