@@ -158,17 +158,30 @@ const showEditBtn = () => {
 const editorAsJSON = () => {
     let today = new Date();
     let visidate = new Date(datepicker.value);
-    console.log(visidate);
+
+    let catindex = 0;
+    for (let i = 0; i < categories_btns.length; i++) {
+        if (categories_btns[i].className == 'active') {
+            catindex = i;
+        }
+    }
+
+    let foodContains = [];
+    for (let i = 0; i < concatContainsLiItems.length; i++) {
+        if (concatContainsLiItems[i].classList.contains('checked')) {
+            foodContains.push(i);
+        }
+    }
 
     return {
         title: titleInput.value,
         price: priceInput.value,
         image: imageInput.value,
-        category: 0,
-        contains: 0,
+        category: catindex,
+        contains: foodContains,
         daily_reset: setscore_btns[1].className == 'active',
         lastedit: Math.floor(today.getTime() / 1000),
-        visible: 0,
+        visible: visibility_btns[2].className == 'active' ? 2 : visibility_btns[1].className == 'active' ? 1 : 0,
         visibledate: Math.floor(visidate.getTime() / 1000)
     };
 }
