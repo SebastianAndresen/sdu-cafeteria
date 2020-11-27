@@ -141,7 +141,7 @@ const prefillEditor = (itemdata) => {
     }
     categories_btns[itemdata.category].className = 'active';
     for (let i = 0; i < itemdata.contains.length; i++) {
-        concatContainsLiItems[itemdata.contains[i]].classList.toggle('checked');
+        concatContainsLiItems[itemdata.contains[i]].classList.add('checked');
     }
 };
 
@@ -155,8 +155,22 @@ const showEditBtn = () => {
     editorEditBtn.style.display = 'inline';
 }
 
-const buildJSONfromEditor = () => {
+const editorAsJSON = () => {
+    let today = new Date();
+    let visidate = new Date(datepicker.value);
+    console.log(visidate);
 
+    return {
+        title: titleInput.value,
+        price: priceInput.value,
+        image: imageInput.value,
+        category: 0,
+        contains: 0,
+        daily_reset: setscore_btns[1].className == 'active',
+        lastedit: Math.floor(today.getTime() / 1000),
+        visible: 0,
+        visibledate: Math.floor(visidate.getTime() / 1000)
+    };
 }
 
 // buttons
@@ -168,10 +182,12 @@ const editorCreateNew = () => {
 
 const editorCreate = () => {
     console.log("CREATE NEW DOCUMENT");
+    console.log(editorAsJSON());
 }
 
 const editorSave = () => {
     console.log("UPDATE EXISTING DOCUMENT");
+    console.log(editorAsJSON());
 }
 
 const editorCancel = () => {

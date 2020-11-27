@@ -138,10 +138,17 @@
     </div>
 
     <div id="content">
+        <table id="searchbar_wrapper">
+            <tr>
+                <td>
+                    <input type="text" id="food_searchbar" name="searchbar" placeholder="Search for item..">
+                </td>
+                <td>
+                    <button type="button" onclick="editorCreateNew()">Create New</button>
+                </td>
+            </tr>
+        </table>
         <div id="food_item_list"></div>
-        <div id="create_btn">
-            <button type="button" onclick="editorCreateNew()">Create New</button>
-        </div>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
