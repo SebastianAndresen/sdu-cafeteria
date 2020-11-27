@@ -71,6 +71,7 @@ sidebar.addEventListener('click', evt => {
         case 'notifications':
             hideAll();
             document.getElementById("notifications").style.visibility = "visible";
+            getUserNotifications(auth.currentUser.uid);
             break;
         default:
             break;
@@ -82,35 +83,37 @@ function hideAll(){
     document.getElementById("notifications").style.visibility = "hidden";
     document.getElementById("filters").style.visibility = "hidden";
     document.getElementById("food_items").style.visibility = "hidden";
-}
-// render recipe data to DOM
-/*const renderRecipe = (data, id) => {
-    const html = `
-        <div class="card-panel recipe white row" data-id="${id}">
-            <img src="img/dish.png" alt="recipe thumb">
-            <div class="recipe-details">
-                <div class="recipe-title">${data.title}</div>
-                <div class="recipe-ingredients">${data.ingredients}</div>
-            </div>
-            <div class="recipe-delete">
-                    <i class="material-icons" data-id="${id}">delete_outline</i>
-            </div>
-        </div>
-  `;
+};
 
-    recipes.innerHTML += html;
-};*/
+const getUserNotifications = (id) => {
+    let db_notifications;
+    const doc = db.collection('users').doc(id);
 
-// remove recipe from DOM function
-/*const removeRecipe = (id) => {
-    const recipe = document.querySelector(`.recipe[data-id=${id}]`);
-    recipe.remove();
-};*/
+    // get list of notification settings available on the page and put into an array
+    const notification_settings = document.getElementsByClassName('notification_setting');
+    let span_array = Array.from(notification_settings, element => element.innerHTML.toLowerCase());
 
-// remove recipe from DB
-/*recipes.addEventListener('click', evt => {
-    if (evt.target.tagName === 'I') {
-        const id = evt.target.getAttribute('data-id');
-        db.collection('recipes').doc(id).delete();
-    }
-});*/
+    doc.get().then((doc) => {
+        if (doc.exists) {
+            db_notifications = doc.data().notifications.map(value => value.toLowerCase());
+
+            //compare values in db notifications and actual notification settings on page
+            const compare = span_array.filter(element => db_notifications.includes(element));
+
+            //for each match, check the corresponding checkbox
+            for (const val of compare) {
+                document.querySelector(`#notification_${val}`).checked = true;
+            }
+        } else {
+            console.log('no data found..');
+        }
+    });
+};
+
+$(() => {
+    $('#notifications').on('click', ':checkbox', e => {
+        const cb_arr = [].slice.call(document.querySelectorAll('input:checked')).map(e => e.name);
+        const setNotifications = firebase.app().functions('europe-west1').httpsCallable('setNotifications');
+        setNotifications(cb_arr);
+    });
+});

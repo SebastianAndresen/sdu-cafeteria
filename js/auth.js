@@ -1,4 +1,4 @@
-let user ='';
+let user = '';
 
 auth.signInAnonymously().catch(function (error) {
     // Handle Errors here.
