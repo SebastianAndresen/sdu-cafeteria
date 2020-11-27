@@ -3,16 +3,19 @@
   --primary: white;
   --secondary: white;
   --title: black;
+  --priceGreen: #789D4A;
+  --downvoteRed: #FF2323;
+  --upvoteGreen: #00CF5A;
+  font-family: "Brown Regular", sans-serif;
 }
 
 /* layout styles */
+
+
 nav{
-  background: var(--primary);
-  border-bottom: 10px solid var(--secondary);
+  background: transparent;
 }
 nav a{
-
-  font-family: "Brown Regular", sans-serif;
   color: var(--title);
   font-size: xx-large;
 }
@@ -28,19 +31,20 @@ nav .sidenav-trigger{
 #filters{
   visibility:hidden;
   position: absolute;
-  top: 50;
+  top: 50px;
+  width: 100%;
 }
 
 #notifications{
   visibility:hidden;
   position: absolute;
-  top: 50;
+  top: 50px;
 }
 
 #favorites{
   visibility:hidden;
   position: absolute;
-  top: 50;
+  top: 50px;
 }
 
 /* recipe styles */
@@ -135,7 +139,6 @@ form .input-field{
   min-width: 50px;
   overflow: hidden;
   white-space: nowrap;
-  font-family: "Brown Regular", sans-serif;
   font-size: small;
   color: black;
   text-decoration: none;
