@@ -41,7 +41,6 @@ db.collection(foodItemCollection).onSnapshot(snapshot => {
         }
         if (change.type === 'modified') {
             modifyFoodItem(change.doc.data(), change.doc.id);
-            modifyFavorite(change.doc.data(), change.doc.id);
         }
         if (change.type === 'removed') {
             removeFoodItem(change.doc.id);
