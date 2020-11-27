@@ -77,10 +77,10 @@ const editorCreateBtn = document.getElementById('editorBtnCreate');
 const editorEditBtn = document.getElementById('editorBtnSave');
 
 const form_diets_ul = document.getElementById('form_diets');
-const form_diets_li = form_diets_ul.getElementsByTagName('li');
+const form_diets_li = Array.from(form_diets_ul.getElementsByTagName('li'));
 
 const form_allergies_ul = document.getElementById('form_allergies');
-const form_allergies_li = form_allergies_ul.getElementsByTagName('li');
+const form_allergies_li = Array.from(form_allergies_ul.getElementsByTagName('li'));
 
 const datepicker = document.getElementById('form_visibility').getElementsByTagName('input')[0];
 
@@ -90,14 +90,7 @@ Date.prototype.toDateInputValue = (function () {
     return local.toJSON().slice(0, 10);
 });
 
-console.log("ASDASDASDAD");
-console.log(form_allergies_li);
-console.log(form_diets_li);
-
-//form_allergies_li = [...form_diets_li];
-//console.log(form_allergies_li);
-//const concatContainsLiItems = form_allergies_li.concat(form_diets_li);
-//console.log(concatContainsLiItems);
+const concatContainsLiItems = form_allergies_li.concat(form_diets_li);
 
 const titleInput = document.getElementById('form_title');
 const priceInput = document.getElementById('form_price');
@@ -123,11 +116,8 @@ const clearEditor = () => {
         visibility_btns[i].className = '';
     }
     visibility_btns[0].className = 'active';
-    for (let i = 0; i < form_diets_li.length; i++) {
-        form_diets_li[i].className = '';
-    }
-    for (let i = 0; i < form_allergies_li.length; i++) {
-        form_allergies_li[i].className = '';
+    for (let i = 0; i < concatContainsLiItems.length; i++) {
+        concatContainsLiItems[i].className = '';
     }
     datepicker.value = new Date().toDateInputValue();
     titleInput.value = '';
@@ -150,9 +140,9 @@ const prefillEditor = (itemdata) => {
         categories_btns[i].className = '';
     }
     categories_btns[itemdata.category].className = 'active';
-    /*for (let i = 0; i < itemdata.contains.length; i++) {
-        concatContainsLiItems[itemdata.contains[i]].className = 'select';
-    }*/
+    for (let i = 0; i < itemdata.contains.length; i++) {
+        concatContainsLiItems[itemdata.contains[i]].classList.toggle('checked');
+    }
 };
 
 const showCreateBtn = () => {
@@ -187,5 +177,6 @@ const editorSave = () => {
 const editorCancel = () => {
     if (confirm("Are you sure you want to cancel?")) {
         closeEditor();
+        clearEditor();
     }
 }
