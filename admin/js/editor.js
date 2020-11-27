@@ -73,6 +73,26 @@ for (let i = 0; i < categories_btns.length; i++) {
 /** ************ **/
 
 const editorWrapper = document.getElementById('editor_wrapper');
+const editorCreateBtn = document.getElementById('editorBtnCreate');
+const editorEditBtn = document.getElementById('editorBtnSave');
+
+const form_diets_ul = document.getElementById('form_diets');
+const form_diets_li = form_diets_ul.getElementsByTagName('li');
+
+const form_allergies_ul = document.getElementById('form_allergies');
+const form_allergies_li = form_allergies_ul.getElementsByTagName('li');
+
+const datepicker = document.getElementById('form_visibility').getElementsByTagName('input')[0];
+
+Date.prototype.toDateInputValue = (function () {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
+});
+
+const titleInput = document.getElementById('form_title');
+const priceInput = document.getElementById('form_price');
+const imageInput = document.getElementById('form_image');
 
 // setup
 const openEditor = () => {
@@ -88,13 +108,35 @@ const clearEditor = () => {
         categories_btns[i].className = '';
     }
     categories_btns[Math.max(0, currentCategory - 1)].className = 'active';
+    setscore_btns[0].className = 'active';
+    setscore_btns[1].className = '';
+    for (let i = 0; i < visibility_btns.length; i++) {
+        visibility_btns[i].className = '';
+    }
+    visibility_btns[0].className = 'active';
+    for (let i = 0; i < form_diets_li.length; i++) {
+        form_diets_li[i].className = '';
+    }
+    for (let i = 0; i < form_allergies_li.length; i++) {
+        form_allergies_li[i].className = '';
+    }
+    datepicker.value = new Date().toDateInputValue();
+    titleInput.value = '';
+    priceInput.value = '';
+    imageInput.value = '';
 }
 
 const showCreateBtn = () => {
-
+    editorCreateBtn.style.display = 'inline';
+    editorEditBtn.style.display = 'none';
 }
 
 const showEditBtn = () => {
+    editorCreateBtn.style.display = 'none';
+    editorEditBtn.style.display = 'inline';
+}
+
+const buildJSONfromEditor = () => {
 
 }
 
@@ -106,12 +148,11 @@ const editorCreateNew = () => {
 };
 
 const editorCreate = () => {
-    
-    console.log("EDITOR CREATE");
+    console.log("CREATE NEW DOCUMENT");
 }
 
 const editorSave = () => {
-    console.log("EDITOR SAVE");
+    console.log("UPDATE EXISTING DOCUMENT");
 }
 
 const editorCancel = () => {

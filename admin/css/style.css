@@ -175,6 +175,10 @@ nav .sidenav-trigger{
   display: block;
 }
 
+/*#editor_wrapper.active + #content {
+  overflow-y: hidden;
+}*/
+
 #editor {
   background-color: white;
   padding: 20px;
