@@ -180,7 +180,6 @@ nav .sidenav-trigger{
 #editor td {
   border: none;
   vertical-align: top;
-  border: 1px solid black;
   padding: 0;
   margin: 0;
 }
@@ -197,10 +196,11 @@ nav .sidenav-trigger{
   float: right;
 }
 
-#editor table tr:last-child td {
-  width: 33%;
+#editor table tr:nth-child(3) td {
+  width: 25%;
 }
 
+/* diets and allergies selection */
 #editor ul {
   margin: 0;
   padding: 0;
@@ -245,4 +245,95 @@ nav .sidenav-trigger{
   transform: rotate(45deg);
   height: 15px;
   width: 7px;
+}
+
+/* visibility */
+#form_visibility p {
+  cursor: pointer;
+  position: relative;
+  padding: 8px 8px 8px 40px;
+  list-style-type: none;
+  background: #eee;
+  font-size: 14px;
+  transition: 0.2s;
+  margin: 0;
+}
+
+#form_visibility p:nth-child(even) {
+  background: #f9f9f9;
+}
+
+#form_visibility p:hover {
+  background: #ddd;
+}
+
+#form_visibility p.active {
+  background: #222;
+  color: #fff;
+}
+
+#form_visibility input {
+  visibility: hidden;
+  color: white;
+  transition: 0.2s;
+}
+
+#form_visibility p.active + input {
+  visibility: visible;
+  color: black;
+}
+
+/* score reset */
+#form_score p {
+  cursor: pointer;
+  position: relative;
+  padding: 8px 8px 8px 40px;
+  list-style-type: none;
+  background: #eee;
+  font-size: 14px;
+  transition: 0.2s;
+  margin: 0;
+}
+
+#form_score p:nth-child(even) {
+  background: #f9f9f9;
+}
+
+#form_score p:hover {
+  background: #ddd;
+}
+
+#form_score p.active {
+  background: #222;
+  color: #fff;
+}
+
+/* categories */
+
+#form_categories h5 {
+  margin-bottom: 47px;
+}
+
+#form_categories p {
+  cursor: pointer;
+  position: relative;
+  padding: 8px 8px 8px 40px;
+  list-style-type: none;
+  background: #eee;
+  font-size: 14px;
+  transition: 0.2s;
+  margin: 0;
+}
+
+#form_categories p:nth-child(even) {
+  background: #f9f9f9;
+}
+
+#form_categories p:hover {
+  background: #ddd;
+}
+
+#form_categories p.active {
+  background: #222;
+  color: #fff;
 }
