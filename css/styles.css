@@ -1,21 +1,28 @@
 /* colours */
 :root{
-  --primary: #FFE9D2;
-  --secondary: #FFE1C4;
-  --title: #FF8816;
+  --primary: white;
+  --secondary: white;
+  --title: black;
 }
 
 /* layout styles */
 nav{
   background: var(--primary);
   border-bottom: 10px solid var(--secondary);
+  background: transparent;
+  opacity:1;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
 }
 nav a{
   text-transform: uppercase;
   color: var(--title);
+  padding-left: 10px;
+  font-family: "Brown Regular", sans-serif;
 }
-nav a span{
+nav a span {
   font-weight: bold;
+
 }
 nav .sidenav-trigger{
   margin: 0;
