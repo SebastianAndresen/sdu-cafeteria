@@ -133,7 +133,7 @@ const prefillEditor = (itemdata) => {
     visibility_btns[itemdata.visible].className = 'active';
     if (itemdata.visible == 2) {
         let presetdate = new Date(0);
-        presetdate.setUTCSeconds(itemdata.visibledate.seconds);
+        presetdate.setTime(itemdata.visibledate * 1000);
         datepicker.value = presetdate.toDateInputValue();
     }
     for (let i = 0; i < categories_btns.length; i++) {
