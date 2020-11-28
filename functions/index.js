@@ -81,6 +81,19 @@ exports.favorite = functions.https.onCall((data, context) => {
     }
 });
 
+// ===================== ADMIN FUNCTIONS ========================
+
+exports.admincreatenew = functions.https.onCall((data, context) => {
+  // check if authenticated
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+  }
+
+  admin.firestore().collection('fooditems').set(data).then(function () {
+    console.log("Fooditem was successfully written from editor!");
+  });
+});
+
 // ===================== SET NOTIFICATIONS ========================
 exports.setNotifications = functions.https.onCall((data, context) => {
     if (!context.auth) {

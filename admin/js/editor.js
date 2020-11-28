@@ -186,6 +186,9 @@ const editorAsJSON = () => {
     };
 }
 
+// cloud functions
+const adminCreateFood = firebase.app().functions('europe-west1').httpsCallable('admincreatenew');
+
 // buttons
 const editorCreateNew = () => {
     clearEditor();
@@ -193,9 +196,11 @@ const editorCreateNew = () => {
     openEditor();
 };
 
-const editorCreate = () => {
+const editorCreate = (itemid) => {
     console.log("CREATE NEW DOCUMENT");
-    console.log(editorAsJSON());
+    adminCreateFood(editorAsJSON()).catch(err => {
+        console.log('ERROR: ', err.message);
+    });
 }
 
 const editorSave = () => {
