@@ -25,11 +25,9 @@
     <link type="text/css" href="css/sections/menu.css" rel="stylesheet">
     <link type="text/css" href="css/sections/favorites.css" rel="stylesheet">
     <link type="text/css" href="css/sections/filters.css" rel="stylesheet">
-
-
 </head>
-<body class="grey lighten-4">
 
+<body class="grey lighten-4">
 <!-- top nav -->
 <nav class="z-depth-0">
     <div class="nav-wrapper container">
@@ -70,90 +68,7 @@
         </a>
     </div>
 
-    <!-- ================== JAKOBS HERUNDER =======  -->
-    <!--<div class="notifications container white grey-text text-darken-1">
-        <h5>Notify</h5>
-        <div>
-            <form action="#">
-                <p>
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Favorites</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Vegan</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Vegatarian</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Halal</span>
-                    </label>
-                </p>
-            </form>
-        </div>
-        <hr>
-    </div>
-    <div class="preferences container white grey-text text-darken-1">
-        <h5>Diet Preferences</h5>
-        <div>
-            <form action="#">
-                <p>
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Vegetarian</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Vegan</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Halal</span>
-                    </label>
-                </p>
-            </form>
-        </div>
-        <hr>
-        <h5>Allergies</h5>
-        <div>
-            <form action="#">
-                <p>
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Shellfish</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input type="checkbox" class="filled-in" />
-                        <span>Nut</span>
-                    </label>
-                </p>
-            </form>
-        </div>
-    </div>
--->
-    <!-- =================== SLUT JAKOB ================== -->
 
-
-    <!--<li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
-    <li><a href="#" class="waves-effect"><i class="material-icons">filter_alt</i>Filter</a></li>
-    <li><a href="#" class="waves-effect"><i class="material-icons">favorite</i>Favorites</a></li>
-    <li><a href="#" class="waves-effect"><i class="material-icons">notifications</i>Notify</a></li>-->
 </ul>
 
 <div id="food_items" class="container grey-text text-darken-1">
@@ -169,67 +84,75 @@
     </div>
 </div>
 
-<div  id="favorites" class="container grey-text text-darken-1">
+<div id="favorites" class="container grey-text text-darken-1">
     <h5 class="center">Favorites</h5>
 </div>
 
 <div class="filters container grey-text text-darken-1" id="filters">
-  <h5 class="center">Filters</h5>
-  <div class="filters card-panel white row">
-    <form action="#">
-        <p>
-            <label>
-                <input type="checkbox" class="vegetarian filter-check filled-in" id="vegetarian" onclick="checkboxClicked('vegetarian')"></input>
-                <span>Vegetarian</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="vegan filter-check filled-in" id="vegan" onclick="checkboxClicked('vegan')"></input>
-                <span>Vegan</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="halal filter-check filled-in" id="halal" onclick="checkboxClicked('halal')"></input>
-                <span>Halal</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="meat filter-check filled-in" id="meat" onclick="checkboxClicked('meat')"></input>
-                <span>Meat Lover</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="seafood filter-check filled-in" id="seafood" onclick="checkboxClicked('seafood')"></input>
-                <span>Sea Food</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="shellfish filter-check filled-in" id="shellfish" onclick="checkboxClicked('shellfish')"></input>
-                <span>Shell-fish Allergy</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="nuts filter-check filled-in" id="nuts" onclick="checkboxClicked('nuts')"></input>
-                <span>Nuts Allergy</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="lactose filter-check filled-in" id="lactose" onclick="checkboxClicked('lactose')"></input>
-                <span>Lactose Intolerance</span>
-            </label>
-        </p>
-    </form>
-  </div>
-  <div id="filtered" class="container grey-text text-darken-1">
-    <h6 class="center">Filtered:</h6>
-</div>
+    <h5 class="center">Filters</h5>
+    <div class="filters card-panel white row">
+        <form action="#">
+            <p>
+                <label>
+                    <input type="checkbox" class="vegetarian filter-check filled-in" id="vegetarian"
+                           onclick="checkboxClicked('vegetarian')"/>
+                    <span>Vegetarian</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="vegan filter-check filled-in" id="vegan"
+                           onclick="checkboxClicked('vegan')"/>
+                    <span>Vegan</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="halal filter-check filled-in" id="halal"
+                           onclick="checkboxClicked('halal')"/>
+                    <span>Halal</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="meat filter-check filled-in" id="meat"
+                           onclick="checkboxClicked('meat')"/>
+                    <span>Meat Lover</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="seafood filter-check filled-in" id="seafood"
+                           onclick="checkboxClicked('seafood')"/>
+                    <span>Sea Food</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="shellfish filter-check filled-in" id="shellfish"
+                           onclick="checkboxClicked('shellfish')"/>
+                    <span>Shell-fish Allergy</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="nuts filter-check filled-in" id="nuts"
+                           onclick="checkboxClicked('nuts')"/>
+                    <span>Nuts Allergy</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="lactose filter-check filled-in" id="lactose"
+                           onclick="checkboxClicked('lactose')"/>
+                    <span>Lactose Intolerance</span>
+                </label>
+            </p>
+        </form>
+    </div>
+    <div id="filtered" class="container grey-text text-darken-1">
+        <h6 class="center">Filtered:</h6>
+    </div>
 </div>
 
 
@@ -307,11 +230,11 @@
     </form>
 </div>
 
-<div class="favorites container grey-text text-darken-1" id="favorites">
-    <h5 class="center">Favorites</h5>
-</div>
+<!--<div class="favorites container grey-text text-darken-1" id="favorites">
+    <h5 class="center">Favorites (REMOVE ME)</h5>
+</div>-->
 
-<div id="filters">
+<!--<div id="filters">
     <h5 class="center">Filters</h5>
     <form action="#">
         <p>
@@ -339,7 +262,7 @@
             </label>
         </p>
     </form>
-</div>
+</div>-->
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -352,7 +275,6 @@
 <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-messaging.js"></script>
 
 
-
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.24.0/firebase-analytics.js"></script>
@@ -361,7 +283,7 @@
 <script>
     // Your web app's Firebase configuration
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    var firebaseConfig = {
+    const firebaseConfig = {
         apiKey: "AIzaSyAFl469L0-MjT-zsmG8y0F8xgsPJpKRDV4",
         authDomain: "stl-e20.firebaseapp.com",
         databaseURL: "https://stl-e20.firebaseio.com",
@@ -407,7 +329,7 @@
     };
     init_messaging();
 
-    messaging.getToken({vapidKey: 'BGC_e_OwtXp5_v8nCtzUGbWe_Re3v_gVrXyIc8xFdjbtSw2ykrmwIr6djPKXcpiBAfXaqFL9Ykz7Zvug9WKWpDs'}).then((currentToken) => {
+    /*messaging.getToken({vapidKey: 'BGC_e_OwtXp5_v8nCtzUGbWe_Re3v_gVrXyIc8xFdjbtSw2ykrmwIr6djPKXcpiBAfXaqFL9Ykz7Zvug9WKWpDs'}).then((currentToken) => {
         if (currentToken) {
             sendTokenToServer(currentToken);
             updateUIForPushEnabled(currentToken);
@@ -422,7 +344,7 @@
         console.log('An error occurred while retrieving token. ', err);
         showToken('Error retrieving registration token. ', err);
         setTokenSentToServer(false);
-    });
+    });*/
 </script>
 <script src="js/auth.js"></script>
 <script defer src="js/db.js"></script>

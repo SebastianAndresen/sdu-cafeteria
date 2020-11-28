@@ -1,5 +1,6 @@
 importScripts('https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.1.1/firebase-messaging.js');
+// video for FCM: https://www.youtube.com/watch?v=m_P1Q0vhOHs
 
 var firebaseConfig = {
     apiKey: "AIzaSyAFl469L0-MjT-zsmG8y0F8xgsPJpKRDV4",
