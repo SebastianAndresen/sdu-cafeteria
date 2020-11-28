@@ -89,8 +89,10 @@ exports.admincreatenew = functions.https.onCall((data, context) => {
     throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
   }
 
-  admin.firestore().collection('fooditems').set(data).then(function () {
+  admin.firestore().collection('fooditems').add(data).then(function () {
     console.log("Fooditem was successfully written from editor!");
+  }).catch(function (error) {
+    console.error("Error creating food document: ", error);
   });
 });
 
