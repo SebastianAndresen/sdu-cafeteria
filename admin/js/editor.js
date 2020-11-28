@@ -198,9 +198,15 @@ const editorCreateNew = () => {
 
 const editorCreate = (itemid) => {
     console.log("CREATE NEW DOCUMENT");
-    adminCreateFood(editorAsJSON()).catch(err => {
+    let editorData = editorAsJSON();
+    editorData.lastreset = editorData.lastedit;
+    editorData.user_upvotes = [];
+    editorData.user_downvotes = [];
+    editorData.user_favorites = [];
+    adminCreateFood(editorData).catch(err => {
         console.log('ERROR: ', err.message);
     });
+    closeEditor();
 }
 
 const editorSave = () => {
@@ -211,6 +217,5 @@ const editorSave = () => {
 const editorCancel = () => {
     if (confirm("Are you sure you want to cancel?")) {
         closeEditor();
-        clearEditor();
     }
 }
