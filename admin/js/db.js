@@ -22,7 +22,6 @@ const foodItemCollection = 'fooditems';
 db.collection(foodItemCollection).onSnapshot(snapshot => {
     snapshot.docChanges().forEach(change => {
         if (change.type === 'added') {
-            console.log("admin: food added");
             renderFoodItem(change.doc.data(), change.doc.id);
         }
         if (change.type === 'modified') {

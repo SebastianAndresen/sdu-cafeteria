@@ -39,8 +39,9 @@ const containsIntArrToStringArr = (int_arr) => {
     return res;
 }
 
+const foodItemList = document.querySelector('#food_item_list');
+
 const renderFoodItem = (data, id) => {
-    console.log(data);
 
     let dataToKeep = {
         id: id,
@@ -56,7 +57,7 @@ const renderFoodItem = (data, id) => {
     }
 
     const html = `
-        <div id="${id}" class="fooditem card-panel white row" data-cat="${data.category}" data-id="${id}" data-info='${JSON.stringify(dataToKeep)}'>
+        <div id="${id}" class="fooditem card-panel white row" data-title="${data.title}" data-cat="${data.category}" data-id="${id}" data-info='${JSON.stringify(dataToKeep)}'>
             <table>
                 <tr>
                     <td rowspan="4" colspan="3" class="fooditemImage">
@@ -96,8 +97,20 @@ const renderFoodItem = (data, id) => {
         </div>
     `;
 
-    document.querySelector('#food_item_list').innerHTML += html;
+    //foodItemList.innerHTML += html;
+    addNewItemAlphabetically(html, data.title.toLowerCase());
 }
+
+const addNewItemAlphabetically = (html, title) => {
+    const allFoodItems = foodItemList.children;
+    for (let i = 0; i < allFoodItems.length; i++) {
+        if (title < allFoodItems[i].getAttribute('data-title').toLowerCase()) {
+            foodItemList.children[i].insertAdjacentHTML('beforebegin', html);
+            return;
+        }
+    }
+    foodItemList.innerHTML += html;
+};
 
 const editfooditem = (itemid) => {
     let itemdata = JSON.parse(document.getElementById(itemid).getAttribute('data-info'))
