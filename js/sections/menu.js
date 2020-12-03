@@ -16,19 +16,21 @@ const renderFoodItem = (data, id) => {
     const isFavorite = data.user_favorites.includes(user);
 
     const html = `
-        <div class="fooditem card-panel white row" data-id="${id}">
+        <div class="fooditem" data-id="${id}">
             <img src="${data.image}" alt="${data.title} image">
-            <div class="food-title">${data.title}</div>
-            <div class="food-diets">${data.diets}</div>
-            <div class="food-allergies">${data.allergies}</div>
-            <div class="food-price">${data.price}</div>
-
-            <div class="food-upvotes">Upvotes: ${data.user_upvotes.length}</div>
-            <div class="food-downvotes">Downvotes: ${data.user_downvotes.length}</div>
+           <div>
+            <div class="food-title card-data">${data.title}</div>
+            <div class="food-diets card-data">${data.diets}</div>
+            <div class="food-allergies card-data">${data.allergies}</div>
+            <div class="food-price card-data">${data.price}</div>
+           
+            <div class="food-upvotes card-data">Upvotes: ${data.user_upvotes.length}</div>
+            <div class="food-downvotes card-data">Downvotes: ${data.user_downvotes.length}</div>
 
             <i class="btn_upvote material-icons${isUpvoted ? ' active' : ''}" data-id="${id}" data-upvoted="${isUpvoted}">arrow_circle_up</i>
             <i class="btn_downvote material-icons${isDownvoted ? ' active' : ''}" data-id="${id}" data-downvoted="${isDownvoted}">arrow_circle_down</i>
             <i class="btn_favorite material-icons${isFavorite ? ' active' : ''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
+           </div>
         </div>
     `;
 
