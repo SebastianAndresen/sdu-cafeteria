@@ -21,6 +21,7 @@ const renderFoodItem = (data, id) => {
         image: data.image,
         price: data.price,
         desc: data.desc,
+        contains: data.contains,
         upvotes: data.user_upvotes.length,
         downvotes: data.user_downvotes.length,
         score: ((data.user_upvotes.length + data.user_downvotes.length) > 4 ? (Math.floor(data.user_upvotes.length / (data.user_upvotes.length + data.user_downvotes.length) * 100) / 10) : '-'),
@@ -182,6 +183,18 @@ btn.addEventListener('click', () => {
     });
 });*/
 
+const singleFoodWindow = document.getElementById('food_single');
+const singleFoodCategory = document.getElementById('food_single_category');
+const foodSingleTitle = document.getElementById('food_single_title');
+const foodSingleImg = document.getElementById('food_single_img');
+const foodSinglePrice = document.getElementById('food_single_price');
+const foodSingleDesc = document.getElementById('food_single_desc');
+const foodSingleContains = document.getElementById('food_single_contains');
+const foodSingleScore = document.getElementById('food_single_score');
+const foodSingleBtnUpvote = document.getElementById('food_single_upvote');
+const foodSingleBtnDownvote = document.getElementById('food_single_downvote');
+const foodSingleBtnFavorite = document.getElementById('food_single_favorite');
+
 const foodcategories = [
     "Dish of The Day",
     "Cold Dishes",
@@ -195,16 +208,32 @@ const foodcategories = [
     "Drinks"
 ];
 
-const singleFoodWindow = document.getElementById('food_single');
-const singleFoodCategory = document.getElementById('food_single_category');
-const foodSingleTitle = document.getElementById('food_single_title');
-const foodSingleImg = document.getElementById('food_single_img');
-const foodSinglePrice = document.getElementById('food_single_price');
-const foodSingleDesc = document.getElementById('food_single_desc');
-const foodSingleScore = document.getElementById('food_single_score');
-const foodSingleBtnUpvote = document.getElementById('food_single_upvote');
-const foodSingleBtnDownvote = document.getElementById('food_single_downvote');
-const foodSingleBtnFavorite = document.getElementById('food_single_favorite');
+const containsFoodString = [
+    'Diary',
+    'Eggs',
+    'Tree nuts',
+    'Peanuts',
+    'Shellfish',
+    'Wheat',
+    'Soy',
+    'Fish',
+    'Any Meat',
+    'Non-Halal Meat',
+    'Any Sugar',
+    'High Sugar Content',
+    'Any Gluten',
+    'High Gluten Content',
+    'Any Calories',
+    'High Calories Content'
+];
+
+const containsIntArrToStringArr = (int_arr) => {
+    let res = [];
+    for (let i = 0; i < int_arr.length; i++) {
+        res.push(containsFoodString[int_arr[i]]);
+    }
+    return res;
+}
 
 const openFoodSingle = (itemid) => {
     let itemdata = JSON.parse(document.getElementById(itemid).getAttribute('data-jsoncontent'));
@@ -213,6 +242,7 @@ const openFoodSingle = (itemid) => {
     foodSingleImg.src = itemdata.image;
     foodSinglePrice.innerHTML = "PRICE: " + itemdata.price;
     foodSingleDesc.innerHTML = "DESCRIPTION: " + itemdata.desc;
+    foodSingleContains.innerHTML = "CONTAINS: " + containsIntArrToStringArr(itemdata.contains);
     foodSingleScore.innerHTML = "SCORE: " + itemdata.score;
 
     foodSingleBtnUpvote.innerHTML = itemdata.upvotes;
