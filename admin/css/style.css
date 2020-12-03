@@ -111,7 +111,7 @@ nav .sidenav-trigger{
 }
 
 #food_item_list td {
-  vertical-align: bottom;
+  vertical-align: top;
 }
 
 #food_item_list table h4,
@@ -127,6 +127,7 @@ nav .sidenav-trigger{
 #food_item_list tr td:last-child,
 #food_item_list table button {
   float: right;
+  min-width: 100px;
 }
 
 #food_item_list .fooditemImage {
