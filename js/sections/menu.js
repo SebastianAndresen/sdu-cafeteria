@@ -15,9 +15,25 @@ const renderFoodItem = (data, id) => {
     const isDownvoted = data.user_downvotes.includes(user);
     const isFavorite = data.user_favorites.includes(user);
 
+    const jsoncontent = {
+        category: data.category,
+        title: data.title,
+        image: data.image,
+        price: data.price,
+        desc: data.desc,
+        upvotes: data.user_upvotes.length,
+        downvotes: data.user_downvotes.length,
+        score: ((data.user_upvotes.length + data.user_downvotes.length) > 4 ? (Math.floor(data.user_upvotes.length / (data.user_upvotes.length + data.user_downvotes.length) * 100) / 10) : '-'),
+        personal: {
+            upvote: data.user_upvotes.includes(user),
+            downvote: data.user_downvotes.includes(user),
+            favorite: data.user_favorites.includes(user)
+        }
+    };
+
     const html = `
-        <div class="fooditem" data-id="${id}">
-            <img src="${data.image}" alt="${data.title} image">
+        <div class="fooditem" data-id="${id}" id="${id}" data-jsoncontent='${JSON.stringify(jsoncontent)}'>
+            <img src="${data.image}" alt="${data.title} image" onclick="openFoodSingle('${id}');">
            <div>
             <div class="food-title card-data">${data.title}</div>
             <div class="food-diets card-data">${data.diets}</div>
@@ -166,4 +182,49 @@ btn.addEventListener('click', () => {
     });
 });*/
 
+const foodcategories = [
+    "Dish of The Day",
+    "Cold Dishes",
+    "Sandwiches",
+    "Nordic Revival",
+    "Grab'n Go",
+    "Salad Bar",
+    "Fruit",
+    "Bake-of",
+    "Snacks",
+    "Drinks"
+];
 
+const singleFoodWindow = document.getElementById('food_single');
+const singleFoodCategory = document.getElementById('food_single_category');
+const foodSingleTitle = document.getElementById('food_single_title');
+const foodSingleImg = document.getElementById('food_single_img');
+const foodSinglePrice = document.getElementById('food_single_price');
+const foodSingleDesc = document.getElementById('food_single_desc');
+const foodSingleScore = document.getElementById('food_single_score');
+const foodSingleBtnUpvote = document.getElementById('food_single_upvote');
+const foodSingleBtnDownvote = document.getElementById('food_single_downvote');
+const foodSingleBtnFavorite = document.getElementById('food_single_favorite');
+
+const openFoodSingle = (itemid) => {
+    let itemdata = JSON.parse(document.getElementById(itemid).getAttribute('data-jsoncontent'));
+    singleFoodCategory.innerHTML = "CATEGORY: " + (foodcategories[itemdata.category] || '-');
+    foodSingleTitle.innerHTML = "TITLE: " + itemdata.title;
+    foodSingleImg.src = itemdata.image;
+    foodSinglePrice.innerHTML = "PRICE: " + itemdata.price;
+    foodSingleDesc.innerHTML = "DESCRIPTION: " + itemdata.desc;
+    foodSingleScore.innerHTML = "SCORE: " + itemdata.score;
+
+    foodSingleBtnUpvote.innerHTML = itemdata.upvotes;
+    foodSingleBtnDownvote.innerHTML = itemdata.downvotes;
+
+    itemdata.personal.upvote ? foodSingleBtnUpvote.classList.add('active') : foodSingleBtnUpvote.classList.remove('active');
+    itemdata.personal.downvote ? foodSingleBtnDownvote.classList.add('active') : foodSingleBtnDownvote.classList.remove('active');
+    itemdata.personal.favorite ? foodSingleBtnFavorite.classList.add('active') : foodSingleBtnFavorite.classList.remove('active');
+
+    singleFoodWindow.classList.remove("singlehidden");
+};
+
+const closeFoodSingle = () => {
+    singleFoodWindow.classList.add("singlehidden");
+}
