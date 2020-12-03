@@ -228,9 +228,9 @@ const containsFoodString = [
 ];
 
 const containsIntArrToStringArr = (int_arr) => {
-    let res = [];
+    let res = '';
     for (let i = 0; i < int_arr.length; i++) {
-        res.push(containsFoodString[int_arr[i]]);
+        res += `<div>${containsFoodString[int_arr[i]]}</div>`;
     }
     return res;
 }
