@@ -44,9 +44,9 @@ const renderFoodItem = (data, id) => {
             <div class="food-upvotes card-data">Upvotes: ${data.user_upvotes.length}</div>
             <div class="food-downvotes card-data">Downvotes: ${data.user_downvotes.length}</div>
 
-            <i class="btn_upvote material-icons${isUpvoted ? ' active' : ''}" data-id="${id}" data-upvoted="${isUpvoted}">arrow_circle_up</i>
-            <i class="btn_downvote material-icons${isDownvoted ? ' active' : ''}" data-id="${id}" data-downvoted="${isDownvoted}">arrow_circle_down</i>
-            <i class="btn_favorite material-icons${isFavorite ? ' active' : ''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
+            <i class="btn_upvote card-data material-icons${isUpvoted ? ' active' : ''}" data-id="${id}" data-upvoted="${isUpvoted}">arrow_circle_up</i>
+            <i class="btn_downvote card-data material-icons${isDownvoted ? ' active' : ''}" data-id="${id}" data-downvoted="${isDownvoted}">arrow_circle_down</i>
+            <i class="btn_favorite card-data material-icons${isFavorite ? ' active' : ''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
            </div>
         </div>
     `;
