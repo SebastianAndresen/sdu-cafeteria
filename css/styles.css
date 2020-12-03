@@ -61,6 +61,8 @@ nav .sidenav-trigger{
   grid-template-areas: "image details delete";
   position: relative;
   visibility: hidden;
+
+
 }
 .recipe img{
   grid-area: image;
@@ -114,6 +116,8 @@ form .input-field{
   visibility: hidden;
 }
 
+/*Navigation*/
+
 .bot-nav{
   position: fixed;
   bottom: 0;
@@ -146,6 +150,10 @@ form .input-field{
   transition: background-color 0.1s ease-in-out;
 }
 
-.nav__link:hover{
+.nav__link:hover {
   background: whitesmoke;
   opacity: 0.7;
+}
+
+/*menu cards*/
+
