@@ -1,29 +1,56 @@
 
+const containsFoodString = [
+    'Diary',
+    'Eggs',
+    'Tree nuts',
+    'Peanuts',
+    'Shellfish',
+    'Wheat',
+    'Soy',
+    'Fish',
+    'Any Meat',
+    'Non-Halal Meat',
+    'Any Sugar',
+    'High Sugar Content',
+    'Any Gluten',
+    'High Gluten Content',
+    'Any Calories',
+    'High Calories Content'
+];
+
+const containsIntArrToStringArr = (int_arr) => {
+    let res = [];
+    for (let i = 0; i < int_arr.length; i++) {
+        res.push(containsFoodString[int_arr[i]]);
+    }
+    return res;
+}
+
 const renderFoodItem = (data, id) => {
     console.log(data);
 
     let dataToKeep = {
         id: id,
-        allergies: data.allergies,
+        contains: data.contains,
         category: data.category,
         daily_reset: data.daily_reset,
-        diets: data.diets,
         image: data.image,
         lastreset: data.lastreset,
         price: data.price,
         title: data.title,
-        visible: data.visible
+        visible: data.visible,
+        visibledate: data.visibledate
     }
 
     const html = `
-        <div id="${id}" class="fooditem card-panel white row" data-id="${id}" data-info='${JSON.stringify(dataToKeep)}'>
+        <div id="${id}" class="fooditem card-panel white row" data-cat="${data.category}" data-id="${id}" data-info='${JSON.stringify(dataToKeep)}'>
             <table>
                 <tr>
                     <td rowspan="3" colspan="3" class="fooditemImage">
                         <img src="${data.image ? data.image : 'https://thumbs.dreamstime.com/b/no-photo-available-missing-image-coming-soon-web-39680127.jpg'}" alt="${data.title} image">
                     </td>
                     <td><p class="desc">Title:</p><h4>${data.title ? data.title : 'missing'}</h4></td>
-                    <td><p class="desc">Diets:</p><p>${data.diets ? data.diets : 'missing'}</p></td>
+                    <td rowspan="2"><p class="desc">Contains:</p><p>${data.contains ? containsIntArrToStringArr(data.contains) : 'missing'}</p></td>
                     <td>
                         <button type="button" onclick="editfooditem('${id}')">Edit</button>
                         <p class="subinfo">${'latest edit'}</p>
@@ -31,7 +58,6 @@ const renderFoodItem = (data, id) => {
                 </tr>
                 <tr>
                     <td><p class="desc">Price:</p><p>${data.price ? data.price : 'missing'}</p></td>
-                    <td><p class="desc">Allergies:</p><p>${data.allergies ? data.allergies : 'missing'}</p></td>
                     <td></td>
                 </tr>
                 <tr>
