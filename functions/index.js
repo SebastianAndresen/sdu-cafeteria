@@ -4,8 +4,7 @@ admin.initializeApp();
 
 const userObj = {
     admin: false,
-    diet: [],
-    allergies: [],
+    filters: [],
     notifications: [],
     favorites: []
 };
@@ -66,6 +65,8 @@ exports.downvote = functions.https.onCall((data, context) => {
 
 // ===================== FAVORITE ========================
 exports.favorite = functions.https.onCall((data, context) => {
+    console.log(data.id);
+    console.log(context.auth.id);
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
     }
@@ -80,6 +81,12 @@ exports.favorite = functions.https.onCall((data, context) => {
         });
     }
 });
+/*
+exports.setFilters = functions.https.onCall((data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+  }
+});*/
 
 // ===================== ADMIN FUNCTIONS ========================
 
@@ -107,12 +114,12 @@ exports.setNotifications = functions.https.onCall((data, context) => {
 });
 
 exports.setFilters = functions.https.onCall((data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
-    }
-    return admin.firestore().collection('users').doc(context.auth.uid).update({
-        filters: data
-    });
+  if (!context.auth) {
+      throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+  }
+  return admin.firestore().collection('users').doc(context.auth.uid).update({
+      filters: data
+  });
 });
 
 // auth trigger (new user)
