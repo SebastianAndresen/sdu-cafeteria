@@ -42,8 +42,6 @@ nav .sidenav-trigger{
 }
 
 #favorites{
-  margin-left: auto;
-  margin-right: auto;
   visibility:hidden;
   position: absolute;
   top: 50px;
@@ -99,7 +97,7 @@ nav .sidenav-trigger{
 /* form-styles */
 .add-btn{
   background: var(--title) !important;
-  visibility: visible;
+  visibility: hidden;
 }
 
 input{
