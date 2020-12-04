@@ -6,7 +6,7 @@
   --priceGreen: #789D4A;
   --downvoteRed: #FF2323;
   --upvoteGreen: #00CF5A;
-  font-family: "Brown Regular", sans-serif;
+  font-family: "Brown Bold", sans-serif;
 }
 
 /* layout styles */
@@ -42,6 +42,8 @@ nav .sidenav-trigger{
 }
 
 #favorites{
+  margin-left: auto;
+  margin-right: auto;
   visibility:hidden;
   position: absolute;
   top: 50px;
@@ -97,7 +99,7 @@ nav .sidenav-trigger{
 /* form-styles */
 .add-btn{
   background: var(--title) !important;
-  visibility: hidden;
+  visibility: visible;
 }
 
 input{

@@ -50,7 +50,7 @@ btn.addEventListener('click', () => {
 
 
 // ============= MORTEN ========================
-// render recipe data to DOM
+// Show menu
 
 const sidebar = document.querySelector('.sidenav')
 sidebar.addEventListener('click', evt => {
@@ -119,14 +119,13 @@ $(() => {
         setNotifications(cb_arr);
         messaging.getToken()
             .then(token => {
-                console.log('My token is1:', token);
-                let data = {
+                const data = {
                     token : token,
-                    topic : 'favorites'
+                    topic : e.target.name
                 }
-                subToTopic(data);
+                e.target.checked ? subToTopic(data) : unSubFromTopic(data);
             }).catch(err => {
-            console.log('error fetching token.');
+            console.log('error fetching token:', err);
         });
     });
 });

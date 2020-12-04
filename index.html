@@ -96,6 +96,85 @@
         </a>
     </div>
 
+        <!-- ================== JAKOBS HERUNDER =======  -->
+    <!--<div class="notifications container white grey-text text-darken-1">
+        <h5>Notify</h5>
+        <div>
+            <form action="#">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Favorites</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegan</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegatarian</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Halal</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+        <hr>
+    </div>
+    <div class="preferences container white grey-text text-darken-1">
+        <h5>Diet Preferences</h5>
+        <div>
+            <form action="#">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegetarian</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Vegan</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Halal</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+        <hr>
+        <h5>Allergies</h5>
+        <div>
+            <form action="#">
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Shellfish</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in" />
+                        <span>Nut</span>
+                    </label>
+                </p>
+            </form>
+        </div>
+    </div>
+-->
+    <!-- =================== SLUT JAKOB ================== -->
+
 
 </ul>
 
@@ -134,70 +213,107 @@
 </div>
 
 <div class="filters container grey-text text-darken-1" id="filters">
-    <h5 class="center">Filters</h5>
-    <div class="filters card-panel white row">
-        <form action="#">
-            <p>
-                <label>
-                    <input type="checkbox" class="vegetarian filter-check filled-in" id="vegetarian"
-                           onclick="checkboxClicked('vegetarian')"/>
-                    <span>Vegetarian</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="vegan filter-check filled-in" id="vegan"
-                           onclick="checkboxClicked('vegan')"/>
-                    <span>Vegan</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="halal filter-check filled-in" id="halal"
-                           onclick="checkboxClicked('halal')"/>
-                    <span>Halal</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="meat filter-check filled-in" id="meat"
-                           onclick="checkboxClicked('meat')"/>
-                    <span>Meat Lover</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="seafood filter-check filled-in" id="seafood"
-                           onclick="checkboxClicked('seafood')"/>
-                    <span>Sea Food</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="shellfish filter-check filled-in" id="shellfish"
-                           onclick="checkboxClicked('shellfish')"/>
-                    <span>Shell-fish Allergy</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="nuts filter-check filled-in" id="nuts"
-                           onclick="checkboxClicked('nuts')"/>
-                    <span>Nuts Allergy</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="lactose filter-check filled-in" id="lactose"
-                           onclick="checkboxClicked('lactose')"/>
-                    <span>Lactose Intolerance</span>
-                </label>
-            </p>
-        </form>
-    </div>
-    <div id="filtered" class="container grey-text text-darken-1">
-        <h6 class="center">Filtered:</h6>
-    </div>
+  <h5 class="center">Don't show foods containing:</h5>
+  <div class="filters card-panel white row">
+    <form action="#">
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="dairy" onclick="checkboxClicked(0)"></input>
+                <span>Dairy</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="eggs" onclick="checkboxClicked(1)"></input>
+                <span>Eggs</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="tree-nuts" onclick="checkboxClicked(2)"></input>
+                <span>Tree nuts</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="peanuts" onclick="checkboxClicked(3)"></input>
+                <span>Peanuts</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="shellfish" onclick="checkboxClicked(4)"></input>
+                <span>Shellfish</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="wheat" onclick="checkboxClicked(5)"></input>
+                <span>Wheat</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="soy" onclick="checkboxClicked(6)"></input>
+                <span>Soy</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="fish" onclick="checkboxClicked(7)"></input>
+                <span>Fish</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="meat" onclick="checkboxClicked(8)"></input>
+                <span>Any Meat</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="non-halal" onclick="checkboxClicked(9)"></input>
+                <span>Non-Halal Meat</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="any-sugar" onclick="checkboxClicked(10)"></input>
+                <span>Any Sugar</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="high-sugar" onclick="checkboxClicked(11)"></input>
+                <span>High Sugar Content</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="any-gluten" onclick="checkboxClicked(12)"></input>
+                <span>Any Gluten</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="high-gluten" onclick="checkboxClicked(13)"></input>
+                <span>High Gluten Content</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="any-calories" onclick="checkboxClicked(14)"></input>
+                <span>Any Calories</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" class="filter-check filled-in" id="high-calories" onclick="checkboxClicked(15)"></input>
+                <span>High Calories Content</span>
+            </label>
+        </p>
+    </form>
+  </div>
 </div>
 
 
@@ -271,36 +387,6 @@
 
 <!--<div class="favorites container grey-text text-darken-1" id="favorites">
     <h5 class="center">Favorites (REMOVE ME)</h5>
-</div>-->
-
-<!--<div id="filters">
-    <h5 class="center">Filters</h5>
-    <form action="#">
-        <p>
-            <label>
-                <input type="checkbox" class="filled-in"/>
-                <span>Vegetarian</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="filled-in"/>
-                <span>Vegan</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="filled-in"/>
-                <span>Halal</span>
-            </label>
-        </p>
-        <p>
-            <label>
-                <input type="checkbox" class="filled-in"/>
-                <span>Shell-fish allergy</span>
-            </label>
-        </p>
-    </form>
 </div>-->
 
 
