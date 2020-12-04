@@ -5,9 +5,6 @@ const favorites = document.querySelector('#favorites');
 const renderFavoriteItem = (data, id) => {
     if (!data.visible) return;
 
-    //console.log("data: ", data);
-    //console.log("id: ", id);
-
     const isFavorite = data.user_favorites.includes(user);
     if(isFavorite) {
         const html = `
@@ -29,10 +26,8 @@ favorites.addEventListener('click', evt => {
     const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
-        //console.log(id);
-        //console.log(user);
-        switch (evt.target.className.split(" ")[0]) {
-            case 'btn_favorite':
+        //switch (evt.target.className.split(" ")[0]) {
+          //  case 'btn_favorite':
                 const favorited = evt.target.getAttribute('data-favorite') == 'true';
                 favorite({
                     id,
@@ -41,30 +36,31 @@ favorites.addEventListener('click', evt => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR:', err.message);
                 });
-                break;
-            default:
-                console.log(`Unknown class: ${evt.target.className.split(" ")[0]}`);
-        }
+            //    break;
+            //default:
+              //  console.log(`Unknown class: ${evt.target.className.split(" ")[0]}`);
+        //}
     }
 });
 
 const modifyFavoriteItem = (data, id) => {
     if (!data.visible) return;
-    console.log("modifyFavoriteItemCalled");
+
     const favoriteitem = document.querySelector(`.favoriteitem[data-id=${id}]`);
-    // TODO - update image
-    //favoriteitem.querySelector('.favorite-title').innerHTML = data.title;
     const isFavorite = data.user_favorites.includes(user);
+    
     if (isFavorite){
+        //Remove in case already rendered
+        removeFavoriteItem(id)
+
         renderFavoriteItem(data, id);
     }
-    else {
+    else {        
         removeFavoriteItem(id);
     }
 }
 
 const removeFavoriteItem = (id) => {
-    console.log("Removed favorite");
     const favoriteitem = document.querySelector(`.favoriteitem[data-id=${id}]`);
     if(favoriteitem!=null){
         favoriteitem.remove();

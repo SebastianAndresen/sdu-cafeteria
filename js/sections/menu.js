@@ -15,13 +15,19 @@ const renderFoodItem = (data, id) => {
     const isDownvoted = data.user_downvotes.includes(user);
     const isFavorite = data.user_favorites.includes(user);
 
+    var ingredients ='';
+
+    for(let i = 0; i<data.contains.length; i++){
+        ingredients+=consoleString[data.contains[i]];
+        ingredients+=', ';
+    };
+
     const html = `
         <div class="fooditem card-panel white row" data-id="${id}">
             <img src="${data.image}" alt="${data.title} image">
             <div class="food-title">${data.title}</div>
-            <div class="food-diets">${data.diets}</div>
-            <div class="food-allergies">${data.allergies}</div>
-            <div class="food-price">${data.price}</div>
+            <div class="food-price">Price: ${data.price}</div>
+            <div class="food-ingredients">Ingredients: ${ingredients}</div>
 
             <div class="food-upvotes">Upvotes: ${data.user_upvotes.length}</div>
             <div class="food-downvotes">Downvotes: ${data.user_downvotes.length}</div>
@@ -34,7 +40,7 @@ const renderFoodItem = (data, id) => {
 
     if (data.category < foodcategoriesDOM.length) ;
     foodcategoriesDOM[data.category].innerHTML += html;
-}
+};
 
 fooditems.addEventListener('click', evt => {
     const upvote = firebase.app().functions('europe-west1').httpsCallable('upvote');
@@ -42,8 +48,6 @@ fooditems.addEventListener('click', evt => {
     const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
-        console.log(id);
-        console.log(user);
         switch (evt.target.className.split(" ")[0]) {
             case 'btn_upvote':
                 const upvoted = evt.target.getAttribute('data-upvoted') == 'true';
@@ -92,15 +96,12 @@ fooditems.addEventListener('click', evt => {
 
 const modifyFoodItem = (data, id) => {
     if (!data.visible) return;
-    console.log("modifyFoodItemCalled");
 
     const fooditem = document.querySelector(`.fooditem[data-id=${id}]`);
     // TODO - update image
     fooditem.querySelector('.food-title').innerHTML = data.title;
-    fooditem.querySelector('.food-diets').innerHTML = data.diets;
-    fooditem.querySelector('.food-allergies').innerHTML = data.allergies;
+    fooditem.querySelector('.food-ingredients').innerHTML = data.contains;
     fooditem.querySelector('.food-price').innerHTML = data.price;
-
     fooditem.querySelector('.food-upvotes').innerHTML = `Upvotes: ${data.user_upvotes.length}`;
     fooditem.querySelector('.food-downvotes').innerHTML = `Downvotes: ${data.user_downvotes.length}`;
 
@@ -134,8 +135,11 @@ const modifyFoodItem = (data, id) => {
     }*/
 }
 
-const removeFoodItem = () => {
-    console.log("REMOVE FOOD ITEM");
+const removeFoodItem = (id) => {
+    const fooditem = document.querySelector(`.fooditem[data-id=${id}]`);
+    if(fooditem!=null){
+        fooditem.remove();
+    }
 }
 
 const renderUser = (data, id) => {
@@ -145,6 +149,23 @@ const renderUser = (data, id) => {
          <p>${JSON.stringify(data, null, 20)}</p>`;
     userInfo.innerHTML = html;
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Functions that are currently not used
 
 //cloudbased upvote function
 /*const upvoteBtn = document.querySelector('.btn_upvote');

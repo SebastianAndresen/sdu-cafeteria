@@ -4,8 +4,7 @@ admin.initializeApp();
 
 const userObj = {
     admin: false,
-    diet: [],
-    allergies: [],
+    filters: [],
     notifications: [],
     favorites: []
 };
@@ -89,6 +88,15 @@ exports.setNotifications = functions.https.onCall((data, context) => {
     return admin.firestore().collection('users').doc(context.auth.uid).update({
         notifications: data
     });
+});
+
+exports.setFilters = functions.https.onCall((data, context) => {
+  if (!context.auth) {
+      throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+  }
+  return admin.firestore().collection('users').doc(context.auth.uid).update({
+      filters: data
+  });
 });
 
 // auth trigger (new user)
