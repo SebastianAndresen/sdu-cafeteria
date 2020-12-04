@@ -184,7 +184,15 @@ nav .sidenav-trigger{
 }
 
 #noContentInCategory {
-  
+  margin-top: 140px;
+  padding: 40px;
+  text-align: center;
+  color: grey;
+  display: none;
+}
+
+#noContentInCategory.show {
+  display: block;
 }
 
   /*** **************** ***/

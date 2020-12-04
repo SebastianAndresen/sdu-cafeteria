@@ -16,13 +16,22 @@ for (let i = 0; i < sidebar_btns.length; i++) {
     });
 }
 
+const noContentInCategory = document.getElementById('noContentInCategory');
+
 const filterFoodItems = () => {
     const allFoodItems = foodItemList.children;
+    let itemsVisible = 0;
     for (let i = 0; i < allFoodItems.length; i++) {
         if (allFoodItems[i].getAttribute('data-cat') == currentCategory || currentCategory == 10) {
             allFoodItems[i].classList.remove('filteredAway');
+            itemsVisible++;
         } else {
             allFoodItems[i].classList.add('filteredAway');
         }
+    }
+    if (itemsVisible) {
+        noContentInCategory.classList.remove('show');
+    } else {
+        noContentInCategory.classList.add('show');
     }
 }
