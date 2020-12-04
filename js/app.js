@@ -50,7 +50,7 @@ btn.addEventListener('click', () => {
 
 
 // ============= MORTEN ========================
-// render recipe data to DOM
+// Show menu
 
 const sidebar = document.querySelector('.sidenav')
 sidebar.addEventListener('click', evt => {

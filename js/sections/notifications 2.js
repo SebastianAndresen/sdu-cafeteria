@@ -1,4 +1,3 @@
-/*
 console.log("NOTIFICATIONS SCRIPT LOADED v1");
 
 const notifications = document.querySelector('#notifications');
@@ -8,11 +7,11 @@ notifications.addEventListener('click', evt => {
 
         const notifyVegan = firebase.app().functions('europe-west1').httpsCallable('notifyVegan');
         const notifyVegetarian = firebase.app().functions('europe-west1').httpsCallable('notifyVegetarian');
-        const notifyFavorites = firebase.app().functions('europe-west1').httpsCallable('notifyFavorite');
+        const notifyfavourites = firebase.app().functions('europe-west1').httpsCallable('notifyfavourites');
 
         const id = evt.target.getAttribute('data-id');
-        console.log('id: ', id);
-        console.log('user: ', user);
+        console.log(id);
+        console.log(user);
         switch(evt.target.className.split(" ")[0]){
             case 'vegan':
                 notifyVegan({
@@ -32,10 +31,10 @@ notifications.addEventListener('click', evt => {
                     console.log('ERROR: ', err.message);
                 });
                 break;
-            case 'favorites':
-                notifyFavorites({
+            case 'favourites':
+                notifyfavourites({
                     id,
-                    notifyFavorites
+                    notifyfavourites
                 }).catch(err => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR: ', err.message);
@@ -45,4 +44,4 @@ notifications.addEventListener('click', evt => {
                 break;
         }
     }
-});*/
+});

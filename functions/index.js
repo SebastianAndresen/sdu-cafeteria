@@ -65,6 +65,8 @@ exports.downvote = functions.https.onCall((data, context) => {
 
 // ===================== FAVORITE ========================
 exports.favorite = functions.https.onCall((data, context) => {
+    console.log(data.id);
+    console.log(context.auth.id);
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
     }
@@ -79,6 +81,12 @@ exports.favorite = functions.https.onCall((data, context) => {
         });
     }
 });
+/*
+exports.setFilters = functions.https.onCall((data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+  }
+});*/
 
 // ===================== ADMIN FUNCTIONS ========================
 
@@ -127,8 +135,8 @@ exports.deleteUser = functions.auth.user().onDelete(user => {
     return doc.delete();
 
 });
-
-/*exports.notifyVegan = functions.https.onCall((data, context) => {
+/*
+exports.notifyVegan = functions.https.onCall((data, context) => {
   console.log('TODO: notify vegan')
   if (!context.auth) {
     throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
