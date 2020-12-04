@@ -81,12 +81,6 @@ exports.favorite = functions.https.onCall((data, context) => {
         });
     }
 });
-/*
-exports.setFilters = functions.https.onCall((data, context) => {
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
-  }
-});*/
 
 // ===================== ADMIN FUNCTIONS ========================
 
@@ -154,6 +148,7 @@ exports.unSubFromTopic = functions.https.onCall(((data, context) => {
     return `unsubscribed ${context.auth.uid} from ${data.topic}`;
 }));
 
+// sends message when fooditem is created to all subscribers to topic 'favorites' [DEVELOPMENT]
 exports.broadcastToSubscribers = functions.firestore.document('fooditems/{fooditemId}')
     .onCreate(snapshot => {
         const fooditem = snapshot.data();
@@ -167,59 +162,51 @@ exports.broadcastToSubscribers = functions.firestore.document('fooditems/{foodit
         }
         return admin.messaging().send(payload);
     });
-/*exports.notifyVegan = functions.https.onCall((data, context) => {
-  console.log('TODO: notify vegan')
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
-  }
-});
 
-exports.notifyVegetarian = functions.https.onCall((data, context) => {
-  console.log('TODO: notify vegetarian')
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
-  }
-});
+exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
+    //listens on every fooditem update
+    .onUpdate((change, context) => {
+        const dataAfter = change.after.data();
+        const dataBefore = change.before.data();
 
-exports.notifyFavorites = functions.https.onCall((data, context) => {
-  console.log('TODO: notify favorites')
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
-  }
-});
+        // if the updated data isn't changing visibility (and the change isn't setting visibility to 1, return null
+        if (dataAfter.visible == dataBefore.visible || dataAfter.visible != 1) {
+            console.log('we are only interested in events where visibility changes to 1..');
+            return null;
+        }
+        /*
+        dairy = 0
+        eggs = 1,
+        shellfish = 4
+        fish = 7
+        meat = 8
+         */
+        let vegetarian = [4, 7, 8]; // restrictions: shellfish, fish, meat
+        let vegan = [0, 1, ...vegetarian]; //restrictions: dairy, eggs + vegetarian
 
-exports.filterVegan = functions.https.onCall((data, context) => {
-  console.log('TODO: filter vegan')
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
-  }
-});
+        /**
+         * testcases:
+         * vegetarian: include any except 4,7,8
+         * vegan: include 0 or 1
+         */
+        /*
+        console.log('vegetarian must not include: ', vegetarian);
+        console.log('vegan must not include: ', vegan);
+        */
+        if (vegan.some(restriction => dataAfter.contains.includes(restriction))) {
+            //fooditem contains at least one of 0,1,4,7,8 = vegan
+            console.log('this fooditem isnt vegan..');
+            if (!vegetarian.some(restriction => dataAfter.contains.includes(restriction))) {
+                //fooditem does not contain 0,1 - but does have at least one of 4,7,8 = vegetarian
+                console.log('.. but it is vegetarian!');
+            }
+        } else console.log('this fooditem is neither vegan or vegetarian!');
+        //if dataAfter.contains.includes()
+        //console.log('visibility changed to 1!!');
+        console.log('change before: ',change.before.data().visible);
+        console.log('change after: ',change.after.data().visible);
+        //const foodItem = snapshot.data();
+        //const notification =
+    });
 
-exports.filterVegetarian = functions.https.onCall((data, context) => {
-  console.log('TODO: filter vegetarian')
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
-  }
-});
-
-exports.filterNuts = functions.https.onCall((data, context) => {
-  console.log('TODO: filter nuts')
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
-  }
-});
-
-exports.filterHalal = functions.https.onCall((data, context) => {
-  console.log('TODO: filter halal')
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
-  }
-});
-
-exports.filterShellFish = functions.https.onCall((data, context) => {
-  console.log('TODO: filter shell-fish')
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
-  }
-});*/
 
