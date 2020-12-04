@@ -237,13 +237,13 @@ const containsIntArrToStringArr = (int_arr) => {
 
 const openFoodSingle = (itemid) => {
     let itemdata = JSON.parse(document.getElementById(itemid).getAttribute('data-jsoncontent'));
-    singleFoodCategory.innerHTML = "CATEGORY: " + (foodcategories[itemdata.category] || '-');
-    foodSingleTitle.innerHTML = "TITLE: " + itemdata.title;
+    singleFoodCategory.innerHTML = (foodcategories[itemdata.category] || '-');
+    foodSingleTitle.innerHTML = itemdata.title;
     foodSingleImg.src = itemdata.image;
-    foodSinglePrice.innerHTML = "PRICE: " + itemdata.price;
-    foodSingleDesc.innerHTML = "DESCRIPTION: " + itemdata.desc;
-    foodSingleContains.innerHTML = "CONTAINS: " + containsIntArrToStringArr(itemdata.contains);
-    foodSingleScore.innerHTML = "SCORE: " + itemdata.score;
+    foodSinglePrice.innerHTML = itemdata.price;
+    foodSingleDesc.innerHTML = itemdata.desc;
+    foodSingleContains.innerHTML = containsIntArrToStringArr(itemdata.contains);
+    foodSingleScore.innerHTML = itemdata.score;
 
     foodSingleBtnUpvote.innerHTML = itemdata.upvotes;
     foodSingleBtnDownvote.innerHTML = itemdata.downvotes;
