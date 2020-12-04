@@ -33,7 +33,6 @@
 .fooditem {
   display: grid;
   padding: 0;
-  margin: 25px auto;
   border-radius: 15px 15px 15px 15px;
   max-width: 500px;
   grid-template-columns: 25% 25% 25% 25%;
