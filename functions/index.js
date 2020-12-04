@@ -134,6 +134,7 @@ exports.subToTopic = functions.https.onCall((data, context) => {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
     }
     admin.messaging().subscribeToTopic(data.token, data.topic);
+    console.log(`subscribed ${context.auth.uid} to ${data.topic}`);
     return `subscribed ${context.auth.uid} to ${data.topic}`;
 });
 
@@ -142,6 +143,7 @@ exports.unSubFromTopic = functions.https.onCall(((data, context) => {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
     }
     admin.messaging().unsubscribeFromTopic(data.token, data.topic);
+     console.log(`unsubscribed ${context.auth.uid} from ${data.topic}`);
     return `unsubscribed ${context.auth.uid} from ${data.topic}`;
 }));
 
