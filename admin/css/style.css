@@ -3,8 +3,6 @@
   --primary: #272727;
   --secondary: #747474;
   --orange: #ff6525;
-  --yellow: #ffe400;
-  --green: #14a76c;
 }
 
   /*** **** ***/
@@ -179,6 +177,14 @@ nav .sidenav-trigger{
 
 #food_item_list i.starscore {
   color: orange;
+}
+
+#food_item_list .filteredAway {
+  display: none;
+}
+
+#noContentInCategory {
+  
 }
 
   /*** **************** ***/

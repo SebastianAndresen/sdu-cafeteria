@@ -1,4 +1,3 @@
-console.log('admin db loaded v2');
 
 // offline data
 db.enablePersistence()
