@@ -4,8 +4,7 @@ admin.initializeApp();
 
 const userObj = {
     admin: false,
-    diet: [],
-    allergies: [],
+    filters: [],
     notifications: [],
     favorites: []
 };
@@ -66,6 +65,8 @@ exports.downvote = functions.https.onCall((data, context) => {
 
 // ===================== FAVORITE ========================
 exports.favorite = functions.https.onCall((data, context) => {
+    console.log(data.id);
+    console.log(context.auth.id);
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
     }
@@ -80,6 +81,12 @@ exports.favorite = functions.https.onCall((data, context) => {
         });
     }
 });
+/*
+exports.setFilters = functions.https.onCall((data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+  }
+});*/
 
 // ===================== ADMIN FUNCTIONS ========================
 
@@ -106,6 +113,15 @@ exports.setNotifications = functions.https.onCall((data, context) => {
     });
 });
 
+exports.setFilters = functions.https.onCall((data, context) => {
+  if (!context.auth) {
+      throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+  }
+  return admin.firestore().collection('users').doc(context.auth.uid).update({
+      filters: data
+  });
+});
+
 // auth trigger (new user)
 exports.newUser = functions.auth.user().onCreate(user => {
     console.log('creating user..', user.uid);
@@ -120,6 +136,37 @@ exports.deleteUser = functions.auth.user().onDelete(user => {
 
 });
 
+exports.subToTopic = functions.https.onCall((data, context) => {
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+    }
+    admin.messaging().subscribeToTopic(data.token, data.topic);
+    console.log(`subscribed ${context.auth.uid} to ${data.topic}`);
+    return `subscribed ${context.auth.uid} to ${data.topic}`;
+});
+
+exports.unSubFromTopic = functions.https.onCall(((data, context) => {
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+    }
+    admin.messaging().unsubscribeFromTopic(data.token, data.topic);
+     console.log(`unsubscribed ${context.auth.uid} from ${data.topic}`);
+    return `unsubscribed ${context.auth.uid} from ${data.topic}`;
+}));
+
+exports.broadcastToSubscribers = functions.firestore.document('fooditems/{fooditemId}')
+    .onCreate(snapshot => {
+        const fooditem = snapshot.data();
+        const notification = admin.messaging.Notification = {
+            title: 'New Fooditem Available!',
+            body: fooditem.title
+        }
+        const payload = admin.messaging.Message = {
+            notification,
+            topic: 'favorites'
+        }
+        return admin.messaging().send(payload);
+    });
 /*exports.notifyVegan = functions.https.onCall((data, context) => {
   console.log('TODO: notify vegan')
   if (!context.auth) {

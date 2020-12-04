@@ -50,7 +50,7 @@ btn.addEventListener('click', () => {
 
 
 // ============= MORTEN ========================
-// render recipe data to DOM
+// Show menu
 
 const sidebar = document.querySelector('.sidenav')
 sidebar.addEventListener('click', evt => {
@@ -114,6 +114,18 @@ $(() => {
     $('#notifications').on('click', ':checkbox', e => {
         const cb_arr = [].slice.call(document.querySelectorAll('input:checked')).map(e => e.name);
         const setNotifications = firebase.app().functions('europe-west1').httpsCallable('setNotifications');
+        const subToTopic = firebase.app().functions('europe-west1').httpsCallable('subToTopic');
+        const unSubFromTopic = firebase.app().functions('europe-west1').httpsCallable('unSubFromTopic');
         setNotifications(cb_arr);
+        messaging.getToken()
+            .then(token => {
+                const data = {
+                    token : token,
+                    topic : e.target.name
+                }
+                e.target.checked ? subToTopic(data) : unSubFromTopic(data);
+            }).catch(err => {
+            console.log('error fetching token:', err);
+        });
     });
 });

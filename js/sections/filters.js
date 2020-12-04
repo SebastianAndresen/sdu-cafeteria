@@ -1,9 +1,138 @@
 console.log("FILTERS SCRIPT LOADED v1");
 
-const filters = document.querySelector('#filters');
-
+//Array for storing user filters
 var filterArray = [];
 
+const filters = document.querySelector('#filters');
+
+//IDs of filter checkboxes
+const filterID = [
+    'dairy',
+    'eggs',
+    'tree-nuts',
+    'peanuts',
+    'shellfish',
+    'wheat',
+    'soy',
+    'fish',
+    'meat',
+    'non-halal',
+    'any-sugar',
+    'high-sugar',
+    'any-gluten',
+    'high-gluten',
+    'any-calories',
+    'high-calories'
+];
+
+//Strings to be written to console
+const consoleString = [
+    'dairy',
+    'eggs',
+    'tree nuts',
+    'peanuts',
+    'shellfish',
+    'wheat',
+    'soy',
+    'fish',
+    'meat',
+    'non-halal meat',
+    'sugar',
+    'lots of sugar',
+    'gluten',
+    'lots of gluten',
+    'calories',
+    'lots of calories'
+];
+
+//Initialize filter settings from database
+const initFilters = (userData) =>{
+    //Get userfilters from database
+    filterArray = userData.filters;
+
+    //Set filtercheckboxes according to userdata
+    for( var i = 0; i < filterArray.length; i++){
+        document.getElementById(filterID[filterArray[i]]).checked = true;
+    }
+
+    //Run filterfunction
+    filterFunction(filterArray);
+};
+
+function filterFunction(array){
+    const setFilters = firebase.app().functions('europe-west1').httpsCallable('setFilters');
+    setFilters(filterArray, user);
+    db.collection("fooditems").get().then((snapshot)=>{
+
+        snapshot.docs.forEach(doc => {
+
+            var showDish = true;
+
+            //Loop through the filters
+            for( var i = 0; i < filterArray.length; i++){
+
+                //If the dish contains any ingredients that user has filtered away => removeFromDom
+                if(doc.data().contains.includes(filterArray[i])){
+                    showDish = false;
+                    removeFoodItem(doc.id);
+                    break;
+                }
+            }
+
+            //If dish doesn't contain any ingredients that user has filtered away => render to DOM
+            if(showDish){
+                //Remove from DOM in case it's already there, so we're not rendering twice.
+                removeFoodItem(doc.id);
+
+                //Render to DOM
+                renderFoodItem(doc.data(), doc.id);
+            }
+        });
+    });
+};
+
+function checkboxClicked(filterCat){
+    //Get checkbox ID
+    var checkbox = document.getElementById(filterID[filterCat]);
+
+    //If checked => push to filterArray
+    if(checkbox.checked === true ){
+        filterArray.push(filterCat);
+    }
+    //If un-checked => remove from filterArray
+    else{
+        filterArray = filterArray.filter(e => e !== filterCat);
+    }
+
+    //Run filterfunction
+    filterFunction(filterArray);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Functions that are currently not used
+
+/*
 const renderFilterItem = (data, id) => {
     if (!data.visible) return;
 
@@ -11,14 +140,11 @@ const renderFilterItem = (data, id) => {
     const isDownvoted = data.user_downvotes.includes(user);
     const isFavorite = data.user_favorites.includes(user);
     
-    console.log("adding html...");
-
     const html = `
         <div class="filteritem card-panel white row" data-id="${id}">
             <img src="${data.image}" alt="${data.title} image">
             <div class="filter-title">${data.title}</div>
-            <div class="filter-diets">${data.diets}</div>
-            <div class="filter-allergies">${data.allergies}</div>
+            <div class="food-price">${data.contains}</div>
             <div class="filter-price">${data.price}</div>
 
             <div class="filter-upvotes">Upvotes: ${data.user_upvotes.length}</div>
@@ -31,107 +157,4 @@ const renderFilterItem = (data, id) => {
     `;
 
     document.querySelector('#filtered').innerHTML += html;
-}
-
-function filterFunction(array){
-    var allergies = [];
-    var diets = [];
-    removeAllFilterItems();
-    console.log("filters: ", array);
-    db.collection("fooditems").get().then((snapshot)=>{
-        snapshot.docs.forEach(doc => {
-            console.log("snapshot: ", doc.data());
-            console.log(doc.id);
-            console.log(doc.data().allergies);
-            console.log(doc.data().diets);
-            //console.log("Something: ");
-            var testBool = false;
-            for(var i=0; i < doc.data().allergies; i++ ){
-                    console.log("Allergies: ", doc.data().allergies[i]);
-                    //testBool = false;
-            }
-            for( var i = 0; i < filterArray.length; i++){
-
-                if(doc.data().diets.includes(filterArray[i])){
-                    testBool = true;
-                }
-                if(doc.data().allergies.includes(filterArray[i])){
-                    console.log("included");
-                    testBool = false;
-                }                
-                console.log(filterArray[i]);
-            }
-            if(testBool){
-                renderFilterItem(doc.data(), doc.id);
-            }
-            
-        });
-    });
-    
-};
-
-function checkboxClicked(filterCat){
-    console.log(filterCat);
-    var checkbox = document.getElementById(filterCat);
-  // Get the output text
-    //var text = document.getElementById("text");
-    if(checkbox.checked === true ){
-        filterArray.push(filterCat);
-    }
-    else{
-        filterArray = filterArray.filter(e => e !== filterCat);
-    }
-
-  // If the checkbox is checked, display the output text
-    filterFunction(filterArray);
-}
-
-const removeAllFilterItems = () => {
-    document.querySelector('#filtered').innerHTML = '';
-}
-/*
-filters.addEventListener('click', evt => {
-    if(evt.target.tagName=== 'INPUT'){
-        const filterName = evt.target.className.split(" ")[0]
-        let checkbox = document.querySelector('input[type="checkbox"]:checked');
-
-        if(checkbox != null ){
-            filterArray.push(filterName);
-        }
-        else{
-            for( var i = 0; i < filterArray.length; i++){ 
-                console.log(filterArray[i]);
-                if ( filterArray[i] === filterName) { 
-                    console.log("splicing...");
-                    filterArray.splice(i, 1); 
-                }
-            
-            }
-        }
-        console.log("checker: ", filterArray);*/
-
-        //console.log(user);
-        //console.log(filterName);
-        //const checkbox = document.querySelector('input[type="checkbox"]:checked');
-        //console.log("Checkbox: ", checkbox);
-        //const check = document.getElementById(filterName);
-        //console.log(check);
-        //console.log(document.getElementsByClassName("filter-check").checked);
-        //console.log("Checkbox is: ", check.checked);
-        /*
-        switch(filterName){
-            case 'vegan':
-                break;
-            case 'vegetarian':
-                break;
-            case 'halal':
-                break;
-            case 'shell-fish':
-                break;
-            case 'nuts':
-                break;
-            default:
-                break;
-        }*/
-    /*}
-});*/
+}*/
