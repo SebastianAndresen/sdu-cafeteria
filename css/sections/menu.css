@@ -1,3 +1,6 @@
+* {
+    font-family: "Brown Regular", sans-serif;
+}
 
 .fooditem img {
     width: 100%;
@@ -52,12 +55,12 @@
 
 #food_single {
     background: transparent;
-    width: 75%;
-    height: 75%;
+    width: 100%;
+    height: 100%;
     position: fixed;
     padding: 10px;
-    bottom: 15%;
-    left: 15%;
+    bottom: 0;
+    left: 0;
     z-index: 2;
     transition: 0.3s;
     border-radius: 25px 25px 25px 25px;
@@ -101,3 +104,10 @@
     width: 200px;
 }
 
+#food_single_category {
+    display: none;
+}
+
+#food_single_title {
+
+}
