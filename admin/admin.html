@@ -93,20 +93,7 @@
                 </tr>
                 <tr>
                     <td rowspan="2">
-                        <h5>Diets</h5>
-                        <ul id="form_diets">
-                            <li>Dairy free</li>
-                            <li>Gluten free</li>
-                            <li>Low-calorie</li>
-                            <li>Calorie free</li>
-                            <li>Low-sugar</li>
-                            <li>Sugar free</li>
-                            <li>Vegan</li>
-                            <li>Vegetarian</li>
-                        </ul>
-                    </td>
-                    <td rowspan="2">
-                        <h5>Contains</h5>
+                        <h5>Contains (Allergies)</h5>
                         <ul id="form_allergies">
                             <li>Dairy</li>
                             <li>Eggs</li>
@@ -118,9 +105,22 @@
                             <li>Fish</li>
                         </ul>
                     </td>
+                    <td rowspan="2">
+                        <h5>Contains (Diets)</h5>
+                        <ul id="form_diets">
+                            <li>Any Meat</li>
+                            <li>Non-Halal Meat</li>
+                            <li>Any Sugar</li>
+                            <li>High Sugar Content</li>
+                            <li>Any Gluten</li>
+                            <li>High Gluten Content</li>
+                            <li>Any Calories</li>
+                            <li>High Calories Content</li>
+                        </ul>
+                    </td>
                     <td id="form_visibility">
                         <h5>Visibility</h5>
-                        <p class="active">Stay hidded</p>
+                        <p class="active">Stay hidden</p>
                         <p>Visible immediately</p>
                         <p>Visible on set date</p>
                         <input type="date" id="visible_date_picker" name="visible_date">
@@ -138,10 +138,17 @@
     </div>
 
     <div id="content">
+        <table id="searchbar_wrapper">
+            <tr>
+                <td>
+                    <input type="text" id="food_searchbar" name="searchbar" placeholder="Search for item..">
+                </td>
+                <td>
+                    <button type="button" onclick="editorCreateNew()">Create New</button>
+                </td>
+            </tr>
+        </table>
         <div id="food_item_list"></div>
-        <div id="create_btn">
-            <button type="button" onclick="editorCreateNew()">Create New</button>
-        </div>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->

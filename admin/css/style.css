@@ -27,6 +27,73 @@ nav .sidenav-trigger{
   margin: 0;
 }
 
+#searchbar_wrapper tr,
+#searchbar_wrapper td {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+#searchbar_wrapper {
+  background-color: var(--secondary);
+  width: 100%;
+  position: sticky;
+  top: 0px;
+}
+
+#searchbar_wrapper tr td:first-child {
+  text-align: center;
+}
+
+#searchbar_wrapper tr td:first-child input {
+  width: 90%;
+  background-color: var(--primary);
+  color: var(--orange);
+  padding: 0 10px;
+}
+
+#searchbar_wrapper tr td:first-child input::placeholder {
+  color: white;
+}
+
+#searchbar_wrapper tr td:last-child {
+  width: 20%;
+  text-align: center;
+}
+
+  /*** ****** ***/
+ /** sidebar **/
+/*** ****** ***/
+
+#content {
+  margin-left: 160px;
+}
+
+#food_sidebar {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--primary);
+  /*overflow-x: hidden;*/
+  padding-top: 20px;
+}
+
+#food_sidebar p {
+  color: lightgray;
+  padding: 4px 8px 4px 16px;
+}
+
+#food_sidebar p:hover,
+#food_sidebar p.active {
+  color: black;
+  background-color: var(--orange);
+  font-weight: bold;
+  width: 163px;
+}
+
   /*** ******** ***/
  /** food items **/
 /*** ******** ***/
@@ -111,39 +178,6 @@ nav .sidenav-trigger{
 
 #food_item_list i.starscore {
   color: orange;
-}
-
-  /*** ****** ***/
- /** sidebar **/
-/*** ****** ***/
-
-#content {
-  margin-left: 160px;
-}
-
-#food_sidebar {
-  height: 100%;
-  width: 160px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: var(--primary);
-  /*overflow-x: hidden;*/
-  padding-top: 20px;
-}
-
-#food_sidebar p {
-  color: lightgray;
-  padding: 4px 8px 4px 16px;
-}
-
-#food_sidebar p:hover,
-#food_sidebar p.active {
-  color: black;
-  background-color: var(--orange);
-  font-weight: bold;
-  width: 163px;
 }
 
   /*** **************** ***/
