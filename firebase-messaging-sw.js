@@ -1,5 +1,6 @@
 importScripts('https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/8.1.1/firebase-messaging.js');
+// video for FCM: https://www.youtube.com/watch?v=m_P1Q0vhOHs
 
 var firebaseConfig = {
     apiKey: "AIzaSyAFl469L0-MjT-zsmG8y0F8xgsPJpKRDV4",
@@ -18,7 +19,7 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage(function(payload) {
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
     // Customize notification here
-    const notificationTitle = 'Background Message Title';
+    const notificationTitle = 'Background Message';
     const notificationOptions = {
         body: 'Background Message body.',
         icon: '/firebase-logo.png'
