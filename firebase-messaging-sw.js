@@ -1,8 +1,8 @@
-importScripts('https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.1.1/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/8.1.2/firebase-messaging.js');
 // video for FCM: https://www.youtube.com/watch?v=m_P1Q0vhOHs
 
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyAFl469L0-MjT-zsmG8y0F8xgsPJpKRDV4",
     authDomain: "stl-e20.firebaseapp.com",
     databaseURL: "https://stl-e20.firebaseio.com",
@@ -19,32 +19,11 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage(function(payload) {
     console.log('[firebase-messaging-sw.js] Received background message ', payload);
     // Customize notification here
-    const notificationTitle = 'Background Message';
+    const notificationTitle = 'Background Message (From SW)';
     const notificationOptions = {
-        body: 'Background Message body.',
-        icon: '/firebase-logo.png'
+        body: 'Background Message body. (From SW)'
     };
 
     self.registration.showNotification(notificationTitle,
         notificationOptions);
 });
-// Get registration token. Initially this makes a network call, once retrieved
-// subsequent calls to getToken will return from cache.
-/*
-messaging.getToken({vapidKey: 'BGC_e_OwtXp5_v8nCtzUGbWe_Re3v_gVrXyIc8xFdjbtSw2ykrmwIr6djPKXcpiBAfXaqFL9Ykz7Zvug9WKWpDs'}).then((currentToken) => {
-    if (currentToken) {
-        sendTokenToServer(currentToken);
-        updateUIForPushEnabled(currentToken);
-    } else {
-        // Show permission request.
-        console.log('No registration token available. Request permission to generate one.');
-        // Show permission UI.
-        updateUIForPushPermissionRequired();
-        setTokenSentToServer(false);
-    }
-}).catch((err) => {
-    console.log('An error occurred while retrieving token. ', err);
-    showToken('Error retrieving registration token. ', err);
-    setTokenSentToServer(false);
-});
-*/

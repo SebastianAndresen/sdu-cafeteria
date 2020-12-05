@@ -1,4 +1,4 @@
-let sharedVersionNum = 231;
+let sharedVersionNum = 236;
 const dynamicCache = `site-dynamic-v1.3.${sharedVersionNum}`;
 const dynamicCache_MAXSIZE = 15;
 const staticCache = `site-static-v1.3.${sharedVersionNum}`; //Increment whenever a change is made to one of the following assets
@@ -32,7 +32,7 @@ self.addEventListener('install', evt => {
     evt.waitUntil(
         caches.open(staticCache).then(cache => {
             console.log('caching assets...');
-            cache.addAll(assets);
+            cache.addAll(assets).then(success => success).catch(err => err);
         }));
     console.log('service worker has been installed.');
 });
@@ -58,7 +58,7 @@ self.addEventListener('fetch', evt => {
             caches.match(evt.request).then(cacheResponse => {
                 return cacheResponse || fetch(evt.request).then(fetchResponse => {
                     return caches.open(dynamicCache).then(cache => {
-                        cache.put(evt.request.url, fetchResponse.clone());
+                        cache.put(evt.request.url, fetchResponse.clone()).then(success => success).catch(err => err);
                         limitCacheSize(dynamicCache, dynamicCache_MAXSIZE);
                         return fetchResponse;
                     });

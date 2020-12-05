@@ -66,7 +66,7 @@ exports.downvote = functions.https.onCall((data, context) => {
 // ===================== FAVORITE ========================
 exports.favorite = functions.https.onCall((data, context) => {
     console.log(data.id);
-    console.log(context.auth.id);
+    console.log(context.auth.uid);
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
     }
@@ -83,18 +83,17 @@ exports.favorite = functions.https.onCall((data, context) => {
 });
 
 // ===================== ADMIN FUNCTIONS ========================
-
 exports.admincreatenew = functions.https.onCall((data, context) => {
-  // check if authenticated
-  if (!context.auth) {
-    throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
-  }
+    // check if authenticated
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+    }
 
-  admin.firestore().collection('fooditems').add(data).then(function () {
-    console.log("Fooditem was successfully written from editor!");
-  }).catch(function (error) {
-    console.error("Error creating food document: ", error);
-  });
+    admin.firestore().collection('fooditems').add(data).then(function () {
+        console.log("Fooditem was successfully written from editor!");
+    }).catch(function (error) {
+        console.error("Error creating food document: ", error);
+    });
 });
 
 // ===================== SET NOTIFICATIONS ========================
@@ -107,13 +106,14 @@ exports.setNotifications = functions.https.onCall((data, context) => {
     });
 });
 
+// ===================== SET FILTERS ========================
 exports.setFilters = functions.https.onCall((data, context) => {
-  if (!context.auth) {
-      throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
-  }
-  return admin.firestore().collection('users').doc(context.auth.uid).update({
-      filters: data
-  });
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+    }
+    return admin.firestore().collection('users').doc(context.auth.uid).update({
+        filters: data
+    });
 });
 
 // auth trigger (new user)
@@ -127,28 +127,38 @@ exports.deleteUser = functions.auth.user().onDelete(user => {
     console.log('deleting user..', user.uid);
     const doc = admin.firestore().collection('users').doc(user.uid);
     return doc.delete();
-
 });
 
-exports.subToTopic = functions.https.onCall((data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
-    }
-    admin.messaging().subscribeToTopic(data.token, data.topic);
-    console.log(`subscribed ${context.auth.uid} to ${data.topic}`);
-    return `subscribed ${context.auth.uid} to ${data.topic}`;
-});
+exports.addToken = functions.https.onCall(((data, context) => {
+    if (!context.auth) throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
 
-exports.unSubFromTopic = functions.https.onCall(((data, context) => {
-    if (!context.auth) {
-        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
-    }
-    admin.messaging().unsubscribeFromTopic(data.token, data.topic);
-     console.log(`unsubscribed ${context.auth.uid} from ${data.topic}`);
-    return `unsubscribed ${context.auth.uid} from ${data.topic}`;
+    return admin.firestore().collection('users').doc(context.auth.uid).update({
+        token: data
+    });
 }));
 
+// ===================== SUBSCRIBE ========================
+exports.subToTopic = functions.https.onCall((data, context) => {
+    if (!context.auth) throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+
+    admin.messaging().subscribeToTopic(data.token, data.topic)
+        .then(() => console.log(`subscribed ${context.auth.uid} to ${data.topic}`))
+        .catch(err => console.log('error subscribing to topic: ', err))
+    ;
+});
+
+// ===================== UNSUBSCRIBE ========================
+exports.unSubFromTopic = functions.https.onCall((data, context) => {
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+    }
+    admin.messaging().unsubscribeFromTopic(data.token, data.topic)
+        .then(() => console.log(`unsubscribed ${context.auth.uid} from ${data.topic}`))
+        .catch(err => console.log('error unsubscribing from topic: ', err))
+});
+
 // sends message when fooditem is created to all subscribers to topic 'favorites' [DEVELOPMENT]
+// ===================== SEND PUSH NOTIFICATIONS ========================
 exports.broadcastToSubscribers = functions.firestore.document('fooditems/{fooditemId}')
     .onCreate(snapshot => {
         const fooditem = snapshot.data();
@@ -166,47 +176,53 @@ exports.broadcastToSubscribers = functions.firestore.document('fooditems/{foodit
 exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
     //listens on every fooditem update
     .onUpdate((change, context) => {
+        console.log(context);
         const dataAfter = change.after.data();
         const dataBefore = change.before.data();
-
+        let condition = "'favorites' in topics";
         // if the updated data isn't changing visibility (and the change isn't setting visibility to 1, return null
-        if (dataAfter.visible == dataBefore.visible || dataAfter.visible != 1) {
+        if (dataAfter.visible === dataBefore.visible || dataAfter.visible !== 1) {
             console.log('we are only interested in events where visibility changes to 1..');
             return null;
         }
-        /*
-        dairy = 0
-        eggs = 1,
-        shellfish = 4
-        fish = 7
-        meat = 8
-         */
         let vegetarian = [4, 7, 8]; // restrictions: shellfish, fish, meat
         let vegan = [0, 1, ...vegetarian]; //restrictions: dairy, eggs + vegetarian
-
-        /**
-         * testcases:
-         * vegetarian: include any except 4,7,8
-         * vegan: include 0 or 1
-         */
-        /*
-        console.log('vegetarian must not include: ', vegetarian);
-        console.log('vegan must not include: ', vegan);
-        */
         if (vegan.some(restriction => dataAfter.contains.includes(restriction))) {
             //fooditem contains at least one of 0,1,4,7,8 = vegan
-            console.log('this fooditem isnt vegan..');
             if (!vegetarian.some(restriction => dataAfter.contains.includes(restriction))) {
                 //fooditem does not contain 0,1 - but does have at least one of 4,7,8 = vegetarian
-                console.log('.. but it is vegetarian!');
+                condition = "'favorites' in topics || 'vegetarian' in topics";
             }
-        } else console.log('this fooditem is neither vegan or vegetarian!');
-        //if dataAfter.contains.includes()
-        //console.log('visibility changed to 1!!');
-        console.log('change before: ',change.before.data().visible);
-        console.log('change after: ',change.after.data().visible);
-        //const foodItem = snapshot.data();
-        //const notification =
+        } else {
+            //condition = "'favorites' in topics || 'vegetarian' in topics || 'vegan' in topics";
+            condition = "'vegetarian' in topics || 'vegan' in topics";
+            //To broadcast to favorites:
+            /**
+             * for each id in fooditem.user_favorited
+             *      if collection('users').doc(id).contains a token AND that user has notification['favorites']:
+             *      send message to that token: "your favorite meal is available!"
+             */
+        }
+
+        const message = {
+            notification: {
+                title: 'New fooditem available!',
+                body: 'There is a newly available fooditem!'
+            },
+            condition: condition
+        };
+        admin.messaging().send(message)
+            .then((response) => {
+                console.log('Successfully sent message:', response);
+            })
+            .catch((error) => {
+                console.log('Error sending message:', error);
+            });
     });
-
-
+/*
+    dairy = 0
+    eggs = 1,
+    shellfish = 4
+    fish = 7
+    meat = 8
+*/
