@@ -325,6 +325,8 @@
 
         messaging.onMessage((payload) => {
             console.log('Received message in foreground: ', payload);
+            let toastHTML = `<span>${payload.notification.title}</span><a class="btn-flat toast-action" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">View Details</a>`;
+            M.toast({html: toastHTML})
         });
 
         messaging.onTokenRefresh(() => {

@@ -176,10 +176,10 @@ exports.broadcastToSubscribers = functions.firestore.document('fooditems/{foodit
 exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
     //listens on every fooditem update
     .onUpdate((change, context) => {
-        console.log(context);
+        //console.log(context);
         const dataAfter = change.after.data();
         const dataBefore = change.before.data();
-        let condition = "'favorites' in topics";
+        let condition;
         // if the updated data isn't changing visibility (and the change isn't setting visibility to 1, return null
         if (dataAfter.visible === dataBefore.visible || dataAfter.visible !== 1) {
             console.log('we are only interested in events where visibility changes to 1..');
@@ -191,18 +191,72 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
             //fooditem contains at least one of 0,1,4,7,8 = vegan
             if (!vegetarian.some(restriction => dataAfter.contains.includes(restriction))) {
                 //fooditem does not contain 0,1 - but does have at least one of 4,7,8 = vegetarian
-                condition = "'favorites' in topics || 'vegetarian' in topics";
+                condition = "'vegetarian' in topics";
             }
         } else {
             //condition = "'favorites' in topics || 'vegetarian' in topics || 'vegan' in topics";
             condition = "'vegetarian' in topics || 'vegan' in topics";
-            //To broadcast to favorites:
-            /**
-             * for each id in fooditem.user_favorited
-             *      if collection('users').doc(id).contains a token AND that user has notification['favorites']:
-             *      send message to that token: "your favorite meal is available!"
-             */
         }
+        //firestore.getAll() apparently doesn't work for JS. see https://cambaughn.medium.com/firestore-use-promise-all-instead-of-getall-on-the-web-301f4678bd05
+        /**
+         * for each id in fooditem.user_favorited
+         *      if collection('users').doc(id).contains a token AND that user has notification['favorites']:
+         *      send message to that token: "your favorite meal is available!"
+         */
+        const getUsers = (user_ids, cb) => {
+            let refs = user_ids.map(id => {
+                return admin.firestore().collection('users').doc(id).get();
+            });
+            Promise.all(refs)
+                .then(docs => {
+                    let users = docs.filter(doc => {
+                        return doc.data().notifications.includes('favorites') && doc.data().token !== null;
+                    }).map(user => {
+                        return user.data().token
+                    });
+                    cb(users);
+                })
+                .catch(e => console.log(e));
+        };
+        getUsers(dataAfter.user_favorites, users => {
+            console.log('user tokens to send a push notification to: ', users);
+            let msg = {
+                notification: {
+                    title: 'Your favorite meal is available!',
+                    body: 'bodytext goes here',
+                    image: 'https://mad.winther.nu/image/b4541215-0978-40aa-8caf-414d8c7b8737.jpg'
+                },
+                android: {
+                    notification: {
+                        click_action: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        image: dataAfter.image
+                    }
+                },
+                apns: {
+                    payload: {
+                        aps: {
+                            'mutable-content': 1
+                        }
+                    },
+                    fcm_options: {
+                        image: dataAfter.image
+                    }
+                },
+                webpush: {
+                    headers: {
+                        image: 'img/SpaghettiBolognese.png'
+                    },
+                    fcm_options: {
+                        link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+                    }
+                },
+                tokens: users,
+            };
+            admin.messaging().sendMulticast(msg)
+                .then((response) => {
+                    console.log(response.successCount + ' messages were sent successfully');
+                });
+        });
 
         const message = {
             notification: {
