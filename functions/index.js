@@ -176,7 +176,6 @@ exports.broadcastToSubscribers = functions.firestore.document('fooditems/{foodit
 exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
     //listens on every fooditem update
     .onUpdate((change, context) => {
-        //console.log(context);
         const dataAfter = change.after.data();
         const dataBefore = change.before.data();
         let condition;
@@ -194,7 +193,6 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
                 condition = "'vegetarian' in topics";
             }
         } else {
-            //condition = "'favorites' in topics || 'vegetarian' in topics || 'vegan' in topics";
             condition = "'vegetarian' in topics || 'vegan' in topics";
         }
         //firestore.getAll() apparently doesn't work for JS. see https://cambaughn.medium.com/firestore-use-promise-all-instead-of-getall-on-the-web-301f4678bd05
@@ -224,6 +222,7 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
                 notification: {
                     title: 'Your favorite meal is available!',
                     body: 'bodytext goes here',
+                    icon: 'https://mad.winther.nu/image/b4541215-0978-40aa-8caf-414d8c7b8737.jpg',
                     image: 'https://mad.winther.nu/image/b4541215-0978-40aa-8caf-414d8c7b8737.jpg'
                 },
                 android: {
@@ -244,7 +243,7 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
                 },
                 webpush: {
                     headers: {
-                        image: 'img/SpaghettiBolognese.png'
+                        image: dataAfter.image
                     },
                     fcm_options: {
                         link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
