@@ -119,3 +119,4 @@ typings/
 
 # Secret files
 credentials.js
+tokens.txt
