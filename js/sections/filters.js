@@ -85,7 +85,7 @@ function filterFunction(array){
                 removeFoodItem(doc.id);
 
                 //Render to DOM
-                renderFoodItem(doc.data(), doc.id);
+                //renderFoodItem(doc.data(), doc.id);
             }
         });
     });

@@ -157,8 +157,8 @@ const removeFoodItem = () => {
     console.log("REMOVE FOOD ITEM");
 }
 
-const renderUser = (data, id) => {
-    console.log(`User found! rendering ${id}`);
+const renderUser = async (data, id) => {
+    await console.log(`User found! rendering ${id}`);
     let html =
         `<h5>${id}</h5>
          <p>${JSON.stringify(data, null, 20)}</p>`;
