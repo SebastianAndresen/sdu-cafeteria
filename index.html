@@ -341,22 +341,27 @@
     };
     init_messaging();
 
-    /*messaging.getToken({vapidKey: 'BGC_e_OwtXp5_v8nCtzUGbWe_Re3v_gVrXyIc8xFdjbtSw2ykrmwIr6djPKXcpiBAfXaqFL9Ykz7Zvug9WKWpDs'}).then((currentToken) => {
-        if (currentToken) {
-            sendTokenToServer(currentToken);
-            updateUIForPushEnabled(currentToken);
-        } else {
-            // Show permission request.
-            console.log('No registration token available. Request permission to generate one.');
-            // Show permission UI.
-            updateUIForPushPermissionRequired();
-            setTokenSentToServer(false);
+
+    //CURL command (insert server key, token and change data fields):
+    /*
+    server key:
+    AAAAtYp1Mvs:APA91bHQ0MdOV3bn0AD8iEgaxYCAvdfrnFCCBQVpsczoR8jF8likWqH0zigAFWenTc8Z_B6HcJmeiAAK5rWGPJ7maYhEuBwrLZCHxYaTwgqw7jr-1uZ7pKBBw6jpj4tPLveV6yuNvpr3
+    */
+
+    /*
+    curl -X POST -H "Authorization: key=SERVER_KEY" \
+   -H "Content-Type: application/json" \
+   -d '{
+    "data": {
+        "notification": {
+            "title": "FCM Message",
+                "body": "This is an FCM Message",
+                "icon": "URL_TO_ICON_MAX_1MB",
         }
-    }).catch((err) => {
-        console.log('An error occurred while retrieving token. ', err);
-        showToken('Error retrieving registration token. ', err);
-        setTokenSentToServer(false);
-    });*/
+    },
+    "to": "DEVICE_TOKEN"
+    }' https://fcm.googleapis.com/fcm/send
+    */
 </script>
 
 <!--scroll indicator jquery that doesnt work for some reason-->

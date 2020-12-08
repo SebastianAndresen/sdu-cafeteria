@@ -176,8 +176,10 @@ exports.broadcastToSubscribers = functions.firestore.document('fooditems/{foodit
 exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
     //listens on every fooditem update
     .onUpdate((change, context) => {
+        //console.log(context);
         const dataAfter = change.after.data();
         const dataBefore = change.before.data();
+        let meal_flag;
         let condition;
         // if the updated data isn't changing visibility (and the change isn't setting visibility to 1, return null
         if (dataAfter.visible === dataBefore.visible || dataAfter.visible !== 1) {
@@ -188,11 +190,14 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
         let vegan = [0, 1, ...vegetarian]; //restrictions: dairy, eggs + vegetarian
         if (vegan.some(restriction => dataAfter.contains.includes(restriction))) {
             //fooditem contains at least one of 0,1,4,7,8 = vegan
+            meal_flag = 'vegan';
             if (!vegetarian.some(restriction => dataAfter.contains.includes(restriction))) {
                 //fooditem does not contain 0,1 - but does have at least one of 4,7,8 = vegetarian
                 condition = "'vegetarian' in topics";
+                meal_flag = 'vegetarian';
             }
         } else {
+            //condition = "'favorites' in topics || 'vegetarian' in topics || 'vegan' in topics";
             condition = "'vegetarian' in topics || 'vegan' in topics";
         }
         //firestore.getAll() apparently doesn't work for JS. see https://cambaughn.medium.com/firestore-use-promise-all-instead-of-getall-on-the-web-301f4678bd05
@@ -219,35 +224,11 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
         getUsers(dataAfter.user_favorites, users => {
             console.log('user tokens to send a push notification to: ', users);
             let msg = {
-                notification: {
-                    title: 'Your favorite meal is available!',
-                    body: 'bodytext goes here',
-                    icon: 'https://mad.winther.nu/image/b4541215-0978-40aa-8caf-414d8c7b8737.jpg',
-                    image: 'https://mad.winther.nu/image/b4541215-0978-40aa-8caf-414d8c7b8737.jpg'
-                },
-                android: {
-                    notification: {
-                        click_action: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-                        image: dataAfter.image
-                    }
-                },
-                apns: {
-                    payload: {
-                        aps: {
-                            'mutable-content': 1
-                        }
-                    },
-                    fcm_options: {
-                        image: dataAfter.image
-                    }
-                },
-                webpush: {
-                    headers: {
-                        image: dataAfter.image
-                    },
-                    fcm_options: {
-                        link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-                    }
+                data: {
+                    title: `Your favorite meal >>${dataAfter.title}<< is on todays menu!`,
+                    body: `For just ${dataAfter.price}, come enjoy your favorite meal in the cafeteria from 11.00!`,
+                    image: dataAfter.image,
+                    icon: dataAfter.image
                 },
                 tokens: users,
             };
@@ -258,9 +239,11 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
         });
 
         const message = {
-            notification: {
-                title: 'New fooditem available!',
-                body: 'There is a newly available fooditem!'
+            data: {
+                title: `On todays menu - ${dataAfter.title}`,
+                body: meal_flag !== null?`For just ${dataAfter.price}, come enjoy your ${meal_flag} meal in the cafeteria from 11.00!`:`For just ${dataAfter.price}, come and try it!`,
+                image: dataAfter.image,
+                icon: dataAfter.image
             },
             condition: condition
         };
@@ -272,10 +255,3 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
                 console.log('Error sending message:', error);
             });
     });
-/*
-    dairy = 0
-    eggs = 1,
-    shellfish = 4
-    fish = 7
-    meat = 8
-*/
