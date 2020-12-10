@@ -76,6 +76,7 @@ Date.prototype.toDateInputValue = (function () {
 
 const concatContainsLiItems = form_allergies_li.concat(form_diets_li);
 
+const idHolder = document.getElementById('form_id');
 const titleInput = document.getElementById('form_title');
 const priceInput = document.getElementById('form_price');
 const imageInput = document.getElementById('form_image');
@@ -110,6 +111,7 @@ const clearEditor = () => {
 }
 
 const prefillEditor = (itemdata) => {
+    idHolder.innerText = itemdata.id;
     titleInput.value = itemdata.title;
     priceInput.value = itemdata.price;
     imageInput.value = itemdata.image;
@@ -172,8 +174,9 @@ const editorAsJSON = () => {
 
 // cloud functions
 const adminCreateFood = firebase.app().functions('europe-west1').httpsCallable('admincreatenew');
+const adminUpdateItem = firebase.app().functions('europe-west1').httpsCallable('adminupdateitem');
 
-// buttons
+// editor buttons
 const editorCreateNew = () => {
     clearEditor();
     showCreateBtn();
@@ -195,11 +198,17 @@ const editorCreate = (itemid) => {
 
 const editorSave = () => {
     console.log("UPDATE EXISTING DOCUMENT");
-    console.log(editorAsJSON());
+    adminUpdateItem({
+        id: idHolder.innerText,
+        json: editorAsJSON()
+    }).catch(err => {
+        console.log('ERROR: ', err.message);
+    });
 }
 
 const editorCancel = () => {
     if (confirm("Are you sure you want to cancel?")) {
         closeEditor();
+        clearEditor();
     }
 }

@@ -89,10 +89,25 @@ exports.admincreatenew = functions.https.onCall((data, context) => {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
     }
 
-    admin.firestore().collection('fooditems').add(data).then(function () {
+    return admin.firestore().collection('fooditems').add(data).then(function () {
         console.log("Fooditem was successfully written from editor!");
     }).catch(function (error) {
         console.error("Error creating food document: ", error);
+    });
+});
+
+exports.adminupdateitem = functions.https.onCall((data, context) => {
+    // check if authenticated
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+    }
+
+    console.log("UPDATE!!! " + data.id);
+    console.log(data.json);
+
+    return admin.firestore().collection('fooditems').doc(data.id).update(data.json)
+        .catch(function (error) {
+        console.error("Error updating food document: ", error);
     });
 });
 
