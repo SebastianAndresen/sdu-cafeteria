@@ -120,6 +120,8 @@ const editfooditem = (itemid) => {
     openEditor();
 };
 
+const adminResetScore = firebase.app().functions('europe-west1').httpsCallable('adminresetscore');
+
 const showhide = (itemid) => {
     if (confirm("Are you sure?")) {
         console.log(`show hide for ${itemid}`);
@@ -127,7 +129,10 @@ const showhide = (itemid) => {
 };
 
 const resetscore = (itemid) => {
-    if (confirm("Are you sure?")) {
+    if (confirm("Are you sure you want to remove all upvotes and downvotes for this item?")) {
         console.log(`reset score for ${itemid}`);
+        adminResetScore(itemid).catch(err => {
+            console.log('ERROR: ', err.message);
+        });
     }
 };

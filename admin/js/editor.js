@@ -184,7 +184,6 @@ const editorCreateNew = () => {
 };
 
 const editorCreate = (itemid) => {
-    console.log("CREATE NEW DOCUMENT");
     let editorData = editorAsJSON();
     editorData.lastreset = editorData.lastedit;
     editorData.user_upvotes = [];
@@ -197,13 +196,13 @@ const editorCreate = (itemid) => {
 }
 
 const editorSave = () => {
-    console.log("UPDATE EXISTING DOCUMENT");
     adminUpdateItem({
         id: idHolder.innerText,
         json: editorAsJSON()
     }).catch(err => {
         console.log('ERROR: ', err.message);
     });
+    closeEditor();
 }
 
 const editorCancel = () => {

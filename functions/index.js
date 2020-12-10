@@ -102,11 +102,22 @@ exports.adminupdateitem = functions.https.onCall((data, context) => {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
     }
 
-    console.log("UPDATE!!! " + data.id);
-    console.log(data.json);
-
     return admin.firestore().collection('fooditems').doc(data.id).update(data.json)
         .catch(function (error) {
+        console.error("Error updating food document: ", error);
+    });
+});
+
+exports.adminresetscore = functions.https.onCall((id, context) => {
+    // check if authenticated
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+    }
+
+    return admin.firestore().collection('fooditems').doc(id).set({
+        user_downvotes: [1, 2, 3],
+        user_upvotes: [1001, 999]
+    }).catch(function (error) {
         console.error("Error updating food document: ", error);
     });
 });
