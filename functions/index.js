@@ -115,9 +115,9 @@ exports.adminresetscore = functions.https.onCall((id, context) => {
     }
 
     return admin.firestore().collection('fooditems').doc(id).set({
-        user_downvotes: [1, 2, 3],
-        user_upvotes: [1001, 999]
-    }).catch(function (error) {
+        user_downvotes: [],
+        user_upvotes: []
+    }, {merge: true}).catch(function (error) {
         console.error("Error updating food document: ", error);
     });
 });
