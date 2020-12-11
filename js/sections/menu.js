@@ -51,7 +51,7 @@ const renderFoodItem = (data, id) => {
         </div>
     `;
 
-    if (data.category < foodcategoriesDOM.length) ;
+    if (data.category < foodcategoriesDOM.length)
     foodcategoriesDOM[data.category].innerHTML += html;
 }
 
