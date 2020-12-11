@@ -176,6 +176,24 @@ $(() => {
     $('#notifications').on('click', ':checkbox', e => {
         const cb_arr = [].slice.call(document.querySelectorAll('input:checked')).map(e => e.name);
         const setNotifications = firebase.app().functions('europe-west1').httpsCallable('setNotifications');
+        const subToTopic = firebase.app().functions('europe-west1').httpsCallable('subToTopic');
+        const unSubFromTopic = firebase.app().functions('europe-west1').httpsCallable('unSubFromTopic');
+        const addToken = firebase.app().functions('europe-west1').httpsCallable('addToken');
+        console.log(cb_arr);
+
         setNotifications(cb_arr);
+        messaging.getToken()
+            .then(token => {
+                console.log('THIS IS YOUR TOKEN: ', token);
+                const data = {
+                    user: user,
+                    token : token,
+                    topic : e.target.name
+                }
+                e.target.checked ? subToTopic(data) : unSubFromTopic(data);
+                addToken(token);
+            }).catch(err => {
+            console.log('error fetching token:', err);
+        });
     });
 });

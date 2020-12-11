@@ -322,23 +322,31 @@
     const auth = firebase.auth();
     const messaging = firebase.messaging();
     const init_messaging = () => {
-        const addToken = firebase.app().functions('europe-west1').httpsCallable('addToken');
-        messaging.requestPermission()
+        //const addToken = firebase.app().functions('europe-west1').httpsCallable('addToken');
+        /*messaging.requestPermission()
             .then(() => {
                 console.log('Permission obtained.');
                 return messaging.getToken();
             })
             .then((token) => {
-                console.log('token: ', token);
+                console.log('token:', token);
                 //save token to current user.
-                addToken(token);
+                console.log('trying to get user document and add token..');
+                db.collection('users').doc(auth.currentUser.uid).get().then(doc => {
+                    if (doc.exists) {
+                        addToken(token);
+                    } else {
+                        console.log('user doesnt exist yet');
+                    }
+
+                }).catch(err => console.log('error setting token:', err));
                 //BUG: renderuser runs before data is available - to add token to user needs 2x refresh.
                 //To fix: look into properly implementing promises or using async/await.
             })
             .catch(err => {
                 console.log('Error: ', err);
             });
-
+*/
         messaging.onMessage((payload) => {
             console.log('Received message in foreground: ', payload);
             let toastHTML = `<span>Foreground notification!</span><a class="btn-flat toast-action" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">View Details</a>`;

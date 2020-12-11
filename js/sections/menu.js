@@ -228,37 +228,3 @@ const openFoodSingle = (itemid) => {
 const closeFoodSingle = () => {
     singleFoodWindow.classList.add("singlehidden");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Functions that are currently not used
-
-//cloudbased upvote function
-/*const upvoteBtn = document.querySelector('.btn_upvote');
-upvoteBtn.addEventListener('click', () => {
-    const upvote = firebase.functions().httpsCallable('upvote');
-    upvote().then(result => {
-        console.log('upvoted!', result);
-    });
-});*/
-
-/*
-btn.addEventListener('click', () => {
-    //get function reference
-    const testCall = firebase.functions().httpsCallable('testCall');
-    testCall().then(result => {
-        window.location = result.data;
-    });
-});*/

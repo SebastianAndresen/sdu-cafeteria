@@ -87,8 +87,8 @@ exports.adminupdateitem = functions.https.onCall((data, context) => {
 
     return admin.firestore().collection('fooditems').doc(data.id).update(data.json)
         .catch(function (error) {
-        console.error("Error updating food document: ", error);
-    });
+            console.error("Error updating food document: ", error);
+        });
 });
 
 exports.adminresetscore = functions.https.onCall((data, context) => {
@@ -116,7 +116,7 @@ exports.adminshowitem = functions.https.onCall((data, context) => {
     return admin.firestore().collection('fooditems').doc(data.id).set({
         visible: 1,
         lastedit: data.edittime
-    }, { merge: true }).catch(function (error) {
+    }, {merge: true}).catch(function (error) {
         console.error("Error updating food visibility: ", error);
     });
 });
@@ -130,7 +130,7 @@ exports.adminhideitem = functions.https.onCall((data, context) => {
     return admin.firestore().collection('fooditems').doc(data.id).set({
         visible: 0,
         lastedit: data.edittime
-    }, { merge: true }).catch(function (error) {
+    }, {merge: true}).catch(function (error) {
         console.error("Error updating food visibility: ", error);
     });
 });
@@ -162,10 +162,29 @@ exports.newUser = functions.auth.user().onCreate(user => {
 });
 
 // auth trigger (delete user)
-exports.deleteUser = functions.auth.user().onDelete(user => {
-    console.log('deleting user..', user.uid);
-    const doc = admin.firestore().collection('users').doc(user.uid);
-    return doc.delete();
+exports.deleteUser = functions.https.onCall((data, context) => {
+    if (!context.auth) throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
+
+    return admin.firestore().collection('users').doc(context.auth.uid).delete();
+    /*        .then(() => {
+                let refs = admin.firestore().collection('fooditems').where('user_favorites', 'in', [context.auth.uid]).get();
+                Promise.all(refs)
+                    .then((docs) => {
+                        for (const doc of docs) {
+                            return doc.update({
+                                    user_favorites: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
+                                }
+                            )
+                        }
+                        /!*docs.forEach(() => {
+                            return this.update({
+                                user_favorites: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
+                            });
+                        });*!/
+                    })
+                    .catch(err => console.log('error deleting user_id from fooditems: ', err));
+            })
+            .catch(err => console.log('error in delete: ', err));*/
 });
 
 exports.addToken = functions.https.onCall(((data, context) => {
@@ -173,7 +192,8 @@ exports.addToken = functions.https.onCall(((data, context) => {
 
     return admin.firestore().collection('users').doc(context.auth.uid).update({
         token: data
-    });
+    }).then(console.log(`Successfully added token: ${data} to user: ${context.auth.uid}`))
+        .catch(err => console.log(err));
 }));
 
 // ===================== SUBSCRIBE ========================
@@ -181,10 +201,11 @@ exports.addToken = functions.https.onCall(((data, context) => {
 exports.subToTopic = functions.https.onCall((data, context) => {
     if (!context.auth) throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
 
-    admin.messaging().subscribeToTopic(data.token, data.topic)
-        .then(() => console.log(`subscribed ${context.auth.uid} to ${data.topic}`))
-        .catch(err => console.log('error subscribing to topic: ', err))
-    ;
+    return admin.messaging().subscribeToTopic(data.token, data.topic)
+        .then(() => {
+            console.log(`subscribed ${context.auth.uid} to ${data.topic} and added token: ${data.token}`);
+        })
+        .catch(err => console.log('error subscribing to topic: ', err));
 });
 
 // ===================== UNSUBSCRIBE ========================
@@ -193,7 +214,7 @@ exports.unSubFromTopic = functions.https.onCall((data, context) => {
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
     }
-    admin.messaging().unsubscribeFromTopic(data.token, data.topic)
+    return admin.messaging().unsubscribeFromTopic(data.token, data.topic)
         .then(() => console.log(`unsubscribed ${context.auth.uid} from ${data.topic}`))
         .catch(err => console.log('error unsubscribing from topic: ', err))
 });
@@ -258,22 +279,23 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
                 },
                 tokens: users,
             };
-            admin.messaging().sendMulticast(msg)
+            return admin.messaging().sendMulticast(msg)
                 .then((response) => {
                     console.log(response.successCount + ' messages were sent successfully');
+                    console.log('response:', response);
                 });
         });
 
         const message = {
             data: {
                 title: `On todays menu - ${dataAfter.title}`,
-                body: meal_flag !== null?`For just ${dataAfter.price}, come enjoy your ${meal_flag} meal in the cafeteria from 11.00!`:`For just ${dataAfter.price}, come and try it!`,
+                body: meal_flag !== null ? `For just ${dataAfter.price}, come enjoy your ${meal_flag} meal in the cafeteria from 11.00!` : `For just ${dataAfter.price}, come and try it!`,
                 image: dataAfter.image,
                 icon: dataAfter.image
             },
             condition: condition
         };
-        admin.messaging().send(message)
+        return admin.messaging().send(message)
             .then((response) => {
                 console.log('Successfully sent message:', response);
             })
