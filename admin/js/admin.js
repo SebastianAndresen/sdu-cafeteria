@@ -35,3 +35,8 @@ const filterFoodItems = () => {
         noContentInCategory.classList.add('show');
     }
 }
+
+const getCurrentTime = () => {
+    const today = new Date();
+    return Math.floor(today.getTime() / 1000);
+}

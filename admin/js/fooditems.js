@@ -81,7 +81,8 @@ const renderFoodItem = (data, id) => {
                 <tr>
                     <td><p class="subinfo">Visibility status</p></td>
                     <td>
-                        <button type="button" onclick="showhide('${id}')">Show/Hide</button>
+                        <button type="button" onclick="visibilityShow('${id}')">Show</button>
+                        <button type="button" onclick="visibilityHide('${id}')">Hide</button>
                     </td>
                 </tr>
                 <tr>
@@ -121,17 +122,37 @@ const editfooditem = (itemid) => {
 };
 
 const adminResetScore = firebase.app().functions('europe-west1').httpsCallable('adminresetscore');
+const adminShowItem = firebase.app().functions('europe-west1').httpsCallable('adminshowitem');
+const adminHideItem = firebase.app().functions('europe-west1').httpsCallable('adminhideitem');
 
-const showhide = (itemid) => {
-    if (confirm("Are you sure?")) {
-        console.log(`show hide for ${itemid}`);
+const visibilityShow = (itemid) => {
+    if (confirm("Make item visible in the app?")) {
+        adminShowItem({
+            id: itemid,
+            edittime: getCurrentTime()
+        }).catch(err => {
+            console.log('ERROR: ', err.message);
+        });
+    }
+};
+
+const visibilityHide = (itemid) => {
+    if (confirm("Make item invisible in the app?")) {
+        adminHideItem({
+            id: itemid,
+            edittime: getCurrentTime()
+        }).catch(err => {
+            console.log('ERROR: ', err.message);
+        });
     }
 };
 
 const resetscore = (itemid) => {
-    if (confirm("Are you sure you want to remove all upvotes and downvotes for this item?")) {
-        console.log(`reset score for ${itemid}`);
-        adminResetScore(itemid).catch(err => {
+    if (confirm("Remove all upvotes and downvotes for this item?")) {
+        adminResetScore({
+            id: itemid,
+            edittime: getCurrentTime()
+        }).catch(err => {
             console.log('ERROR: ', err.message);
         });
     }

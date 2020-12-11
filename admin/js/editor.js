@@ -142,7 +142,6 @@ const showEditBtn = () => {
 }
 
 const editorAsJSON = () => {
-    let today = new Date();
     let visidate = new Date(datepicker.value);
 
     let catindex = 0;
@@ -166,7 +165,7 @@ const editorAsJSON = () => {
         category: catindex,
         contains: foodContains,
         daily_reset: setscore_btns[1].className == 'active',
-        lastedit: Math.floor(today.getTime() / 1000),
+        lastedit: getCurrentTime(),
         visible: visibility_btns[2].className == 'active' ? 2 : visibility_btns[1].className == 'active' ? 1 : 0,
         visibledate: Math.floor(visidate.getTime() / 1000)
     };
@@ -196,17 +195,19 @@ const editorCreate = (itemid) => {
 }
 
 const editorSave = () => {
-    adminUpdateItem({
-        id: idHolder.innerText,
-        json: editorAsJSON()
-    }).catch(err => {
-        console.log('ERROR: ', err.message);
-    });
-    closeEditor();
+    if (confirm("Overwrite this item?")) {
+        adminUpdateItem({
+            id: idHolder.innerText,
+            json: editorAsJSON()
+        }).catch(err => {
+            console.log('ERROR: ', err.message);
+        });
+        closeEditor();
+    }
 }
 
 const editorCancel = () => {
-    if (confirm("Are you sure you want to cancel?")) {
+    if (confirm("Cancel and discard edits?")) {
         closeEditor();
         clearEditor();
     }
