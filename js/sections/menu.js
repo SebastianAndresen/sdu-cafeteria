@@ -32,22 +32,20 @@ const renderFoodItem = (data, id) => {
     };
 
     const html = `
-        <div class="fooditem" data-id="${id}" id="${id}" data-jsoncontent='${JSON.stringify(jsoncontent)}'>
-            <img src="${data.image}" alt="${data.title} image" onclick="openFoodSingle('${id}');">
-           <div>
-            <div class="food-title card-data">${data.title}</div>
-            <div class="food-diets card-data">${data.diets}</div>
-            <div class="food-allergies card-data">${data.allergies}</div>
-            <div class="food-price card-data">${data.price}</div>
-           
-            <div class="food-upvotes card-data">Upvotes: ${data.user_upvotes.length}</div>
-            <div class="food-downvotes card-data">Downvotes: ${data.user_downvotes.length}</div>
+    <div class="fooditem" data-id="${id}" id="${id}" data-jsoncontent='${JSON.stringify(jsoncontent)}'>
+    <img src="${data.image}" alt="${data.title} image" onclick="openFoodSingle('${id}');">
+   <div>
+    <div class="food-title card-data">${data.title}</div>
+    <div class="food-price card-data">${data.price}</div>
+   
+    <div class="food-upvotes card-data">Upvotes: ${data.user_upvotes.length}</div>
+    <div class="food-downvotes card-data">Downvotes: ${data.user_downvotes.length}</div>
 
-            <i class="btn_upvote card-data material-icons${isUpvoted ? ' active' : ''}" data-id="${id}" data-upvoted="${isUpvoted}">arrow_circle_up</i>
-            <i class="btn_downvote card-data material-icons${isDownvoted ? ' active' : ''}" data-id="${id}" data-downvoted="${isDownvoted}">arrow_circle_down</i>
-            <i class="btn_favorite card-data material-icons${isFavorite ? ' active' : ''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
-           </div>
-        </div>
+    <i class="btn_upvote card-data material-icons${isUpvoted ? ' active' : ''}" data-id="${id}" data-upvoted="${isUpvoted}">arrow_circle_up</i>
+    <i class="btn_downvote card-data material-icons${isDownvoted ? ' active' : ''}" data-id="${id}" data-downvoted="${isDownvoted}">arrow_circle_down</i>
+    <i class="btn_favorite card-data material-icons${isFavorite ? ' active' : ''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
+   </div>
+</div>
     `;
 
     if (data.category < foodcategoriesDOM.length)
@@ -60,8 +58,6 @@ fooditems.addEventListener('click', evt => {
     const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
     if (evt.target.tagName === 'I') {
         const id = evt.target.getAttribute('data-id');
-        console.log(id);
-        console.log(user);
         switch (evt.target.className.split(" ")[0]) {
             case 'btn_upvote':
                 const upvoted = evt.target.getAttribute('data-upvoted') == 'true';
@@ -110,15 +106,12 @@ fooditems.addEventListener('click', evt => {
 
 const modifyFoodItem = (data, id) => {
     if (!data.visible) return;
-    console.log("modifyFoodItemCalled");
 
     const fooditem = document.querySelector(`.fooditem[data-id=${id}]`);
     // TODO - update image
     fooditem.querySelector('.food-title').innerHTML = data.title;
-    fooditem.querySelector('.food-diets').innerHTML = data.diets;
-    fooditem.querySelector('.food-allergies').innerHTML = data.allergies;
+    fooditem.querySelector('.food-ingredients').innerHTML = data.contains;
     fooditem.querySelector('.food-price').innerHTML = data.price;
-
     fooditem.querySelector('.food-upvotes').innerHTML = `Upvotes: ${data.user_upvotes.length}`;
     fooditem.querySelector('.food-downvotes').innerHTML = `Downvotes: ${data.user_downvotes.length}`;
 
@@ -152,35 +145,20 @@ const modifyFoodItem = (data, id) => {
     }*/
 }
 
-const removeFoodItem = () => {
-    console.log("REMOVE FOOD ITEM");
+const removeFoodItem = (id) => {
+    const fooditem = document.querySelector(`.fooditem[data-id=${id}]`);
+    if(fooditem!=null){
+        fooditem.remove();
+    }
 }
 
-const renderUser = async (data, id) => {
-    await console.log(`User found! rendering ${id}`);
+const renderUser = (data, id) => {
+    console.log(`User found! rendering ${id}`);
     let html =
         `<h5>${id}</h5>
          <p>${JSON.stringify(data, null, 20)}</p>`;
     userInfo.innerHTML = html;
 };
-
-//cloudbased upvote function
-/*const upvoteBtn = document.querySelector('.btn_upvote');
-upvoteBtn.addEventListener('click', () => {
-    const upvote = firebase.functions().httpsCallable('upvote');
-    upvote().then(result => {
-        console.log('upvoted!', result);
-    });
-});*/
-
-/*
-btn.addEventListener('click', () => {
-    //get function reference
-    const testCall = firebase.functions().httpsCallable('testCall');
-    testCall().then(result => {
-        window.location = result.data;
-    });
-});*/
 
 const singleFoodWindow = document.getElementById('food_single');
 const singleFoodCategory = document.getElementById('food_single_category');
@@ -208,7 +186,7 @@ const foodcategories = [
 ];
 
 const containsFoodString = [
-    'Diary',
+    'Dairy',
     'Eggs',
     'Tree nuts',
     'Peanuts',
@@ -235,25 +213,61 @@ const containsIntArrToStringArr = (int_arr) => {
 }
 
 const openFoodSingle = (itemid) => {
-    let itemdata = JSON.parse(document.getElementById(itemid).getAttribute('data-jsoncontent'));
-    singleFoodCategory.innerHTML = (foodcategories[itemdata.category] || '-');
-    foodSingleTitle.innerHTML = itemdata.title;
-    foodSingleImg.src = itemdata.image;
-    foodSinglePrice.innerHTML = itemdata.price;
-    foodSingleDesc.innerHTML = itemdata.desc;
-    foodSingleContains.innerHTML = containsIntArrToStringArr(itemdata.contains);
-    foodSingleScore.innerHTML = itemdata.score;
+    if(!(document.getElementById("filters").style.visibility === 'visible'|| document.getElementById("notifications").style.visibility === 'visible')){
+        let itemdata = JSON.parse(document.getElementById(itemid).getAttribute('data-jsoncontent'));
+        singleFoodCategory.innerHTML = (foodcategories[itemdata.category] || '-');
+        foodSingleTitle.innerHTML = itemdata.title;
+        foodSingleImg.src = itemdata.image;
+        foodSinglePrice.innerHTML = itemdata.price;
+        foodSingleDesc.innerHTML = itemdata.desc;
+        foodSingleContains.innerHTML = containsIntArrToStringArr(itemdata.contains);
+        foodSingleScore.innerHTML = itemdata.score;
 
-    foodSingleBtnUpvote.innerHTML = itemdata.upvotes;
-    foodSingleBtnDownvote.innerHTML = itemdata.downvotes;
+        foodSingleBtnUpvote.innerHTML = itemdata.upvotes;
+        foodSingleBtnDownvote.innerHTML = itemdata.downvotes;
 
-    itemdata.personal.upvote ? foodSingleBtnUpvote.classList.add('active') : foodSingleBtnUpvote.classList.remove('active');
-    itemdata.personal.downvote ? foodSingleBtnDownvote.classList.add('active') : foodSingleBtnDownvote.classList.remove('active');
-    itemdata.personal.favorite ? foodSingleBtnFavorite.classList.add('active') : foodSingleBtnFavorite.classList.remove('active');
+        itemdata.personal.upvote ? foodSingleBtnUpvote.classList.add('active') : foodSingleBtnUpvote.classList.remove('active');
+        itemdata.personal.downvote ? foodSingleBtnDownvote.classList.add('active') : foodSingleBtnDownvote.classList.remove('active');
+        itemdata.personal.favorite ? foodSingleBtnFavorite.classList.add('active') : foodSingleBtnFavorite.classList.remove('active');
 
-    singleFoodWindow.classList.remove("singlehidden");
+        singleFoodWindow.classList.remove("singlehidden");
+    };
 };
 
 const closeFoodSingle = () => {
     singleFoodWindow.classList.add("singlehidden");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Functions that are currently not used
+
+//cloudbased upvote function
+/*const upvoteBtn = document.querySelector('.btn_upvote');
+upvoteBtn.addEventListener('click', () => {
+    const upvote = firebase.functions().httpsCallable('upvote');
+    upvote().then(result => {
+        console.log('upvoted!', result);
+    });
+});*/
+
+/*
+btn.addEventListener('click', () => {
+    //get function reference
+    const testCall = firebase.functions().httpsCallable('testCall');
+    testCall().then(result => {
+        window.location = result.data;
+    });
+});*/

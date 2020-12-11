@@ -36,9 +36,10 @@ nav .sidenav-trigger{
 }
 
 #notifications{
+  margin-left:45%;
   visibility:hidden;
-  position: absolute;
-  top: 50px;
+  position: fixed;
+  bottom: 44px;
 }
 
 #favorites{
