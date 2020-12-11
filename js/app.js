@@ -50,11 +50,24 @@ btn.addEventListener('click', () => {
 
 
 // ============= MORTEN ========================
-// Show menu
+// render recipe data to DOM
 
+//Hide filters or notifications if click outside div
+document.addEventListener('click', function(evt){
+    console.log(evt.target.className.split(" ")[0]);
+    if(!(evt.target.className.split(" ")[0] === 'filters' || evt.target.className.split(" ")[0] === 'notifications' || evt.target.className.split(" ")[0] === 'filter-check'|| evt.target.className.split(" ")[0] === 'notification_setting')){
+        var filters = document.getElementById("filters");
+        filters.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
+        filters.style.visibility = "hidden";
+        var notifications = document.getElementById("notifications");
+        notifications.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
+        notifications.style.visibility = "hidden";
+    }
+});
+
+//Side navigation
 const sidebar = document.querySelector('.sidenav')
 sidebar.addEventListener('click', evt => {
-    console.log(evt.target.className);
     switch(evt.target.className.split(" ")[0]){
         case 'menu':
             hideAll();
@@ -62,7 +75,11 @@ sidebar.addEventListener('click', evt => {
             break;
         case 'filters':
             hideAll();
-            document.getElementById("filters").style.visibility = "visible";
+            var filters = document.getElementById("filters");
+            filters.style.visibility = "visible";
+            filters.animate([{marginLeft: '100%'},{marginLeft: '42%'}],{duration: 250});
+            document.getElementById("food_items").style.visibility = "visible";
+            //document.querySelector("filters").animate({'margin-left':0}, 2000);
             break;
         case 'favorites':
             hideAll();
@@ -70,7 +87,9 @@ sidebar.addEventListener('click', evt => {
             break;
         case 'notifications':
             hideAll();
-            document.getElementById("notifications").style.visibility = "visible";
+            var notifications = document.getElementById("notifications");
+            notifications.style.visibility = "visible";
+            notifications.animate([{marginLeft: '100%'},{marginLeft: '42%'}],{duration: 250});
             getUserNotifications(auth.currentUser.uid);
             break;
         default:
@@ -78,10 +97,65 @@ sidebar.addEventListener('click', evt => {
     }
 });
 
+
+//Bottom navigation
+const bottomNav = document.querySelector('.bot-nav');
+
+bottomNav.addEventListener('click', evt => {
+    switch(evt.target.className.split(" ")[0]){
+        case 'filters':
+            var filters = document.getElementById("filters");
+            //If visible => hide when filter is pressed in bottomnav
+            if(filters.style.visibility == "visible"){
+                filters.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
+                filters.style.visibility = "hidden";
+            }
+            else{
+                filters.style.visibility = "visible";
+                filters.animate([{marginLeft: '100%'},{marginLeft: '42%'}],{duration: 250});
+                var notifications = document.getElementById("notifications");
+                notifications.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
+                notifications.style.visibility = "hidden";
+            }
+            break;
+        case 'notifications':
+            var notifications = document.getElementById("notifications");
+            if(notifications.style.visibility === "visible"){
+                notifications.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
+                notifications.style.visibility = "hidden";
+            }else{
+                notifications.style.visibility = "visible";
+                notifications.animate([{marginLeft: '100%'},{marginLeft: '42%'}],{duration: 250});
+                var filters = document.getElementById("filters");
+                filters.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
+                filters.style.visibility = "hidden";
+                getUserNotifications(auth.currentUser.uid);
+            }
+            break;
+        case 'favorites':
+            if(document.getElementById("favorites").style.visibility==='visible'){
+                hideAll();
+                document.getElementById("food_items").style.visibility = "visible";
+            }
+            else{
+            hideAll();
+            document.getElementById("favorites").style.visibility = "visible";
+            }
+            break;
+        default:
+            break;
+    };
+});
+
+
 function hideAll(){
     document.getElementById("favorites").style.visibility = "hidden";
-    document.getElementById("notifications").style.visibility = "hidden";
-    document.getElementById("filters").style.visibility = "hidden";
+    var filters = document.getElementById("filters");
+    filters.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
+    filters.style.visibility = "hidden";
+    var notifications = document.getElementById("notifications");
+    notifications.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
+    notifications.style.visibility = "hidden";
     document.getElementById("food_items").style.visibility = "hidden";
 };
 
@@ -114,18 +188,6 @@ $(() => {
     $('#notifications').on('click', ':checkbox', e => {
         const cb_arr = [].slice.call(document.querySelectorAll('input:checked')).map(e => e.name);
         const setNotifications = firebase.app().functions('europe-west1').httpsCallable('setNotifications');
-        const subToTopic = firebase.app().functions('europe-west1').httpsCallable('subToTopic');
-        const unSubFromTopic = firebase.app().functions('europe-west1').httpsCallable('unSubFromTopic');
         setNotifications(cb_arr);
-        messaging.getToken()
-            .then(token => {
-                const data = {
-                    token : token,
-                    topic : e.target.name
-                }
-                e.target.checked ? subToTopic(data) : unSubFromTopic(data);
-            }).catch(err => {
-            console.log('error fetching token:', err);
-        });
     });
 });

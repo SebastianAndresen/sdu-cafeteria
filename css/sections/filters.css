@@ -1,3 +1,12 @@
 .filteritem img {
     width: 100%;
 }
+
+#filters {
+    position: fixed;
+    visibility: hidden;
+    bottom: 44px;
+    border-radius: 25px;
+    padding: 20px;
+    margin-left:40%;
+}

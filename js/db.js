@@ -92,9 +92,9 @@ const clickFavorite = (itemid, isFavorite) => {
 /** USER **/
 /** **** **/
 
-const setupUser = async (uid) => {
+const setupUser = (uid) => {
     const ref = db.collection('users').where(firebase.firestore.FieldPath.documentId(), '==', uid);
-    await ref.onSnapshot(snapshot => {
+    ref.onSnapshot(snapshot => {
         renderUser(snapshot.docs.find(doc => doc.id === uid).data(), uid);
         initFilters(snapshot.docs.find(doc => doc.id === uid).data());
     });

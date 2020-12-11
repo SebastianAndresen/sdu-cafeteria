@@ -5,9 +5,6 @@ const favorites = document.querySelector('#favorites');
 const renderFavoriteItem = (data, id) => {
     if (!data.visible) return;
 
-    console.log("data: ", data);
-    console.log("id: ", id)
-
     const isFavorite = data.user_favorites.includes(user);
     if(isFavorite) {
         const html = `
