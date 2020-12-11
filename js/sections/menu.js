@@ -1,4 +1,3 @@
-console.log("MENU SCRIPT LOADED v18");
 
 const fooditems = document.querySelector('#food_items');
 
@@ -9,7 +8,7 @@ const foodcategoriesDOM = [
 ];
 
 const renderFoodItem = (data, id) => {
-    if (!data.visible) return;
+    if (data.visible == 0) return;
 
     const isUpvoted = data.user_upvotes.includes(user);
     const isDownvoted = data.user_downvotes.includes(user);
