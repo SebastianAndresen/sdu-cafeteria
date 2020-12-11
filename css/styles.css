@@ -6,7 +6,7 @@
   --priceGreen: #789D4A;
   --downvoteRed: #FF2323;
   --upvoteGreen: #00CF5A;
-  font-family: "Brown Bold", sans-serif;
+  font-family: "Brown Regular", sans-serif;
 }
 
 /* layout styles */
@@ -36,9 +36,10 @@ nav .sidenav-trigger{
 }
 
 #notifications{
+  margin-left:45%;
   visibility:hidden;
-  position: absolute;
-  top: 50px;
+  position: fixed;
+  bottom: 44px;
 }
 
 #favorites{

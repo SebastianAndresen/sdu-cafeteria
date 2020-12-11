@@ -53,17 +53,17 @@
 
 <!-- bot nav -->
 <div class="bot-nav">
-    <a href="#" class="nav__link">
-        <i class="material-icons search__icon">search</i>
-        <span class="nav__text">filter</span>
+    <a href="#" class="filters nav__link">
+        <i class="filters material-icons search__icon">search</i>
+        <span class="filters nav__text">filter</span>
     </a>
-    <a href="#" class="nav__link">
-        <i class="material-icons nav__icon">favorite</i>
-        <span class="nav__text">favorites</span>
+    <a href="#" class="favorites nav__link">
+        <i class="favorites material-icons nav__icon">favorite</i>
+        <span class="favorites nav__text">favorites</span>
     </a>
-    <a href="#" class="nav__link">
-        <i class="material-icons nav__icon">notifications_active</i>
-        <span class="nav__text">notifications</span>
+    <a href="#" class="notifications nav__link">
+        <i class="notifications material-icons not__icon">notifications_active</i>
+        <span class="notifications nav__text">notifications</span>
     </a>
 </div>
 
@@ -72,22 +72,22 @@
 <ul id="side-menu" class="sidenav side-menu">
     <li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
     <div>
-        <a class="menu sidenav-close" data-id="${id}">
+        <a class="menu sidenav-close">
             <i class="material-icons">local_dining</i>Menu
         </a>
     </div>
     <div>
-        <a class="filters sidenav-close" data-id="${id}">
+        <a class="filters sidenav-close">
             <i class="material-icons">filter_alt</i>Filters
         </a>
     </div>
     <div>
-        <a class="favorites sidenav-close" data-id="${id}">
+        <a class="favorites sidenav-close">
             <i class="material-icons">favorite</i>Favorites
         </a>
     </div>
     <div>
-        <a class="notifications sidenav-close" data-id="${id}">
+        <a class="notifications sidenav-close">
             <i class="material-icons">notifications</i>Notify
         </a>
     </div>
@@ -126,9 +126,9 @@
     <p id="food_single_desc">Description goes here</p>
     <p id="food_single_contains">Ingrediens goes here</p>
     <p id="food_single_score">Score goes here</p>
-    <button id="food_single_upvote" class="interaction">UpvoteBtn</button>
-    <button id="food_single_downvote" class="interaction">DownvoteBtn</button>
-    <button id="food_single_favorite" class="interaction">FavoriteBtn</button>
+    <button id="food_single_upvote" class="interaction materials-icons">keyboard_arrow_up</button>
+    <button id="food_single_downvote" class="interaction materials-icons">keyboard_arrow_down</button>
+    <button id="food_single_favorite" class="interaction material-icons">favorite</button>
 </div>
 
 <div id="favorites" class="container grey-text text-darken-1">
@@ -136,94 +136,129 @@
 </div>
 
 <div class="filters container grey-text text-darken-1" id="filters">
-    <h5 class="center">Filters</h5>
     <div class="filters card-panel white row">
-        <form action="#">
-            <p>
-                <label>
-                    <input type="checkbox" class="vegetarian filter-check filled-in" id="vegetarian"
-                           onclick="checkboxClicked('vegetarian')"/>
-                    <span>Vegetarian</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="vegan filter-check filled-in" id="vegan"
-                           onclick="checkboxClicked('vegan')">
-                    <span>Vegan</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="halal filter-check filled-in" id="halal"
-                           onclick="checkboxClicked('halal')">
-                    <span>Halal</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="meat filter-check filled-in" id="meat"
-                           onclick="checkboxClicked('meat')">
-                    <span>Meat Lover</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="seafood filter-check filled-in" id="seafood"
-                           onclick="checkboxClicked('seafood')">
-                    <span>Sea Food</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="shellfish filter-check filled-in" id="shellfish"
-                           onclick="checkboxClicked('shellfish')">
-                    <span>Shell-fish Allergy</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="nuts filter-check filled-in" id="nuts"
-                           onclick="checkboxClicked('nuts')">
-                    <span>Nuts Allergy</span>
-                </label>
-            </p>
-            <p>
-                <label>
-                    <input type="checkbox" class="lactose filter-check filled-in" id="lactose"
-                           onclick="checkboxClicked('lactose')">
-                    <span>Lactose Intolerance</span>
-                </label>
-            </p>
-        </form>
+      <form action="#">
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="dairy" onclick="checkboxClicked(0)"></input>
+                  <span class="filters">Dairy</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="eggs" onclick="checkboxClicked(1)"></input>
+                  <span class="filters">Eggs</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="tree-nuts" onclick="checkboxClicked(2)"></input>
+                  <span class="filters">Tree nuts</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="peanuts" onclick="checkboxClicked(3)"></input>
+                  <span class="filters">Peanuts</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="shellfish" onclick="checkboxClicked(4)"></input>
+                  <span class="filters">Shellfish</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="wheat" onclick="checkboxClicked(5)"></input>
+                  <span class="filters">Wheat</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="soy" onclick="checkboxClicked(6)"></input>
+                  <span class="filters">Soy</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="fish" onclick="checkboxClicked(7)"></input>
+                  <span class="filters">Fish</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="meat" onclick="checkboxClicked(8)"></input>
+                  <span class="filters">Any Meat</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="non-halal" onclick="checkboxClicked(9)"></input>
+                  <span class="filters">Non-Halal Meat</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="any-sugar" onclick="checkboxClicked(10)"></input>
+                  <span class="filters">Any Sugar</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="high-sugar" onclick="checkboxClicked(11)"></input>
+                  <span class="filters">High Sugar Content</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="any-gluten" onclick="checkboxClicked(12)"></input>
+                  <span class="filters">Any Gluten</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="high-gluten" onclick="checkboxClicked(13)"></input>
+                  <span class="filters">High Gluten Content</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="any-calories" onclick="checkboxClicked(14)"></input>
+                  <span class="filters">Any Calories</span>
+              </label>
+          </p>
+          <p>
+              <label>
+                  <input type="checkbox" class="filter-check filled-in" id="high-calories" onclick="checkboxClicked(15)"></input>
+                  <span class="filters">High Calories Content</span>
+              </label>
+          </p>
+      </form>
     </div>
-    <div id="filtered" class="container grey-text text-darken-1">
-        <h6 class="center">Filtered:</h6>
-    </div>
-</div>
+  </div>
 
 
 <div class="notifications container grey-text text-darken-1" id="notifications">
-    <h5 class="center">Notifications</h5>
     <div class="notifications card-panel white row">
         <form action="#">
             <p>
                 <label>
-                    <input type="checkbox" class="filled-in notification_checkbox" id="notification_vegetarian"
+                    <input type="checkbox" class="notification_setting filled-in notification_checkbox" id="notification_vegetarian"
                            name="vegetarian"/>
                     <span class="notification_setting">Vegetarian</span>
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="checkbox" class="filled-in notification_checkbox" id="notification_vegan"
+                    <input type="checkbox" class="notification_setting filled-in notification_checkbox" id="notification_vegan"
                            name="vegan"/>
                     <span class="notification_setting">Vegan</span>
                 </label>
             </p>
             <p>
                 <label>
-                    <input type="checkbox" class="filled-in notification_checkbox" id="notification_favorites"
+                    <input type="checkbox" class="notification_setting filled-in notification_checkbox" id="notification_favorites"
                            name="favorites"/>
                     <span class="notification_setting">Favorites</span>
                 </label>
