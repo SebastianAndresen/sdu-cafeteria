@@ -260,7 +260,9 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
             Promise.all(refs)
                 .then(docs => {
                     let users = docs.filter(doc => {
-                        return doc.data().notifications.includes('favorites') && doc.data().token !== null;
+                        if (doc.exists) {
+                            return doc.data().notifications.includes('favorites') && doc.data().token !== null;
+                        }
                     }).map(user => {
                         return user.data().token
                     });
