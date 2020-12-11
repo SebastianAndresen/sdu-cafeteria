@@ -1,4 +1,3 @@
-console.log("FILTERS SCRIPT LOADED v1");
 
 //Array for storing user filters
 var filterArray = [];
