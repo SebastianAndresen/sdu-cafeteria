@@ -1,4 +1,3 @@
-
 //Array for storing user filters
 var filterArray = [];
 

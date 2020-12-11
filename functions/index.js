@@ -161,30 +161,11 @@ exports.newUser = functions.auth.user().onCreate(user => {
     return admin.firestore().collection('users').doc(user.uid).set(userObj)
 });
 
-// auth trigger (delete user)
+// DELETE USER
 exports.deleteUser = functions.https.onCall((data, context) => {
     if (!context.auth) throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
 
     return admin.firestore().collection('users').doc(context.auth.uid).delete();
-    /*        .then(() => {
-                let refs = admin.firestore().collection('fooditems').where('user_favorites', 'in', [context.auth.uid]).get();
-                Promise.all(refs)
-                    .then((docs) => {
-                        for (const doc of docs) {
-                            return doc.update({
-                                    user_favorites: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
-                                }
-                            )
-                        }
-                        /!*docs.forEach(() => {
-                            return this.update({
-                                user_favorites: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
-                            });
-                        });*!/
-                    })
-                    .catch(err => console.log('error deleting user_id from fooditems: ', err));
-            })
-            .catch(err => console.log('error in delete: ', err));*/
 });
 
 exports.addToken = functions.https.onCall(((data, context) => {
@@ -260,9 +241,8 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
             Promise.all(refs)
                 .then(docs => {
                     let users = docs.filter(doc => {
-                        if (doc.exists) {
-                            return doc.data().notifications.includes('favorites') && doc.data().token !== null;
-                        }
+                        if (!doc.exists) return false;
+                        return doc.data().notifications.includes('favorites') && doc.data().token !== null;
                     }).map(user => {
                         return user.data().token
                     });
@@ -271,6 +251,7 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
                 .catch(e => console.log(e));
         };
         getUsers(dataAfter.user_favorites, users => {
+            if (!users.length) return false;
             console.log('user tokens to send a push notification to: ', users);
             let msg = {
                 data: {

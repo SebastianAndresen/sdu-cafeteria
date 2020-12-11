@@ -1,4 +1,3 @@
-
 const favorites = document.querySelector('#favorites');
 
 const renderFavoriteItem = (data, id) => {
