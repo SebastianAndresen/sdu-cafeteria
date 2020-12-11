@@ -222,6 +222,40 @@ const openFoodSingle = (itemid) => {
         itemdata.personal.favorite ? foodSingleBtnFavorite.classList.add('active') : foodSingleBtnFavorite.classList.remove('active');
 
         singleFoodWindow.classList.remove("singlehidden");
+
+        foodSingleBtnUpvote.addEventListener('click', () => {
+            const upvote = firebase.app().functions('europe-west1').httpsCallable('upvote');
+            if (foodSingleBtnUpvote.classList.contains('active')) {
+                upvote({id: itemid, upvoted: true});
+                foodSingleBtnUpvote.classList.remove('active');
+            } else {
+                upvote({id: itemid, upvoted: false});
+                foodSingleBtnUpvote.classList.add('active');
+                foodSingleBtnDownvote.classList.remove('active');
+            }
+        });
+        foodSingleBtnDownvote.addEventListener('click', () => {
+            const downvote = firebase.app().functions('europe-west1').httpsCallable('downvote');
+            if (foodSingleBtnDownvote.classList.contains('active')) {
+                downvote({id: itemid, downvoted: true});
+                foodSingleBtnDownvote.classList.remove('active');
+            } else {
+                downvote({id: itemid, downvoted: false});
+                foodSingleBtnDownvote.classList.add('active');
+                foodSingleBtnUpvote.classList.remove('active');
+            }
+        });
+        foodSingleBtnFavorite.addEventListener('click', () => {
+            const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
+            if (foodSingleBtnFavorite.classList.contains('active')) {
+                favorite({id: itemid, favorited: true});
+                foodSingleBtnFavorite.classList.remove('active');
+            } else {
+                favorite({id: itemid, favorited: false});
+                foodSingleBtnFavorite.classList.add('active');
+            }
+        });
+
     };
 };
 
