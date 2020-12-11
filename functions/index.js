@@ -8,23 +8,6 @@ const userObj = {
     notifications: [],
     favorites: []
 };
-/*
-// ======== TEST FUNCTIONS ===============
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
-});
-
-// http request 2
-exports.redirect = functions.https.onRequest((req, res) => {
-  res.redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-});
-
-//http callable function
-exports.testCall = functions.https.onCall((data, context) => {
-  return `https://www.youtube.com/watch?v=dQw4w9WgXcQ`;
-});*/
-// =========================================
 
 // ================= UPVOTE =======================
 exports.upvote = functions.https.onCall((data, context) => {
@@ -194,6 +177,7 @@ exports.addToken = functions.https.onCall(((data, context) => {
 }));
 
 // ===================== SUBSCRIBE ========================
+//called when user checks notification topic
 exports.subToTopic = functions.https.onCall((data, context) => {
     if (!context.auth) throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
 
@@ -204,6 +188,7 @@ exports.subToTopic = functions.https.onCall((data, context) => {
 });
 
 // ===================== UNSUBSCRIBE ========================
+//called when user un-checks notification
 exports.unSubFromTopic = functions.https.onCall((data, context) => {
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
@@ -213,22 +198,7 @@ exports.unSubFromTopic = functions.https.onCall((data, context) => {
         .catch(err => console.log('error unsubscribing from topic: ', err))
 });
 
-// sends message when fooditem is created to all subscribers to topic 'favorites' [DEVELOPMENT]
 // ===================== SEND PUSH NOTIFICATIONS ========================
-exports.broadcastToSubscribers = functions.firestore.document('fooditems/{fooditemId}')
-    .onCreate(snapshot => {
-        const fooditem = snapshot.data();
-        const notification = admin.messaging.Notification = {
-            title: 'New Fooditem Available!',
-            body: fooditem.title
-        }
-        const payload = admin.messaging.Message = {
-            notification,
-            topic: 'favorites'
-        }
-        return admin.messaging().send(payload);
-    });
-
 exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
     //listens on every fooditem update
     .onUpdate((change, context) => {
@@ -246,7 +216,6 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
         let vegan = [0, 1, ...vegetarian]; //restrictions: dairy, eggs + vegetarian
         if (vegan.some(restriction => dataAfter.contains.includes(restriction))) {
             //fooditem contains at least one of 0,1,4,7,8 = vegan
-            meal_flag = 'vegan';
             if (!vegetarian.some(restriction => dataAfter.contains.includes(restriction))) {
                 //fooditem does not contain 0,1 - but does have at least one of 4,7,8 = vegetarian
                 condition = "'vegetarian' in topics";
@@ -255,6 +224,7 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
         } else {
             //condition = "'favorites' in topics || 'vegetarian' in topics || 'vegan' in topics";
             condition = "'vegetarian' in topics || 'vegan' in topics";
+            meal_flag = 'vegan';
         }
         //firestore.getAll() apparently doesn't work for JS. see https://cambaughn.medium.com/firestore-use-promise-all-instead-of-getall-on-the-web-301f4678bd05
         /**

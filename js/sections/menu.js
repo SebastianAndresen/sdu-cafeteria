@@ -68,9 +68,6 @@ fooditems.addEventListener('click', evt => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR: ', err.message);
                 });
-                /*clickUpvote(id,
-                    evt.target.getAttribute('data-upvoted') == 'true'
-                );*/
                 break;
             case 'btn_downvote':
                 const downvoted = evt.target.getAttribute('data-downvoted') == 'true';
@@ -81,9 +78,6 @@ fooditems.addEventListener('click', evt => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR:', err.message);
                 });
-                /*clickDownvote(id,
-                    evt.target.getAttribute('data-downvoted') == 'true'
-                );*/
                 break;
             case 'btn_favorite':
                 const favorited = evt.target.getAttribute('data-favorite') == 'true';
@@ -94,9 +88,6 @@ fooditems.addEventListener('click', evt => {
                     //TODO: make nice and shiny error message for user
                     console.log('ERROR:', err.message);
                 });
-                /*clickFavorite(id,
-                    evt.target.getAttribute('data-favorite') == 'true'
-                );*/
                 break;
             default:
                 console.log(`Unknown class: ${evt.target.className.split(" ")[0]}`);

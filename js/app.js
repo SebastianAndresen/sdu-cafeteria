@@ -37,18 +37,6 @@ form.addEventListener('submit', evt => {
     form.ingredients.value = '';
 });
 
-//test callable http function
-const btn = document.querySelector('.call')
-btn.addEventListener('click', () => {
-    //get function reference
-    const testCall = firebase.functions().httpsCallable('testCall');
-    testCall().then(result => {
-        window.location = result.data;
-    });
-});
-
-
-
 // ============= MORTEN ========================
 // render recipe data to DOM
 
