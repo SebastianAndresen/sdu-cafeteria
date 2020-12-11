@@ -1,206 +1,225 @@
 /* colours */
-:root{
-  --primary: white;
-  --secondary: white;
-  --title: black;
-  --priceGreen: #789D4A;
-  --downvoteRed: #FF2323;
-  --upvoteGreen: #00CF5A;
-  font-family: "Brown Regular", sans-serif;
+:root {
+	--primary     : white;
+	--secondary   : white;
+	--title       : black;
+	--priceGreen  : #789d4a;
+	--downvoteRed : #ff2323;
+	--upvoteGreen : #00cf5a;
+	font-family   : "Brown Regular", sans-serif;
+}
+
+@import url(//db.onlinewebfonts.com/c/123c7e674188c97798dd39cd41ff2d85?family=Brown+Regular);
+@font-face {
+	font-family : "Brown Regular";
+	src         : url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.eot");
+	src         : url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.woff") format("woff"), url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.svg#Brown Regular") format("svg");
 }
 
 /* layout styles */
 
 
-nav{
-  background: transparent;
-}
-nav a{
-  color: var(--title);
-  font-size: xx-large;
-}
-nav a span{
-  font-weight: bold;
-  text-transform: uppercase;
-  padding-left: 5px;
-}
-nav .sidenav-trigger{
-  margin: 0;
+nav {
+	background : transparent;
 }
 
-#filters{
-  visibility:hidden;
-  position: absolute;
-  top: 50px;
-  width: 100%;
+nav a {
+	color     : var(--title);
+	font-size : xx-large;
 }
 
-#notifications{
-  margin-left:45%;
-  visibility:hidden;
-  position: fixed;
-  bottom: 44px;
+nav a span {
+	font-weight    : bold;
+	text-transform : uppercase;
+	padding-left   : 5px;
 }
 
-#favorites{
-  visibility:hidden;
-  position: absolute;
-  top: 50px;
+nav .sidenav-trigger {
+	margin : 0;
+}
+
+#filters {
+	visibility : hidden;
+	position   : absolute;
+	top        : 50px;
+	width      : 100%;
+}
+
+#notifications {
+	margin-left : 45%;
+	visibility  : hidden;
+	position    : fixed;
+	bottom      : 44px;
+}
+
+#favorites {
+	visibility : hidden;
+	position   : absolute;
+	top        : 50px;
 }
 
 /* recipe styles */
-.recipes{
-  margin-top: 20px;
-  visibility: hidden;
+.recipes {
+	margin-top : 20px;
+	visibility : hidden;
 }
-.card-panel.recipe{
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0px 1px 3px rgba(90,90,90,0.1);
-  display: grid;
-  grid-template-columns: 2fr 6fr 1fr;
-  grid-template-areas: "image details delete";
-  position: relative;
-  visibility: hidden;
+
+.card-panel.recipe {
+	border-radius         : 8px;
+	padding               : 10px;
+	box-shadow            : 0px 1px 3px rgba(90, 90, 90, 0.1);
+	display               : grid;
+	grid-template-columns : 2fr 6fr 1fr;
+	grid-template-areas   : "image details delete";
+	position              : relative;
+	visibility            : hidden;
 
 
 }
-.recipe img{
-  grid-area: image;
-  max-width: 60px;
-  visibility: hidden;
+
+.recipe img {
+	grid-area  : image;
+	max-width  : 60px;
+	visibility : hidden;
 }
-.recipe-details{
-  grid-area: details;
-  margin-top: 6px;
-  visibility: hidden;
+
+.recipe-details {
+	grid-area  : details;
+	margin-top : 6px;
+	visibility : hidden;
 }
-.recipe-delete{
-  grid-area: delete;
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  visibility: hidden;
+
+.recipe-delete {
+	grid-area  : delete;
+	position   : absolute;
+	bottom     : 0px;
+	right      : 0px;
+	visibility : hidden;
 }
-.recipe-delete i{
-  font-size: 18px;
-  visibility: hidden;
+
+.recipe-delete i {
+	font-size  : 18px;
+	visibility : hidden;
 }
-.recipe-title{
-  font-weight: bold;
-  visibility: hidden;
+
+.recipe-title {
+	font-weight : bold;
+	visibility  : hidden;
 }
-.recipe-ingredients{
-  font-size: 0.8em;
-  visibility: hidden;
+
+.recipe-ingredients {
+	font-size  : 0.8em;
+	visibility : hidden;
 }
 
 /* form-styles */
-.add-btn{
-  background: var(--title) !important;
-  visibility: hidden;
+.add-btn {
+	background : var(--title) !important;
+	visibility : hidden;
 }
 
-input{
-  box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-}
-.side-form button{
-  background: var(--title);
-  box-shadow: 1px 1px 3px rgba(90,90,90,0.2);
-}
-form .input-field{
-  margin-top: 30px;
+input {
+	box-shadow         : none !important;
+	-webkit-box-shadow : none !important;
 }
 
-.callable{
-  visibility: hidden;
+.side-form button {
+	background : var(--title);
+	box-shadow : 1px 1px 3px rgba(90, 90, 90, 0.2);
+}
+
+form .input-field {
+	margin-top : 30px;
+}
+
+.callable {
+	visibility : hidden;
 }
 
 /*Navigation*/
 
-.bot-nav{
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 55px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-  background: transparent;
-  opacity: 1;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  overflow-x: auto;
-  z-index: 1;
+.bot-nav {
+	position                : fixed;
+	bottom                  : 0;
+	width                   : 100%;
+	height                  : 55px;
+	box-shadow              : 0 0 3px rgba(0, 0, 0, 0.2);
+	background              : transparent;
+	opacity                 : 1;
+	backdrop-filter         : blur(10px);
+	-webkit-backdrop-filter : blur(10px);
+	display                 : flex;
+	overflow-x              : auto;
+	z-index                 : 1;
 }
 
-.nav__link{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  width: 33%;
-  min-width: 50px;
-  overflow: hidden;
-  white-space: nowrap;
-  font-size: small;
-  color: black;
-  text-decoration: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: background-color 0.1s ease-in-out;
+.nav__link {
+	display                     : flex;
+	flex-direction              : column;
+	align-items                 : center;
+	justify-content             : center;
+	flex-grow                   : 1;
+	width                       : 33%;
+	min-width                   : 50px;
+	overflow                    : hidden;
+	white-space                 : nowrap;
+	font-size                   : small;
+	color                       : black;
+	text-decoration             : none;
+	-webkit-tap-highlight-color : transparent;
+	transition                  : background-color 0.1s ease-in-out;
 }
 
 .nav__link:hover {
-  background: whitesmoke;
-  opacity: 0.7;
+	background : whitesmoke;
+	opacity    : 0.7;
 }
 
 /* Scroll Down */
 
 .scrolldown-wrapper {
-  left: 95%;
-  position: absolute;
-  text-align: center;
-  bottom: 85%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  padding-left: 20px;
-  display: none;
+	left         : 95%;
+	position     : absolute;
+	text-align   : center;
+	bottom       : 85%;
+	transform    : translate(-50%, -50%);
+	z-index      : 1;
+	padding-left : 20px;
+	display      : none;
 }
 
 .scrolldown {
-  border: 2px solid dimgray;
-  border-radius: 30px;
-  height: 46px;
-  margin: 0 auto 8px;
-  text-align: center;
-  width: 30px;
+	border        : 2px solid dimgray;
+	border-radius : 30px;
+	height        : 46px;
+	margin        : 0 auto 8px;
+	text-align    : center;
+	width         : 30px;
 }
 
 .scrolldown-p1,
 .scrolldown-p2 {
-  animation-duration: 1.5s;
-  animation-name: scrolldown;
-  animation-iteration-count: infinite;
-  fill: dimgray;
+	animation-duration        : 1.5s;
+	animation-name            : scrolldown;
+	animation-iteration-count : infinite;
+	fill                      : dimgray;
 }
 
 .scrolldown-p2 {
-  animation-delay: .75s;
+	animation-delay : .75s;
 }
 
 @keyframes scrolldown {
-  0% {
-    opacity: 0;
-    transform: translate(0, -8px);
-  }
-  50% {
-    opacity: 1;
-    transform: translate(0, 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(0, 8px);
-  }
+	0% {
+		opacity   : 0;
+		transform : translate(0, -8px);
+	}
+	50% {
+		opacity   : 1;
+		transform : translate(0, 0);
+	}
+	100% {
+		opacity   : 0;
+		transform : translate(0, 8px);
+	}
 }
