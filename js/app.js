@@ -42,7 +42,6 @@ form.addEventListener('submit', evt => {
 
 //Hide filters or notifications if click outside div
 document.addEventListener('click', function(evt){
-    console.log(evt.target.className.split(" ")[0]);
     if(!(evt.target.className.split(" ")[0] === 'filters' || evt.target.className.split(" ")[0] === 'notifications' || evt.target.className.split(" ")[0] === 'filter-check'|| evt.target.className.split(" ")[0] === 'notification_setting')){
         var filters = document.getElementById("filters");
         filters.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});

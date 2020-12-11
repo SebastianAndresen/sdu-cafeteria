@@ -8,13 +8,18 @@
 	--upvoteGreen : #00cf5a;
 	font-family   : "Brown Regular", sans-serif;
 }
-
-@import url(//db.onlinewebfonts.com/c/123c7e674188c97798dd39cd41ff2d85?family=Brown+Regular);
+@font-face {
+	font-family: 'Brown Regular';
+	url('../fonts/Brown Regular Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+/*@import url(//db.onlinewebfonts.com/c/123c7e674188c97798dd39cd41ff2d85?family=Brown+Regular);
 @font-face {
 	font-family : "Brown Regular";
 	src         : url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.eot");
 	src         : url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.woff") format("woff"), url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/123c7e674188c97798dd39cd41ff2d85.svg#Brown Regular") format("svg");
-}
+}*/
 
 #btnLogout {
 	margin-top: 20px;
