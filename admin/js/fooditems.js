@@ -56,6 +56,14 @@ const renderFoodItem = (data, id) => {
         visibledate: data.visibledate
     }
 
+    let visibilityMessage = "Hidden";
+    if (data.visible == 1) visibilityMessage = "Visible";
+    if (data.visible == 2) visibilityMessage = `Becomes visible ${setDateFromSeconds(data.visibledate, 'in ', '')}`;
+
+    const visibilityButton = data.visible == 1
+        ? `<button type="button" onclick="visibilityHide('${id}')">Hide Now</button>`
+        : `<button type="button" onclick="visibilityShow('${id}')">Show Now</button>`;
+
     const html = `
         <div id="${id}" class="fooditem card-panel white row" data-title="${data.title}" data-cat="${data.category}" data-id="${id}" data-info='${JSON.stringify(dataToKeep)}'>
             <table>
@@ -67,7 +75,7 @@ const renderFoodItem = (data, id) => {
                     <td rowspan="5"><p class="desc">Alerting Content:</p><p${data.contains.length ? '' : ' class="subinfo"'}>${data.contains.length ? containsIntArrToStringArr(data.contains) : 'nothing'}</p></td>
                     <td>
                         <button type="button" onclick="editfooditem('${id}')">Edit</button>
-                        <p class="subinfo">${'latest edit'}</p>
+                        <p class="subinfo">latest edit: ${setDateFromSeconds(data.lastedit, '', ' ago')}</p>
                     </td>
                 </tr>
                 <tr>
@@ -79,17 +87,16 @@ const renderFoodItem = (data, id) => {
                     <td></td>
                 </tr>
                 <tr>
-                    <td><p class="subinfo">Visibility status</p></td>
+                    <td><p class="subinfo">${visibilityMessage}</p></td>
                     <td>
-                        <button type="button" onclick="visibilityShow('${id}')">Show</button>
-                        <button type="button" onclick="visibilityHide('${id}')">Hide</button>
+                        ${visibilityButton}
                     </td>
                 </tr>
                 <tr>
                     <td><span>${data.user_upvotes.length}</span> <i class="upscore material-icons">arrow_circle_up</i></td>
                     <td><span>${data.user_downvotes.length}</span> <i class="downscore material-icons">arrow_circle_down</i></td>
                     <td><span>${data.user_favorites.length}</span> <i class="starscore material-icons">star_rate</i></td>
-                    <td><p class="subinfo">Score reset status</p></td>
+                    <td><p class="subinfo">Score counts from ${setDateFromSeconds(data.lastreset, '', ' ago')}</p></td>
                     <td>
                         <button type="button" onclick="resetscore('${id}')">Reset Score</button>
                     </td>
@@ -157,3 +164,7 @@ const resetscore = (itemid) => {
         });
     }
 };
+
+const modifyFoodItem = (data, id) => {
+    console.log("MODIFICATION!!!!");
+}
