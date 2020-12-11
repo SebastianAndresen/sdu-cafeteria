@@ -51,8 +51,8 @@ const renderFoodItem = (data, id) => {
         </div>
     `;
 
-    if (data.category < foodcategoriesDOM.length) ;
-    foodcategoriesDOM[data.category].innerHTML += html;
+    if (data.category < foodcategoriesDOM.length)
+        foodcategoriesDOM[data.category].innerHTML += html;
 }
 
 fooditems.addEventListener('click', evt => {

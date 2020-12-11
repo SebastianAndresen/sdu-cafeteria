@@ -178,7 +178,7 @@ const resetscore = (itemid) => {
     }
 };
 
-const modifyFoodItem = (data, id) => {
+const modifyFoodAdminItem = (data, id) => {
     const fooditem = document.querySelector(`.fooditem[data-id=${id}]`);
 
     fooditem.setAttribute('data-title', data.title);
