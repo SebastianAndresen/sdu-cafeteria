@@ -3,8 +3,6 @@
   --primary: #272727;
   --secondary: #747474;
   --orange: #ff6525;
-  --yellow: #ffe400;
-  --green: #14a76c;
 }
 
   /*** **** ***/
@@ -39,6 +37,7 @@ nav .sidenav-trigger{
   width: 100%;
   position: sticky;
   top: 0px;
+  z-index: 100;
 }
 
 #searchbar_wrapper tr td:first-child {
@@ -111,7 +110,7 @@ nav .sidenav-trigger{
 }
 
 #food_item_list td {
-  vertical-align: bottom;
+  vertical-align: top;
 }
 
 #food_item_list table h4,
@@ -127,6 +126,7 @@ nav .sidenav-trigger{
 #food_item_list tr td:last-child,
 #food_item_list table button {
   float: right;
+  min-width: 100px;
 }
 
 #food_item_list .fooditemImage {
@@ -180,6 +180,41 @@ nav .sidenav-trigger{
   color: orange;
 }
 
+#food_item_list .filteredAway {
+  display: none;
+}
+
+#noContentInCategory {
+  margin-top: 140px;
+  padding: 40px;
+  text-align: center;
+  color: grey;
+  display: none;
+}
+
+#noContentInCategory.show {
+  display: block;
+}
+
+#food_item_list .fooditem {
+  position: relative;
+}
+
+#food_item_list .fooditem .loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  display: none;
+}
+
+#food_item_list .fooditem.loading .loadingOverlay {
+  display: inline;
+}
+
   /*** **************** ***/
  /** create food button **/
 /*** **************** ***/
@@ -198,7 +233,7 @@ nav .sidenav-trigger{
   width: 100%;
   min-height: 100%;
   position: fixed;
-  z-index: 2;
+  z-index: 200;
   top: 0;
   left: 0;
   padding: 20 60px;
@@ -379,4 +414,88 @@ nav .sidenav-trigger{
 #form_categories p.active {
   background: #222;
   color: #fff;
+}
+
+  /*** ************* ***/
+ /** loading spinner **/
+/*** ************* ***/
+
+.lds-spinner {
+  color: official;
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 80px;
+}
+.lds-spinner div {
+  transform-origin: 40px 40px;
+  animation: lds-spinner 1.2s linear infinite;
+}
+.lds-spinner div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 37px;
+  width: 6px;
+  height: 18px;
+  border-radius: 20%;
+  background: #fff;
+}
+.lds-spinner div:nth-child(1) {
+  transform: rotate(0deg);
+  animation-delay: -1.1s;
+}
+.lds-spinner div:nth-child(2) {
+  transform: rotate(30deg);
+  animation-delay: -1s;
+}
+.lds-spinner div:nth-child(3) {
+  transform: rotate(60deg);
+  animation-delay: -0.9s;
+}
+.lds-spinner div:nth-child(4) {
+  transform: rotate(90deg);
+  animation-delay: -0.8s;
+}
+.lds-spinner div:nth-child(5) {
+  transform: rotate(120deg);
+  animation-delay: -0.7s;
+}
+.lds-spinner div:nth-child(6) {
+  transform: rotate(150deg);
+  animation-delay: -0.6s;
+}
+.lds-spinner div:nth-child(7) {
+  transform: rotate(180deg);
+  animation-delay: -0.5s;
+}
+.lds-spinner div:nth-child(8) {
+  transform: rotate(210deg);
+  animation-delay: -0.4s;
+}
+.lds-spinner div:nth-child(9) {
+  transform: rotate(240deg);
+  animation-delay: -0.3s;
+}
+.lds-spinner div:nth-child(10) {
+  transform: rotate(270deg);
+  animation-delay: -0.2s;
+}
+.lds-spinner div:nth-child(11) {
+  transform: rotate(300deg);
+  animation-delay: -0.1s;
+}
+.lds-spinner div:nth-child(12) {
+  transform: rotate(330deg);
+  animation-delay: 0s;
+}
+@keyframes lds-spinner {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

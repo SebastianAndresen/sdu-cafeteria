@@ -1,4 +1,3 @@
-console.log('admin db loaded v2');
 
 // offline data
 db.enablePersistence()
@@ -22,12 +21,10 @@ const foodItemCollection = 'fooditems';
 db.collection(foodItemCollection).onSnapshot(snapshot => {
     snapshot.docChanges().forEach(change => {
         if (change.type === 'added') {
-            console.log("admin: food added");
             renderFoodItem(change.doc.data(), change.doc.id);
         }
         if (change.type === 'modified') {
-            console.log("admin: food modified");
-            // modifyFoodItem(change.doc.data(), change.doc.id);
+            modifyFoodAdminItem(change.doc.data(), change.doc.id);
         }
         if (change.type === 'removed') {
             // removeFoodItem(change.doc.id);

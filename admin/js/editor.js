@@ -1,20 +1,4 @@
 
-let currentCategory = 1;
-
-// admin sidebar
-const sidebar = document.getElementById('food_sidebar');
-const sidebar_btns = sidebar.getElementsByTagName('p');
-
-for (let i = 0; i < sidebar_btns.length; i++) {
-    sidebar_btns[i].addEventListener("click", function () {
-        let current = sidebar.getElementsByClassName('active');
-        current[0].className = current[0].className.replace('active', '');
-        this.className += ' active';
-        this.className = this.className.trim();
-        currentCategory = this.getAttribute('data-cat');
-    });
-}
-
 // editor diets
 document.querySelector('#form_diets').addEventListener('click', function (ev) {
     if (ev.target.tagName === 'LI') {
@@ -92,6 +76,7 @@ Date.prototype.toDateInputValue = (function () {
 
 const concatContainsLiItems = form_allergies_li.concat(form_diets_li);
 
+const idHolder = document.getElementById('form_id');
 const titleInput = document.getElementById('form_title');
 const priceInput = document.getElementById('form_price');
 const imageInput = document.getElementById('form_image');
@@ -126,6 +111,7 @@ const clearEditor = () => {
 }
 
 const prefillEditor = (itemdata) => {
+    idHolder.innerText = itemdata.id;
     titleInput.value = itemdata.title;
     priceInput.value = itemdata.price;
     imageInput.value = itemdata.image;
@@ -156,7 +142,6 @@ const showEditBtn = () => {
 }
 
 const editorAsJSON = () => {
-    let today = new Date();
     let visidate = new Date(datepicker.value);
 
     let catindex = 0;
@@ -180,7 +165,7 @@ const editorAsJSON = () => {
         category: catindex,
         contains: foodContains,
         daily_reset: setscore_btns[1].className == 'active',
-        lastedit: Math.floor(today.getTime() / 1000),
+        lastedit: getCurrentTime(),
         visible: visibility_btns[2].className == 'active' ? 2 : visibility_btns[1].className == 'active' ? 1 : 0,
         visibledate: Math.floor(visidate.getTime() / 1000)
     };
@@ -188,8 +173,9 @@ const editorAsJSON = () => {
 
 // cloud functions
 const adminCreateFood = firebase.app().functions('europe-west1').httpsCallable('admincreatenew');
+const adminUpdateItem = firebase.app().functions('europe-west1').httpsCallable('adminupdateitem');
 
-// buttons
+// editor buttons
 const editorCreateNew = () => {
     clearEditor();
     showCreateBtn();
@@ -197,7 +183,6 @@ const editorCreateNew = () => {
 };
 
 const editorCreate = (itemid) => {
-    console.log("CREATE NEW DOCUMENT");
     let editorData = editorAsJSON();
     editorData.lastreset = editorData.lastedit;
     editorData.user_upvotes = [];
@@ -210,12 +195,22 @@ const editorCreate = (itemid) => {
 }
 
 const editorSave = () => {
-    console.log("UPDATE EXISTING DOCUMENT");
-    console.log(editorAsJSON());
+    if (confirm("Overwrite this item?")) {
+        const itemid = idHolder.innerText;
+        setItemToLoading(itemid);
+        adminUpdateItem({
+            id: itemid,
+            json: editorAsJSON()
+        }).catch(err => {
+            console.log('ERROR: ', err.message);
+        });
+        closeEditor();
+    }
 }
 
 const editorCancel = () => {
-    if (confirm("Are you sure you want to cancel?")) {
+    if (confirm("Cancel and discard edits?")) {
         closeEditor();
+        clearEditor();
     }
 }
