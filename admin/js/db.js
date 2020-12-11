@@ -24,7 +24,6 @@ db.collection(foodItemCollection).onSnapshot(snapshot => {
             renderFoodItem(change.doc.data(), change.doc.id);
         }
         if (change.type === 'modified') {
-            console.log("admin: food modified");
             modifyFoodItem(change.doc.data(), change.doc.id);
         }
         if (change.type === 'removed') {
