@@ -55,3 +55,8 @@ const setDateFromSeconds = (sec, prefix, suffix) => {
     if (diff < 14) return `${prefix}${Math.floor(diff)} day${Math.floor(diff) == 1 ? '' : 's'}${suffix}`;
     return d.toLocaleDateString('da-DK');
 }
+
+const setItemToLoading = (id) => {
+    const fooditem = document.querySelector(`.fooditem[data-id=${id}]`);
+    fooditem.classList.add('loading');
+}

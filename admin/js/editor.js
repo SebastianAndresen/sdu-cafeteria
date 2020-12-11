@@ -196,8 +196,10 @@ const editorCreate = (itemid) => {
 
 const editorSave = () => {
     if (confirm("Overwrite this item?")) {
+        const itemid = idHolder.innerText;
+        setItemToLoading(itemid);
         adminUpdateItem({
-            id: idHolder.innerText,
+            id: itemid,
             json: editorAsJSON()
         }).catch(err => {
             console.log('ERROR: ', err.message);

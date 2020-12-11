@@ -99,7 +99,10 @@ const buildTableFromData = (data, id) => {
                         <button type="button" onclick="resetscore('${id}')">Reset Score</button>
                     </td>
                 </tr>
-            </table>`;
+            </table>
+            <div class="loadingOverlay">
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>`;
 }
 
 const foodItemList = document.querySelector('#food_item_list');
@@ -141,6 +144,7 @@ const adminHideItem = firebase.app().functions('europe-west1').httpsCallable('ad
 
 const visibilityShow = (itemid) => {
     if (confirm("Make item visible in the app?")) {
+        setItemToLoading(itemid);
         adminShowItem({
             id: itemid,
             edittime: getCurrentTime()
@@ -152,6 +156,7 @@ const visibilityShow = (itemid) => {
 
 const visibilityHide = (itemid) => {
     if (confirm("Make item invisible in the app?")) {
+        setItemToLoading(itemid);
         adminHideItem({
             id: itemid,
             edittime: getCurrentTime()
@@ -163,6 +168,7 @@ const visibilityHide = (itemid) => {
 
 const resetscore = (itemid) => {
     if (confirm("Remove all upvotes and downvotes for this item?")) {
+        setItemToLoading(itemid);
         adminResetScore({
             id: itemid,
             edittime: getCurrentTime()
@@ -180,4 +186,5 @@ const modifyFoodItem = (data, id) => {
     fooditem.setAttribute('data-info', JSON.stringify(dataToKeepFromRaw(data, id)));
 
     fooditem.innerHTML = buildTableFromData(data, id);
+    fooditem.classList.remove('loading');
 }
