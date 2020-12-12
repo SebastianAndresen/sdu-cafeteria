@@ -44,22 +44,20 @@ const consoleString = [
 ];
 
 //Initialize filter settings from database
-const initFilters = (userData) =>{
-    //Get userfilters from database
-    filterArray = userData.filters;
-
-    //Set filtercheckboxes according to userdata
-    for( var i = 0; i < filterArray.length; i++){
-        document.getElementById(filterID[filterArray[i]]).checked = true;
-    }
-
-    //Run filterfunction
-    filterFunction(filterArray);
+const initFilters = (user) =>{
+    //console.log("User ID: ", user);
+    const doc = db.collection("users").doc(user).get().then((snapshot)=>{
+        filterArray = snapshot.data().filters;
+        for( var i = 0; i < filterArray.length; i++){
+            document.getElementById(filterID[filterArray[i]]).checked = true;
+        }
+        filterFunction(filterArray);
+    });
 };
 
 function filterFunction(array){
     const setFilters = firebase.app().functions('europe-west1').httpsCallable('setFilters');
-    setFilters(filterArray, user);
+    setFilters(array, user);
     db.collection("fooditems").get().then((snapshot)=>{
 
         snapshot.docs.forEach(doc => {
@@ -67,7 +65,7 @@ function filterFunction(array){
             var showDish = true;
 
             //Loop through the filters
-            for( var i = 0; i < filterArray.length; i++){
+            for( var i = 0; i < array.length; i++){
 
                 //If the dish contains any ingredients that user has filtered away => removeFromDom
                 if(doc.data().contains.includes(filterArray[i])){
