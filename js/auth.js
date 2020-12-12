@@ -10,6 +10,7 @@ auth.onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
         //create reference to user_id to be used elsewhere
         user = firebaseUser.uid;
+        initFilters(user);
         /*const addToken = firebase.app().functions('europe-west1').httpsCallable('addToken');
         messaging.requestPermission()
             .then(() => {
