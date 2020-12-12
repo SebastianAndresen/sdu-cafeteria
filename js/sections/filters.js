@@ -47,11 +47,16 @@ const consoleString = [
 const initFilters = (user) =>{
     //console.log("User ID: ", user);
     const doc = db.collection("users").doc(user).get().then((snapshot)=>{
-        filterArray = snapshot.data().filters;
-        for( var i = 0; i < filterArray.length; i++){
-            document.getElementById(filterID[filterArray[i]]).checked = true;
+        try {
+            filterArray = snapshot.data().filters;
+            for( var i = 0; i < filterArray.length; i++){
+                document.getElementById(filterID[filterArray[i]]).checked = true;
+            }
+            filterFunction(filterArray);
+        } catch (error) {
+            console.log("First login for this user.");
         }
-        filterFunction(filterArray);
+        
     });
 };
 
