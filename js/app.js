@@ -42,7 +42,6 @@ form.addEventListener('submit', evt => {
 
 //Hide filters or notifications if click outside div
 document.addEventListener('click', function(evt){
-    console.log(evt.target.className.split(" ")[0]);
     if(!(evt.target.className.split(" ")[0] === 'filters' || evt.target.className.split(" ")[0] === 'notifications' || evt.target.className.split(" ")[0] === 'filter-check'|| evt.target.className.split(" ")[0] === 'notification_setting')){
         var filters = document.getElementById("filters");
         filters.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
@@ -164,7 +163,7 @@ const getUserNotifications = (id) => {
 
             //for each match, check the corresponding checkbox
             for (const val of compare) {
-                document.querySelector(`#notification_${val}`).checked = true;
+                    document.querySelector(`#notification_${val}`).checked = true;
             }
         } else {
             console.log('no data found..');

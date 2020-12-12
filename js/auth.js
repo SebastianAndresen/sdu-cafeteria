@@ -10,6 +10,7 @@ auth.onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
         //create reference to user_id to be used elsewhere
         user = firebaseUser.uid;
+        initFilters(user);
     } else {
         console.log('User logged out.');
     }
