@@ -1,5 +1,3 @@
-console.log("FAVORITE SCRIPT LOADED v1");
-
 const favorites = document.querySelector('#favorites');
 
 const renderFavoriteItem = (data, id) => {
