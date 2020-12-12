@@ -45,7 +45,7 @@ const consoleString = [
 
 //Initialize filter settings from database
 const initFilters = (user) =>{
-    console.log("User ID: ", user);
+    //console.log("User ID: ", user);
     const doc = db.collection("users").doc(user).get().then((snapshot)=>{
         filterArray = snapshot.data().filters;
         for( var i = 0; i < filterArray.length; i++){

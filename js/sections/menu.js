@@ -37,6 +37,8 @@ const renderFoodItem = (data, id) => {
    <div>
     <div class="food-title card-data">${data.title}</div>
     <div class="food-price card-data">${data.price}</div>
+    <div class="food-ingredients card-data">${data.contains}</div>
+
    
     <div class="food-upvotes card-data">Upvotes: ${data.user_upvotes.length}</div>
     <div class="food-downvotes card-data">Downvotes: ${data.user_downvotes.length}</div>
@@ -47,10 +49,12 @@ const renderFoodItem = (data, id) => {
    </div>
 </div>
     `;
+    if(isFavorite)
+        renderFavoriteItem(data, id);
 
     if (data.category < foodcategoriesDOM.length)
         foodcategoriesDOM[data.category].innerHTML += html;
-}
+};
 
 fooditems.addEventListener('click', evt => {
     const upvote = firebase.app().functions('europe-west1').httpsCallable('upvote');

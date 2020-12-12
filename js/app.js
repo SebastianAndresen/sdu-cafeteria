@@ -42,7 +42,7 @@ form.addEventListener('submit', evt => {
 
 //Hide filters or notifications if click outside div
 document.addEventListener('click', function(evt){
-    if(!(evt.target.className.split(" ")[0] === 'filters' || evt.target.className.split(" ")[0] === 'notifications' || evt.target.className.split(" ")[0] === 'filter-check'|| evt.target.className.split(" ")[0] === 'notification_setting')){
+    if(!(evt.target.className.split(" ")[0] === 'filters' || evt.target.className.split(" ")[0] === 'notifications' || evt.target.className.split(" ")[0] === 'filter-check'|| evt.target.className.split(" ")[0] === 'notification_setting' || evt.target.className.split(" ")[0] === '')){
         var filters = document.getElementById("filters");
         filters.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
         filters.style.visibility = "hidden";
@@ -123,10 +123,14 @@ bottomNav.addEventListener('click', evt => {
             if(document.getElementById("favorites").style.visibility==='visible'){
                 hideAll();
                 document.getElementById("food_items").style.visibility = "visible";
+                document.getElementById("favorite-menu-toggle").textContent="favorites";
+                document.getElementById("favorite-menu-icon").textContent="favorite"
             }
             else{
-            hideAll();
-            document.getElementById("favorites").style.visibility = "visible";
+                hideAll();
+                document.getElementById("favorites").style.visibility = "visible";
+                document.getElementById("favorite-menu-toggle").textContent="menu";
+                document.getElementById("favorite-menu-icon").textContent="local_dining"
             }
             break;
         default:
