@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/png" href="img/icons/favicon.png"/>
-    <link href="//db.onlinewebfonts.com/c/123c7e674188c97798dd39cd41ff2d85?family=Brown+Regular" rel="stylesheet" type="text/css"/>
+    <link href="/fonts/Brown-Regular.woff" rel="stylesheet" type="text/css"/>
 
     <title>SDU Cafeteria</title>
     <!-- materialize icons, css & js -->
@@ -100,6 +100,12 @@
             <i class="material-icons">developer_board</i>Admin
         </a>
     </div>
+
+    <div class="center" id="logout">
+        <button class="waves-effect waves-light btn-large" id="btnLogout"><i class="material-icons right">delete_forever</i>Delete Userdata</button>
+    </div>
+
+
 
 </ul>
 
@@ -270,23 +276,6 @@
     </div>
 </div>
 
-<!-- recipes -->
-<div class="center" id="add">
-    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
-        <i class="material-icons">add</i>
-    </a>
-</div>
-<br><br>
-<div class="center" id="logout">
-    <button class="btn-large" id="btnLogout">Logout</button>
-    <p>NOTE: Logout changes uid</p>
-    <br>
-    <span id="user_id"></span>
-    <br>
-    <div id="user_info"></div>
-</div>
-
-
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
@@ -322,23 +311,31 @@
     const auth = firebase.auth();
     const messaging = firebase.messaging();
     const init_messaging = () => {
-        const addToken = firebase.app().functions('europe-west1').httpsCallable('addToken');
-        messaging.requestPermission()
+        //const addToken = firebase.app().functions('europe-west1').httpsCallable('addToken');
+        /*messaging.requestPermission()
             .then(() => {
                 console.log('Permission obtained.');
                 return messaging.getToken();
             })
             .then((token) => {
-                console.log('token: ', token);
+                console.log('token:', token);
                 //save token to current user.
-                addToken(token);
+                console.log('trying to get user document and add token..');
+                db.collection('users').doc(auth.currentUser.uid).get().then(doc => {
+                    if (doc.exists) {
+                        addToken(token);
+                    } else {
+                        console.log('user doesnt exist yet');
+                    }
+
+                }).catch(err => console.log('error setting token:', err));
                 //BUG: renderuser runs before data is available - to add token to user needs 2x refresh.
                 //To fix: look into properly implementing promises or using async/await.
             })
             .catch(err => {
                 console.log('Error: ', err);
             });
-
+*/
         messaging.onMessage((payload) => {
             console.log('Received message in foreground: ', payload);
             let toastHTML = `<span>Foreground notification!</span><a class="btn-flat toast-action" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">View Details</a>`;
