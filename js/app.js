@@ -11,37 +11,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-//DOM content refs
-//const recipes = document.querySelector('.recipes');
-const userInfo = document.querySelector('#user_info');
-const form = document.querySelector('form');
-
 document.addEventListener('DOMContentLoaded', function() {
-    // nav menu
-    const menus = document.querySelectorAll('.side-menu');
-    M.Sidenav.init(menus, {edge: 'right'});
-    // add recipe form
-    const forms = document.querySelectorAll('.side-form');
-    M.Sidenav.init(forms, {edge: 'left'});
-});
-
-// add new recipe to DB
-form.addEventListener('submit', evt => {
-    evt.preventDefault();
-    const recipe = {
-        title: form.title.value,
-        ingredients: form.ingredients.value
-    };
-    db.collection('recipes').add(recipe).catch(err => console.log(err));
-    form.title.value = '';
-    form.ingredients.value = '';
+    // sidemenu
+    const sidemenu = document.querySelectorAll('.side-menu');
+    M.Sidenav.init(sidemenu, {edge: 'left'});
+    // filters menu
+    const filtermenu = document.querySelectorAll('.side-filters');
+    M.Sidenav.init(filtermenu, { edge: 'left' });
+    // notifications menu
+    const notificationsmenu = document.querySelectorAll('.side-notifications');
+    M.Sidenav.init(notificationsmenu, { edge: 'left' });
 });
 
 // ============= MORTEN ========================
 // render recipe data to DOM
 
 //Hide filters or notifications if click outside div
-document.addEventListener('click', function(evt){
+/*document.addEventListener('click', function(evt){
     if(!(evt.target.className.split(" ")[0] === 'filters' || evt.target.className.split(" ")[0] === 'notifications' || evt.target.className.split(" ")[0] === 'filter-check'|| evt.target.className.split(" ")[0] === 'notification_setting' || evt.target.className.split(" ")[0] === '')){
         var filters = document.getElementById("filters");
         filters.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
@@ -50,10 +36,10 @@ document.addEventListener('click', function(evt){
         notifications.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
         notifications.style.visibility = "hidden";
     }
-});
+});*/
 
 //Side navigation
-const sidebar = document.querySelector('.sidenav')
+/*const sidebar = document.querySelector('.sidenav')
 sidebar.addEventListener('click', evt => {
     switch(evt.target.className.split(" ")[0]){
         case 'menu':
@@ -82,13 +68,13 @@ sidebar.addEventListener('click', evt => {
         default:
             break;
     }
-});
+});*/
 
 
 //Bottom navigation
-const bottomNav = document.querySelector('.bot-nav');
+//const bottomNav = document.querySelector('.bot-nav');
 
-bottomNav.addEventListener('click', evt => {
+/*bottomNav.addEventListener('click', evt => {
     switch(evt.target.className.split(" ")[0]){
         case 'filters':
             var filters = document.getElementById("filters");
@@ -136,10 +122,9 @@ bottomNav.addEventListener('click', evt => {
         default:
             break;
     };
-});
+});*/
 
-
-function hideAll(){
+/*function hideAll(){
     document.getElementById("favorites").style.visibility = "hidden";
     var filters = document.getElementById("filters");
     filters.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
@@ -148,7 +133,7 @@ function hideAll(){
     notifications.animate([{marginLeft: '42%'},{marginLeft: '100%'}],{duration: 250});
     notifications.style.visibility = "hidden";
     document.getElementById("food_items").style.visibility = "hidden";
-};
+};*/
 
 const getUserNotifications = (id) => {
     let db_notifications;

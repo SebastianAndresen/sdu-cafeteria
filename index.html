@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" href="css/styles.css" rel="stylesheet">
+    <link type="text/css" href="css/styles2.css" rel="stylesheet">
     <link rel="manifest" type="application/manifest+json" href="manifest.webmanifest">
 
     <!--iOS support-->
@@ -26,29 +26,17 @@
     <meta name="theme-color" content="#FFE1C4">
 
     <!-- Application styles -->
-    <link type="text/css" href="css/sections/menu.css" rel="stylesheet">
     <link type="text/css" href="css/sections/favorites.css" rel="stylesheet">
     <link type="text/css" href="css/sections/filters.css" rel="stylesheet">
-
-
+    <link type="text/css" href="css/sections/menu2.css" rel="stylesheet">
 </head>
 <body class="grey lighten-4">
-
-<!-- scrollicon -->
-<div class="scrolldown-wrapper">
-    <div class="scrolldown">
-        <svg height="30" width="10">
-            <circle class="scrolldown-p1" cx="5" cy="15" r="2"/>
-            <circle class="scrolldown-p2" cx="5" cy="15" r="2"/>
-        </svg>
-    </div>
-</div>
 
 <!-- top nav -->
 <nav class="z-depth-0">
     <div class="nav-wrapper container">
         <a href="#"><span>SDU</span> Cafeteria</a>
-        <span class="left grey-text text-darken-1">
+        <span class="right grey-text text-darken-1">
             <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
         </span>
     </div>
@@ -56,64 +44,181 @@
 
 <!-- bot nav -->
 <div class="bot-nav">
-    <a href="#" class="filters nav__link">
-        <i class="filters material-icons search__icon">search</i>
-        <span class="filters nav__text">filter</span>
+    <a href="#" class="sidenav-trigger" data-target="side-filters">
+        <i class="filters material-icons">search</i>
+        <span>filter</span>
     </a>
-    <a href="#" class="favorites nav__link">
-        <i class="favorites material-icons nav__icon" id="favorite-menu-icon">favorite</i>
-        <span class="favorites nav__text" id="favorite-menu-toggle">favorites</span>
+    <a href="#">
+        <i class="favorites material-icons" id="favorite-menu-icon">favorite</i>
+        <span id="favorite-menu-toggle">favorites</span>
     </a>
-    <a href="#" class="notifications nav__link">
-        <i class="notifications material-icons not__icon">notifications_active</i>
-        <span class="notifications nav__text">notifications</span>
+    <a href="#" class="sidenav-trigger" data-target="side-notifications">
+        <i class="notifications material-icons">notifications_active</i>
+        <span>notifications</span>
     </a>
 </div>
 
-
-<!-- side nav -->
+<!-- side menu -->
 <ul id="side-menu" class="sidenav side-menu">
     <li><a href="index.html" class="subheader">SDU-CAFETERIA</a></li>
-    <div>
-        <a class="menu sidenav-close">
-            <i class="material-icons">local_dining</i>Menu
-        </a>
-    </div>
-    <div>
-        <a class="filters sidenav-close">
-            <i class="material-icons">filter_alt</i>Filters
-        </a>
-    </div>
-    <div>
-        <a class="favorites sidenav-close">
-            <i class="material-icons">favorite</i>Favorites
-        </a>
-    </div>
-    <div>
-        <a class="notifications sidenav-close">
-            <i class="material-icons">notifications</i>Notify
-        </a>
-    </div>
-
-    <div>
+    <li>
         <a href="admin/admin.html">
             <i class="material-icons">developer_board</i>Admin
         </a>
-    </div>
+    </li>
 
-    <div class="center" id="logout">
+    <li class="center" id="logout">
         <button class="waves-effect waves-light btn-large" id="btnLogout"><i class="material-icons right">delete_forever</i>Delete Userdata</button>
+    </li>
+</ul>
+
+<!-- side filters -->
+<ul id="side-filters" class="sidenav side-filters">
+    <li><a href="index.html" class="subheader">FILTERS</a></li>
+
+    <div class="filters card-panel white row" id="filters">
+        <form action="#">
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="dairy" onclick="checkboxClicked(0)"></input>
+                    <span class="filters">Dairy</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="eggs" onclick="checkboxClicked(1)"></input>
+                    <span class="filters">Eggs</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="tree-nuts"
+                        onclick="checkboxClicked(2)"></input>
+                    <span class="filters">Tree nuts</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="peanuts" onclick="checkboxClicked(3)"></input>
+                    <span class="filters">Peanuts</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="shellfish"
+                        onclick="checkboxClicked(4)"></input>
+                    <span class="filters">Shellfish</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="wheat" onclick="checkboxClicked(5)"></input>
+                    <span class="filters">Wheat</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="soy" onclick="checkboxClicked(6)"></input>
+                    <span class="filters">Soy</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="fish" onclick="checkboxClicked(7)"></input>
+                    <span class="filters">Fish</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="meat" onclick="checkboxClicked(8)"></input>
+                    <span class="filters">Any Meat</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="non-halal"
+                        onclick="checkboxClicked(9)"></input>
+                    <span class="filters">Non-Halal Meat</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="any-sugar"
+                        onclick="checkboxClicked(10)"></input>
+                    <span class="filters">Any Sugar</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="high-sugar"
+                        onclick="checkboxClicked(11)"></input>
+                    <span class="filters">High Sugar Content</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="any-gluten"
+                        onclick="checkboxClicked(12)"></input>
+                    <span class="filters">Any Gluten</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="high-gluten"
+                        onclick="checkboxClicked(13)"></input>
+                    <span class="filters">High Gluten Content</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="any-calories"
+                        onclick="checkboxClicked(14)"></input>
+                    <span class="filters">Any Calories</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="filter-check filled-in" id="high-calories"
+                        onclick="checkboxClicked(15)"></input>
+                    <span class="filters">High Calories Content</span>
+                </label>
+            </p>
+        </form>
     </div>
+</ul>
 
+<!-- side notifications -->
+<ul id="side-notifications" class="sidenav side-notifications">
+    <li><a href="index.html" class="subheader">NOTIFICATIONS</a></li>
 
-
+    <div class="notifications card-panel white row" id="notifications">
+        <form action="#">
+            <p>
+                <label>
+                    <input type="checkbox" class="notification_setting filled-in notification_checkbox"
+                        id="notification_vegetarian" name="vegetarian" />
+                    <span class="notification_setting">Vegetarian</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="notification_setting filled-in notification_checkbox"
+                        id="notification_vegan" name="vegan" />
+                    <span class="notification_setting">Vegan</span>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="checkbox" class="notification_setting filled-in notification_checkbox"
+                        id="notification_favorites" name="favorites" />
+                    <span class="notification_setting">Favorites</span>
+                </label>
+            </p>
+        </form>
+    </div>
 </ul>
 
 <div id="food_items" class="container grey-text text-darken-1">
-    <h5 class="center">Menu</h5>
-    <div class="subheader">
-        <h6 class="center grey-text text-darken-1">The brown fox jumped over the lazy dog</h6>
-    </div>
     <div id="food_category_news" class="food_category headline">
         <h6 class="center">Meals of the Day</h6>
     </div>
@@ -125,7 +230,7 @@
     </div>
 </div>
 
-<div id="food_single" class="singlehidden">
+<!--div id="food_single" class="singlehidden">
     <div id="food_single_cross" onclick="closeFoodSingle()">x</div>
     <h4 id="food_single_category">Category goes here</h4>
     <h3 id="food_single_title">Title goes here</h3>
@@ -138,13 +243,13 @@
     <button id="food_single_upvote" class="interaction materials-icons">keyboard_arrow_up</button>
     <button id="food_single_downvote" class="interaction materials-icons">keyboard_arrow_down</button>
     <button id="food_single_favorite" class="interaction material-icons">favorite</button>
-</div>
+</div-->
 
 <div id="favorites" class="container grey-text text-darken-1">
     <h5 class="center">Favorites</h5>
 </div>
 
-<div class="filters container grey-text text-darken-1" id="filters">
+<!--div class="filters container grey-text text-darken-1" id="filters">
     <div class="filters card-panel white row">
       <form action="#">
           <p>
@@ -245,10 +350,10 @@
           </p>
       </form>
     </div>
-  </div>
+  </div-->
 
 
-<div class="notifications container grey-text text-darken-1" id="notifications">
+<!--div class="notifications container grey-text text-darken-1" id="notifications">
     <div class="notifications card-panel white row">
         <form action="#">
             <p>
@@ -274,7 +379,7 @@
             </p>
         </form>
     </div>
-</div>
+</div-->
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -402,7 +507,7 @@
 <script src="js/auth.js"></script>
 <script defer src="js/db.js"></script>
 <script defer src="js/app.js"></script>
-<script defer src="js/sections/menu.js"></script>
+<script defer src="js/sections/menu2.js"></script>
 <script defer src="js/sections/favorites.js"></script>
 <script defer src="js/sections/filters.js"></script>
 
