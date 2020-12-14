@@ -3,6 +3,8 @@
 	--downvote : #ff2323;
     --upvote : #00cf5a;
     --favorite : orange;
+    --backgroundcol : #F2C75C;
+    --themecol : #789D4A;
 	font-family : "Brown Regular", sans-serif;
 }
 
@@ -15,6 +17,16 @@
 
 html {
     scroll-behavior: smooth;
+}
+
+/* TOP NAVBAR */
+.z-depth-0 {
+    background-color: var(--backgroundcol);
+}
+
+.nav-wrapper a {
+    color: black;
+    font-weight: bold;
 }
 
 /* BOTTOM NAVBAR */
@@ -53,4 +65,11 @@ html {
 
 #food_items {
     margin-bottom: 60px;
+}
+
+#food_items h3 {
+    color: black;
+    font-size: 30px;
+    padding: 0;
+    margin: 10px;
 }

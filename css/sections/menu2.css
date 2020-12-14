@@ -61,6 +61,7 @@
     bottom: 0;
     color: black;
     padding: 0 8px;
+    width: 100%;
 }
 
 .food_carousel_item .carousel_description .food-score-container {
