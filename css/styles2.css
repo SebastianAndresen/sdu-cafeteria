@@ -1,0 +1,16 @@
+:root {
+	--primary     : white;
+	--secondary   : white;
+	--title       : black;
+	--priceGreen  : #789d4a;
+	--downvoteRed : #ff2323;
+	--upvoteGreen : #00cf5a;
+	font-family   : "Brown Regular", sans-serif;
+}
+@font-face {
+	font-family: 'Brown Regular';
+	src: url('../fonts/Brown-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
