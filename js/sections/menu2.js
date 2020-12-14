@@ -119,7 +119,9 @@ const renderFoodItem = (data, id) => {
                 </tr>
                 <tr>
                     <td>
-                        <i class="btn_favorite material-icons${foodJSON.personal.favorite ? ' active' : ''}" data-id="${id}" data-favorite="${foodJSON.personal.favorite}">star_rate</i>
+                        <div class="btn_favorite_container">
+                            <i class="btn_favorite material-icons${foodJSON.personal.favorite ? ' active' : ''}" data-id="${id}" data-favorite="${foodJSON.personal.favorite}">grade</i>
+                        </div>
                         <div class="food-score-container">
                             <span class="food-score">${foodJSON.score}</span>/10
                         </div>
@@ -272,8 +274,7 @@ const downvote = firebase.app().functions('europe-west1').httpsCallable('downvot
 const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
 
 fooditems.addEventListener('click', evt => {
-    if (evt.target.classList.contains('vote_count') || evt.target.classList.contains('vote_arrow')) {
-        console.log(evt.target);
+    if (evt.target.classList.contains('vote_count') || evt.target.classList.contains('vote_arrow') || evt.target.classList.contains('btn_favorite')) {
         const id = evt.target.getAttribute('data-id');
         switch (evt.target.className.split(" ")[0]) {
             case 'btn_upvote_press':

@@ -176,3 +176,13 @@
     color: white;
     font-weight: bold;
 }
+
+.food-info-card .btn_favorite_container i {
+    color: white;
+    -webkit-text-stroke: 2px orange;
+    font-size: 38px;
+}
+
+.food-info-card .btn_favorite_container i.active {
+    color: orange;
+}
