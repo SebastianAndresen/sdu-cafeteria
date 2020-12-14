@@ -123,7 +123,7 @@ const renderFoodItem = (data, id) => {
                             <i class="btn_favorite material-icons${foodJSON.personal.favorite ? ' active' : ''}" data-id="${id}" data-favorite="${foodJSON.personal.favorite}">grade</i>
                         </div>
                         <div class="food-score-container">
-                            <span class="food-score">${foodJSON.score}</span>/10
+                            <span class="food-score">${foodJSON.score}</span>/10.0
                         </div>
                     </td>
                 </tr>
@@ -131,13 +131,6 @@ const renderFoodItem = (data, id) => {
         </div>
     </div>
     `;
-
-    /*
-    <div class="food-upvotes">Upvotes: ${foodJSON.upvotes}</div>
-    <div class="food-downvotes">Downvotes: ${foodJSON.downvotes}</div>
-    <i class="btn_upvote material-icons${foodJSON.personal.upvote ? ' active' : ''}" data-id="${id}" data-upvoted="${foodJSON.personal.upvote}">arrow_circle_up</i>
-    <i class="btn_downvote material-icons${foodJSON.personal.downvote ? ' active' : ''}" data-id="${id}" data-downvoted="${foodJSON.personal.downvote}">arrow_circle_down</i>
-    */
 
     if (foodJSON.personal.favorite)
         renderFavoriteItem(data, id);
@@ -206,6 +199,8 @@ const modifyFoodItem = (data, id) => {
     if (foodJSON.personal.downvote) btnDownvote.classList.add("active");
     if (foodJSON.personal.favorite) btnFavorite.classList.add("active");
 
+    btnFavorite.setAttribute('data-favorite', foodJSON.personal.favorite);
+
     const upvotebtnArrow = btnUpvote.querySelector('.vote_arrow');
     const upvotebtnCount = btnUpvote.querySelector('.vote_count');
     upvotebtnArrow.setAttribute('data-upvoted', foodJSON.personal.upvote);
@@ -221,28 +216,12 @@ const modifyFoodItem = (data, id) => {
     downvotebtnCount.innerHTML = foodJSON.downvotes;
 
 
-
-    btnFavorite.setAttribute('data-favorite', foodJSON.personal.favorite);
-
-
     const carouselitem = document.querySelector(`.food_carousel_item[data-id=ID_${id}]`);
 
     carouselitem.querySelector('.food-title').innerHTML = foodJSON.title;
     carouselitem.querySelector('.food-votes').innerHTML = `Votes: ${foodJSON.votes}`;
     carouselitem.querySelector('.food-score').innerHTML = `Score: ${foodJSON.score}`;
 }
-
-/*
-<div class="btn_upvote votebtn${foodJSON.personal.upvote ? ' active' : ''}">
-    <span class="btn_upvote_press vote_arrow" data-id="${id}" data-upvoted="${foodJSON.personal.upvote}">${foodJSON.personal.upvote ? '&#9650' : '&#9651'}</span>
-    <span class="btn_upvote_press vote_count" data-id="${id}" data-upvoted="${foodJSON.personal.upvote}">${foodJSON.upvotes}</span>
-</div>
-
-<div class="btn_downvote votebtn${foodJSON.personal.downvote ? ' active' : ''}">
-    <span class="btn_downvote_press vote_arrow" data-id="${id}" data-downvoted="${foodJSON.personal.downvote}">${foodJSON.personal.downvote ? '&#9660' : '&#9661'}</span>
-    <span class="btn_downvote_press vote_count" data-id="${id}" data-downvoted="${foodJSON.personal.downvote}">${foodJSON.downvotes}</span>
-</div>
-*/
 
 const removeFoodItem = (id) => {
     const fooditem = document.querySelector(`.fooditem[data-id=ID_${id}]`);
