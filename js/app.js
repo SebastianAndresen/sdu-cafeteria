@@ -12,18 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    // sidemenu
-    const sidemenu = document.querySelectorAll('.side-menu');
-    M.Sidenav.init(sidemenu, {edge: 'left'});
-    // filters menu
-    const filtermenu = document.querySelectorAll('.side-filters');
-    M.Sidenav.init(filtermenu, { edge: 'left' });
-    // notifications menu
-    const notificationsmenu = document.querySelectorAll('.side-notifications');
-    M.Sidenav.init(notificationsmenu, { edge: 'left' });
-    // favorites menu
-    const favoritesmenu = document.querySelectorAll('.side-favorites');
-    M.Sidenav.init(favoritesmenu, { edge: 'left' });
+    M.Sidenav.init(document.querySelectorAll('.side-menu'), {edge: 'left'});
+    M.Sidenav.init(document.querySelectorAll('.side-filters'), {edge: 'left'});
+    M.Sidenav.init(document.querySelectorAll('.side-notifications'), {edge: 'left'});
+    M.Sidenav.init(document.querySelectorAll('.side-favorites'), {edge: 'left'});
 });
 
 // ============= MORTEN ========================

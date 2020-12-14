@@ -1,12 +1,11 @@
 :root {
-	--primary     : white;
-	--secondary   : white;
-	--title       : black;
-	--priceGreen  : #789d4a;
-	--downvoteRed : #ff2323;
-	--upvoteGreen : #00cf5a;
-	font-family   : "Brown Regular", sans-serif;
+	--price : #789d4a;
+	--downvote : #ff2323;
+    --upvote : #00cf5a;
+    --favorite : orange;
+	font-family : "Brown Regular", sans-serif;
 }
+
 @font-face {
 	font-family: 'Brown Regular';
 	src: url('../fonts/Brown-Regular.woff') format('woff');
@@ -14,3 +13,39 @@
 	font-style: normal;
 }
 
+/* BOTTOM NAVBAR */
+.bottom-navbar {
+    background-color: yellow;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    backdrop-filter         : blur(10px);
+    -webkit-backdrop-filter : blur(10px);
+    box-shadow              : 0 0 3px rgba(0, 0, 0, 0.2);
+	background              : transparent;
+	opacity                 : 1;
+}
+
+.bottom-navbar a {
+    justify-content: center;
+    text-align: center;
+    color: black;
+}
+
+.bottom-navbar i {
+    width: 100%;
+    font-size: 30px;
+}
+
+.bottom-navbar span {
+    font-size: 11px;
+}
+
+/* FOOD ITEMS CONTAINER */
+
+#food_items {
+    margin-bottom: 60px;
+}
