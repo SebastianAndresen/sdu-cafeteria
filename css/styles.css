@@ -22,7 +22,6 @@
 
 /* layout styles */
 
-
 nav {
 	background : transparent;
 }
@@ -77,8 +76,6 @@ nav .sidenav-trigger {
 	grid-template-areas   : "image details delete";
 	position              : relative;
 	visibility            : hidden;
-
-
 }
 
 .recipe img {

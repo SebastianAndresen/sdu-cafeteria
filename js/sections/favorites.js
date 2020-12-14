@@ -57,7 +57,7 @@ const modifyFavoriteItem = (data, id) => {
 }
 
 const removeFavoriteItem = (id) => {
-    const favoriteitem = document.querySelector(`.favoriteitem[data-id=${id}]`);
+    const favoriteitem = document.querySelector(`.favoriteitem[data-id=ID_${id}]`);
     if(favoriteitem!=null){
         favoriteitem.remove();
     }

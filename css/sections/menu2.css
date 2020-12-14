@@ -1,0 +1,227 @@
+:root {
+	--price : #789d4a;
+	--downvote : #ff2323;
+    --upvote : #00cf5a;
+    --favorite : orange;
+	font-family : "Brown Regular", sans-serif;
+}
+
+@font-face {
+	font-family: 'Brown Regular';
+	src: url('../../fonts/Brown-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Food Presenter Window */
+
+.food_presenter {
+    height: 0;
+    overflow-y: hidden;
+    transition: .2s;
+    position: relative;
+}
+
+.food_presenter.active {
+    display: block;
+    height: 100%;
+}
+
+/* carousel */
+
+.carousel {
+    position: absolute;
+    bottom: 0;
+}
+
+.carousel ul .indicator-item {
+    border: 4px solid #cccccc;
+}
+
+.carousel ul .indicator-item.active {
+    border-color: #666666;
+}
+
+.food_carousel_item img {
+    height: 100%;
+    width: 100%;
+    object-fit:cover;
+    border-radius: 10px;
+}
+
+.food_carousel_item .carousel_description {
+    position: relative;
+    margin-top: -100%;
+    height: 100%;
+}
+
+.food_carousel_item .carousel_description .food-title {
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    color: black;
+    padding: 0 8px;
+    width: 100%;
+}
+
+.food_carousel_item .carousel_description .food-score-container {
+    display: inline-block;
+    background-color: white;
+    padding: 0 10px;
+    border-radius: 10px 0 10px 0;    
+}
+
+.food_carousel_item .carousel_description .food-score-container .food-score {
+    font-size: 20px;
+    color: black;
+}
+
+/* food info displays */
+
+.fooditem {
+    display: none;
+    position: relatiev;
+}
+
+.fooditem.active {
+    display: block;
+}
+
+.food-info-img {
+    width: 100%;
+    height: 40%;
+}
+
+.food-info-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.food-info-card {
+    background-color: white !important;
+    margin: -40px 16px 0 16px;
+    display: block;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.food-info-card td,
+.food-info-card tr,
+.food-info-card table {
+    border: none;
+}
+
+.food-info-card table tr:nth-child(2) td:last-child {
+    width: 60px;
+}
+
+.food-info-card td {
+    padding: 2px;
+    font-size: 14px;
+}
+
+.food-info-card .food-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.food-info-card .food-description {
+    vertical-align: top;
+}
+
+.food-info-card .food-price {
+    background-color: var(--price);
+    color: white;
+    display: inline-block;
+    border-radius: 40px;
+    padding: 2px 8px;
+    margin: 2px 2px 6px 2px;
+}
+
+.food-info-card .food-ingredients div {
+    background-color: #CCCCCC;
+    color: #666666;
+    display: inline-block;
+    border-radius: 40px;
+    padding: 1px 5px;
+    margin: 2px;
+}
+
+.food-info-card .food-score-container {
+    margin-right: 10px;
+    color: gray;
+    text-align: center;
+}
+
+.food-info-card .food-score {
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.food-info-card .votebtn_container {
+    text-align: center;
+    padding: 0;
+}
+
+.food-info-card .votebtn {
+    font-size: 60px;
+    line-height: 45px;
+    position: relative;
+}
+
+.food-info-card .btn_upvote .vote_arrow,
+.food-info-card .btn_upvote .vote_count {
+    color: var(--upvote);
+}
+
+.food-info-card .btn_downvote .vote_arrow,
+.food-info-card .btn_downvote .vote_count {
+    color: var(--downvote);
+}
+
+.food-info-card .vote_count {
+    font-size: 16px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+}
+
+.food-info-card .btn_upvote .vote_count {
+    top: 10px;
+}
+
+.food-info-card .btn_downvote .vote_count {
+    top: -5px;
+}
+
+.food-info-card .btn_upvote.active .vote_count {
+    color: white;
+    font-weight: bold;
+}
+
+.food-info-card .btn_downvote.active .vote_count {
+    color: white;
+    font-weight: bold;
+}
+
+.food-info-card .btn_favorite_container {
+    display: inline-block;
+}
+
+.food-info-card .food-score-container {
+    float: right;
+}
+
+.food-info-card .btn_favorite_container i {
+    color: white;
+    -webkit-text-stroke: 2px orange;
+    font-size: 38px;
+}
+
+.food-info-card .btn_favorite_container i.active {
+    color: orange;
+}

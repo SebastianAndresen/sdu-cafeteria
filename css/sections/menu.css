@@ -1,5 +1,4 @@
 
-
 .fooditem img {
     width: 100%;
 }
@@ -27,15 +26,13 @@
     color: #000000;
 }
 
-
 .fooditem {
-  display: grid;
-  padding: 0;
-  margin: 25px auto;
-  border-radius: 15px 15px 15px 15px;
-  max-width: 500px;
+    display: grid;
+    padding: 0;
+    margin: 25px auto;
+    border-radius: 15px 15px 15px 15px;
+    max-width: 500px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-
 }
 
 .fooditem img{
@@ -97,6 +94,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
 #food_single_downvote {
     grid-column-start: 2;
     grid-column-end: 2;
@@ -113,6 +111,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
 #food_single_favorite {
     grid-column: 3;
     grid-row: 1;
@@ -125,7 +124,6 @@
     background-color: whitesmoke;
     border-color: transparent;
     margin: auto;
-
 }
 
 #food_single_upvote.active {
@@ -168,7 +166,6 @@
     margin-bottom: auto;
     padding: 5px;
     box-shadow: 0 5px 15px -5px;
-
 }
 
 #food_single_desc {
@@ -188,5 +185,4 @@
     margin-left: auto;
     margin-right: auto;
     font-size: large;
-
 }

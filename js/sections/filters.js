@@ -5,26 +5,26 @@ const filters = document.querySelector('#filters');
 
 //IDs of filter checkboxes
 const filterID = [
-    'dairy',
-    'eggs',
-    'tree-nuts',
-    'peanuts',
-    'shellfish',
-    'wheat',
-    'soy',
-    'fish',
-    'meat',
-    'non-halal',
-    'any-sugar',
-    'high-sugar',
-    'any-gluten',
-    'high-gluten',
-    'any-calories',
-    'high-calories'
+    'filter_dairy',
+    'filter_eggs',
+    'filter_tree-nuts',
+    'filter_peanuts',
+    'filter_shellfish',
+    'filter_wheat',
+    'filter_soy',
+    'filter_fish',
+    'filter_meat',
+    'filter_non-halal',
+    'filter_any-sugar',
+    'filter_high-sugar',
+    'filter_any-gluten',
+    'filter_high-gluten',
+    'filter_any-calories',
+    'filter_high-calories'
 ];
 
 //Strings to be written to console
-const consoleString = [
+/*const consoleString = [
     'dairy',
     'eggs',
     'tree nuts',
@@ -41,24 +41,29 @@ const consoleString = [
     'lots of gluten',
     'calories',
     'lots of calories'
-];
+];*/
 
 //Initialize filter settings from database
 const initFilters = (user) =>{
     //console.log("User ID: ", user);
     const doc = db.collection("users").doc(user).get().then((snapshot)=>{
-        filterArray = snapshot.data().filters;
-        for( var i = 0; i < filterArray.length; i++){
-            document.getElementById(filterID[filterArray[i]]).checked = true;
+        try {
+            filterArray = snapshot.data().filters;
+            for( var i = 0; i < filterArray.length; i++){
+                document.getElementById(filterID[filterArray[i]]).checked = true;
+            }
+            filterFunction(filterArray);
+        } catch (error) {
+            console.log("First login for this user.");
         }
-        filterFunction(filterArray);
+        
     });
 };
 
 function filterFunction(array){
     const setFilters = firebase.app().functions('europe-west1').httpsCallable('setFilters');
     setFilters(array, user);
-    db.collection("fooditems").get().then((snapshot)=>{
+    /*db.collection("fooditems").get().then((snapshot)=>{
 
         snapshot.docs.forEach(doc => {
 
@@ -84,7 +89,7 @@ function filterFunction(array){
                 renderFoodItem(doc.data(), doc.id);
             }
         });
-    });
+    });*/
 };
 
 function checkboxClicked(filterCat){
