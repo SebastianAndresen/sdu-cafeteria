@@ -13,8 +13,13 @@
 	font-style: normal;
 }
 
+.fooditem {
+    background-color: skyblue;
+}
+
 .fooditem img {
-    width: 100%;
+    height: 70%;
+    object-fit:cover;
 }
 
 .fooditem .btn_upvote,
@@ -34,3 +39,10 @@
 .fooditem .btn_favorite.active {
     color: var(--favorite);
 }
+
+/* Food Presenter Window */
+/*.food_presenter.active {
+    background-color: springgreen;
+    height: 80%;
+}
+*/
