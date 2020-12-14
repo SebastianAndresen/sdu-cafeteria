@@ -45,15 +45,15 @@
 <!-- bot nav -->
 <div class="bot-nav">
     <a href="#" class="sidenav-trigger" data-target="side-filters">
-        <i class="filters material-icons">search</i>
+        <i class="material-icons">search</i>
         <span>filter</span>
     </a>
-    <a href="#">
-        <i class="favorites material-icons" id="favorite-menu-icon">favorite</i>
-        <span id="favorite-menu-toggle">favorites</span>
+    <a href="#" class="sidenav-trigger" data-target="side-favorites">
+        <i class="material-icons">favorite</i>
+        <span>favorites</span>
     </a>
     <a href="#" class="sidenav-trigger" data-target="side-notifications">
-        <i class="notifications material-icons">notifications_active</i>
+        <i class="material-icons">notifications_active</i>
         <span>notifications</span>
     </a>
 </div>
@@ -218,6 +218,14 @@
     </div>
 </ul>
 
+<!-- side favorites -->
+<ul id="side-favorites" class="sidenav side-favorites">
+    <li><a href="index.html" class="subheader">YOUR FAVORITES</a></li>
+    <div id="favorites" class="container grey-text text-darken-1">
+        <h5 class="center">Favorites</h5>
+    </div>
+</ul>
+
 <div id="food_items" class="container grey-text text-darken-1">
     <div id="food_category_daily" class="food_category">
         <h6>Meals of the Day</h6>
@@ -266,9 +274,7 @@
     <button id="food_single_favorite" class="interaction material-icons">favorite</button>
 </div-->
 
-<div id="favorites" class="container grey-text text-darken-1">
-    <h5 class="center">Favorites</h5>
-</div>
+
 
 <!--div class="filters container grey-text text-darken-1" id="filters">
     <div class="filters card-panel white row">

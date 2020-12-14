@@ -1,7 +1,8 @@
+
 html, body {
     background-color: red;
 }
 
 img {
-    border: 10px solid orange;
+    width: 100%;
 }

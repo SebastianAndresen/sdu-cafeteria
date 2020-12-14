@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // notifications menu
     const notificationsmenu = document.querySelectorAll('.side-notifications');
     M.Sidenav.init(notificationsmenu, { edge: 'left' });
+    // favorites menu
+    const favoritesmenu = document.querySelectorAll('.side-favorites');
+    M.Sidenav.init(favoritesmenu, { edge: 'left' });
 });
 
 // ============= MORTEN ========================
