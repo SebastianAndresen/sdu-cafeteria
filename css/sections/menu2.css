@@ -1,4 +1,36 @@
+:root {
+	--price : #789d4a;
+	--downvote : #ff2323;
+    --upvote : #00cf5a;
+    --favorite : orange;
+	font-family : "Brown Regular", sans-serif;
+}
 
-img {
+@font-face {
+	font-family: 'Brown Regular';
+	src: url('../../fonts/Brown-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.fooditem img {
     width: 100%;
+}
+
+.fooditem .btn_upvote,
+.fooditem .btn_downvote,
+.fooditem .btn_favorite {
+    color: gray;
+}
+
+.fooditem .btn_upvote.active {
+    color: var(--upvote);
+}
+
+.fooditem .btn_downvote.active {
+    color: var(--downvote);
+}
+
+.fooditem .btn_favorite.active {
+    color: var(--favorite);
 }
