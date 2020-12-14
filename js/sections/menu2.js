@@ -54,7 +54,6 @@ const carouselContainers = document.querySelectorAll('.carousel');
 const carouselOptions = {
     duration: 300,
     padding: 10,
-    indicators: true,
     noWrap: true,
     fullWidth: true,
     onCycleTo: (ele) => {
@@ -63,11 +62,14 @@ const carouselOptions = {
 }
 
 const loadFoodItemContentIntoView = (item) => {
+    const itemdocument = document.getElementById(`ID_${item.id}`);
+    if (itemdocument.classList.contains('filterhide')) return;
+
     const allincategory = foodinfoDOM[item.category].children;
     for (let i = 0; i < allincategory.length; i++) {
         allincategory[i].classList.remove('active');
     }
-    document.getElementById(`ID_${item.id}`).classList.add('active');
+    itemdocument.classList.add('active');
 }
 
 const reloadCarousels = () => {
@@ -91,6 +93,7 @@ const renderFoodItem = (data, id) => {
                 <span class="food-score">${foodJSON.votes > 4 ? foodJSON.score : '-'}</span>/10.0
             </div>
         </div>
+        <div class="filterview"><p>Removed by Filter</p></div>
     </div>
     `;
 
@@ -227,8 +230,10 @@ const modifyFoodItem = (data, id) => {
 
 const removeFoodItem = (id) => {
     const fooditem = document.querySelector(`.fooditem[data-id=ID_${id}]`);
-    if (fooditem != null) {
-        fooditem.remove();
+    const fooditemcarousel = document.querySelector(`.food_carousel_item[data-id=ID_${id}]`);
+    if (fooditem != null || fooditemcarousel != null) {
+        if (fooditem != null) fooditem.remove();
+        if (fooditemcarousel != null) fooditemcarousel.remove();
         reloadCarousels();
     }
 }

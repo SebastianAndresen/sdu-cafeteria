@@ -90,6 +90,25 @@ function filterFunction(array){
             }
         });
     });*/
+    
+    const allfooditemsinfo = document.getElementsByClassName('fooditem');
+
+    for (let i = 0; i < allfooditemsinfo.length; i++) {
+        
+        const foodJSON = JSON.parse(allfooditemsinfo[i].getAttribute('data-jsoncontent'));
+        const carouselitem = document.querySelector(`.food_carousel_item[data-id=ID_${foodJSON.id}]`);
+
+        allfooditemsinfo[i].classList.remove('filterhide');
+        carouselitem.classList.remove('filterhide');
+
+        for (let j = 0; j < filterArray.length; j++) {
+            if (foodJSON.contains.includes(filterArray[j])) {
+                allfooditemsinfo[i].classList.add('filterhide');
+                carouselitem.classList.add('filterhide');
+                break;
+            }
+        }
+    }
 };
 
 function checkboxClicked(filterCat){
