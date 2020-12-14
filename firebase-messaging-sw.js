@@ -23,3 +23,12 @@ messaging.onBackgroundMessage(function(payload) {
         icon: payload.data.icon
     });
 });
+self.addEventListener('notificationclick', function(event) {
+    const clickedNotification = event.notification;
+    clickedNotification.close();
+
+    // Do something as the result of the notification click
+    const url = "http://sdu-cafeteria.netlify.app/";
+    const promiseChain = clients.openWindow(url);
+    event.waitUntil(promiseChain);
+});
