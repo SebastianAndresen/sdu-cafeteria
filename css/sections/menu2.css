@@ -13,15 +13,6 @@
 	font-style: normal;
 }
 
-.fooditem {
-    background-color: skyblue;
-}
-
-.fooditem img {
-    height: 70%;
-    object-fit:cover;
-}
-
 .fooditem .btn_upvote,
 .fooditem .btn_downvote,
 .fooditem .btn_favorite {
@@ -41,8 +32,44 @@
 }
 
 /* Food Presenter Window */
-/*.food_presenter.active {
+.food_presenter {
+    height: 0;
+    overflow-y: hidden;
+    transition: .2s;
+}
+
+.food_presenter.active {
+    display: block;
     background-color: springgreen;
     height: 80%;
 }
-*/
+
+.food_closeup {
+    height: 70%;
+    overflow-y: hidden;
+}
+
+/* food info displays */
+
+.fooditem {
+    display: none;
+}
+
+.fooditem.active {
+    display: block;
+}
+
+.fooditem img {
+    width: 50%;
+}
+
+/* carousel */
+
+.food_carousel_item {
+    background-color: skyblue;
+}
+
+.food_carousel_item img {
+    height: 70%;
+    object-fit:cover;
+}
