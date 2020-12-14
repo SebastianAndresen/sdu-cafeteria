@@ -39,7 +39,7 @@ const renderFoodItem = (data, id) => {
     };
 
     const html = `
-    <div class="fooditem" data-id="${id}" id="${id}" data-jsoncontent='${JSON.stringify(jsoncontent)}'>
+    <div class="fooditem" data-id="ID_${id}" id="ID_${id}" data-jsoncontent='${JSON.stringify(jsoncontent)}'>
         <img src="${data.image}" alt="${data.title} image">
         <div>
             <div class="food-title card-data">${data.title}</div>
@@ -137,7 +137,7 @@ const containsIntArrToStringArr = (int_arr) => {
 const modifyFoodItem = (data, id) => {
     if (!data.visible) return;
 
-    const fooditem = document.querySelector(`.fooditem[data-id=${id}]`);
+    const fooditem = document.querySelector(`.fooditem[data-id=ID_${id}]`);
     // TODO - update image
     fooditem.querySelector('.food-title').innerHTML = data.title;
     fooditem.querySelector('.food-ingredients').innerHTML = containsIntArrToStringArr(data.contains);
