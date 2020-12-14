@@ -63,7 +63,7 @@ const initFilters = (user) =>{
 function filterFunction(array){
     const setFilters = firebase.app().functions('europe-west1').httpsCallable('setFilters');
     setFilters(array, user);
-    db.collection("fooditems").get().then((snapshot)=>{
+    /*db.collection("fooditems").get().then((snapshot)=>{
 
         snapshot.docs.forEach(doc => {
 
@@ -89,7 +89,7 @@ function filterFunction(array){
                 renderFoodItem(doc.data(), doc.id);
             }
         });
-    });
+    });*/
 };
 
 function checkboxClicked(filterCat){

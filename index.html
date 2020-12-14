@@ -219,14 +219,35 @@
 </ul>
 
 <div id="food_items" class="container grey-text text-darken-1">
-    <div id="food_category_news" class="food_category headline">
-        <h6 class="center">Meals of the Day</h6>
+    <div id="food_category_daily" class="food_category">
+        <h6>Meals of the Day</h6>
     </div>
-    <div id="food_category_daily" class="food_category headline">
-        <h6 class="center">New Nordic</h6>
+    <div id="food_category_cold" class="food_category">
+        <h6>Cold Dishes</h6>
     </div>
-    <div id="food_category_drinks" class="food_category headline">
-        <h6 class="center">Drinks</h6>
+    <div id="food_category_sandwich" class="food_category">
+        <h6>Sandwiches</h6>
+    </div>
+    <div id="food_category_nordic" class="food_category">
+        <h6>Nordic Revival</h6>
+    </div>
+    <div id="food_category_grab" class="food_category">
+        <h6>Grab'n Go</h6>
+    </div>
+    <div id="food_category_salad" class="food_category">
+        <h6>Salad Bar</h6>
+    </div>
+    <div id="food_category_fruit" class="food_category">
+        <h6>Fruit</h6>
+    </div>
+    <div id="food_category_baking" class="food_category">
+        <h6>Bake-of</h6>
+    </div>
+    <div id="food_category_snack" class="food_category">
+        <h6>Snacks</h6>
+    </div>
+    <div id="food_category_drink" class="food_category">
+        <h6>Drinks</h6>
     </div>
 </div>
 
@@ -459,7 +480,6 @@
     };
     init_messaging();
 
-
     //CURL command (insert server key, token and change data fields):
     /*
     server key:
@@ -482,35 +502,12 @@
     */
 </script>
 
-<!--scroll indicator jquery that doesnt work for some reason-->
-<script type="text/javascript">
-
-    $(function () {
-
-        let documentEl = $(document),
-            fadeElem = $('.scrolldown-wrapper');
-
-
-        documentEl.on('scroll', function () {
-            let currScrollPos = documentEl.scrollTop();
-
-            fadeElem.each(function () {
-                let $this = $(this),
-                    elemOffsetTop = $this.offset().top;
-                if (currScrollPos > elemOffsetTop) $this.css('opacity', 0.5 - (currScrollPos - elemOffsetTop) / 400);
-            });
-        });
-
-    });
-
-</script>
 <script src="js/auth.js"></script>
 <script defer src="js/db.js"></script>
 <script defer src="js/app.js"></script>
 <script defer src="js/sections/menu2.js"></script>
 <script defer src="js/sections/favorites.js"></script>
 <script defer src="js/sections/filters.js"></script>
-
 
 </body>
 </html>
