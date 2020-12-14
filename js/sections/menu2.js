@@ -99,32 +99,43 @@ const renderFoodItem = (data, id) => {
         <div class="food-info-card">
             <table>
                 <tr>
-                    <td colspan="3" class="food-title">${foodJSON.title}</td>
+                    <td colspan="2" class="food-title">${foodJSON.title}</td>
                 </tr>
                 </tr>
-                    <td colspan="2"><div class="food-price">${foodJSON.price}</div></td>
-                    <td rowspan="3">
-                        <div class="food-upvotes">Upvotes: ${foodJSON.upvotes}</div>
-                        <div class="food-downvotes">Downvotes: ${foodJSON.downvotes}</div>
-                        <i class="btn_upvote material-icons${foodJSON.personal.upvote ? ' active' : ''}" data-id="${id}" data-upvoted="${foodJSON.personal.upvote}">arrow_circle_up</i>
-                        <i class="btn_downvote material-icons${foodJSON.personal.downvote ? ' active' : ''}" data-id="${id}" data-downvoted="${foodJSON.personal.downvote}">arrow_circle_down</i>
+                    <td class="food-description">
+                        <div class="food-price">${foodJSON.price}</div>
+                        <div class="food-ingredients">${containsIntArrToStringArr(foodJSON.contains)}</div>
                     </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="food-ingredients">${containsIntArrToStringArr(foodJSON.contains)}</td>
+                    <td rowspan="2" class="votebtn_container">
+                        <div class="btn_upvote votebtn${foodJSON.personal.upvote ? ' active' : ''}">
+                            <span class="btn_upvote_press vote_arrow" data-id="${id}" data-upvoted="${foodJSON.personal.upvote}">${foodJSON.personal.upvote ? '&#9650' : '&#9651'}</span>
+                            <span class="btn_upvote_press vote_count" data-id="${id}" data-upvoted="${foodJSON.personal.upvote}">${foodJSON.upvotes}</span>
+                        </div>
+                        <div class="btn_downvote votebtn${foodJSON.personal.downvote ? ' active' : ''}">
+                            <span class="btn_downvote_press vote_arrow" data-id="${id}" data-downvoted="${foodJSON.personal.downvote}">${foodJSON.personal.downvote ? '&#9660' : '&#9661'}</span>
+                            <span class="btn_downvote_press vote_count" data-id="${id}" data-downvoted="${foodJSON.personal.downvote}">${foodJSON.downvotes}</span>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>
                         <i class="btn_favorite material-icons${foodJSON.personal.favorite ? ' active' : ''}" data-id="${id}" data-favorite="${foodJSON.personal.favorite}">star_rate</i>
-                    </td>
-                    <td>
-                        <span class="food-score">Score: ${foodJSON.score}</span>/10
+                        <div class="food-score-container">
+                            <span class="food-score">${foodJSON.score}</span>/10
+                        </div>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
     `;
+
+    /*
+    <div class="food-upvotes">Upvotes: ${foodJSON.upvotes}</div>
+    <div class="food-downvotes">Downvotes: ${foodJSON.downvotes}</div>
+    <i class="btn_upvote material-icons${foodJSON.personal.upvote ? ' active' : ''}" data-id="${id}" data-upvoted="${foodJSON.personal.upvote}">arrow_circle_up</i>
+    <i class="btn_downvote material-icons${foodJSON.personal.downvote ? ' active' : ''}" data-id="${id}" data-downvoted="${foodJSON.personal.downvote}">arrow_circle_down</i>
+    */
 
     if (foodJSON.personal.favorite)
         renderFavoriteItem(data, id);
@@ -134,49 +145,6 @@ const renderFoodItem = (data, id) => {
     
     reloadCarousels();
 };
-
-fooditems.addEventListener('click', evt => {
-    const upvote = firebase.app().functions('europe-west1').httpsCallable('upvote');
-    const downvote = firebase.app().functions('europe-west1').httpsCallable('downvote');
-    const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
-    if (evt.target.tagName === 'I') {
-        const id = evt.target.getAttribute('data-id');
-        switch (evt.target.className.split(" ")[0]) {
-            case 'btn_upvote':
-                const upvoted = evt.target.getAttribute('data-upvoted') == 'true';
-                upvote({
-                    id,
-                    upvoted
-                }).catch(err => {
-                    //TODO: make nice and shiny error message for user
-                    console.log('ERROR: ', err.message);
-                });
-                break;
-            case 'btn_downvote':
-                const downvoted = evt.target.getAttribute('data-downvoted') == 'true';
-                downvote({
-                    id,
-                    downvoted
-                }).catch(err => {
-                    //TODO: make nice and shiny error message for user
-                    console.log('ERROR:', err.message);
-                });
-                break;
-            case 'btn_favorite':
-                const favorited = evt.target.getAttribute('data-favorite') == 'true';
-                favorite({
-                    id,
-                    favorited
-                }).catch(err => {
-                    //TODO: make nice and shiny error message for user
-                    console.log('ERROR:', err.message);
-                });
-                break;
-            default:
-                console.log(`Unknown class: ${evt.target.className.split(" ")[0]}`);
-        }
-    }
-});
 
 const containsFoodString = [
     'Dairy',
@@ -218,21 +186,15 @@ const modifyFoodItem = (data, id) => {
 
     const fooditem = document.querySelector(`.fooditem[data-id=ID_${id}]`);
 
-    const btnUpvote = fooditem.querySelector('.btn_upvote');
-    const btnDownvote = fooditem.querySelector('.btn_downvote');
-    const btnFavorite = fooditem.querySelector('.btn_favorite');
-
     // TODO - update image
     fooditem.querySelector('.food-title').innerHTML = foodJSON.title;
     fooditem.querySelector('.food-ingredients').innerHTML = containsIntArrToStringArr(foodJSON.contains);
     fooditem.querySelector('.food-price').innerHTML = foodJSON.price;
-    fooditem.querySelector('.food-upvotes').innerHTML = `Upvotes: ${foodJSON.upvotes}`;
-    fooditem.querySelector('.food-downvotes').innerHTML = `Downvotes: ${foodJSON.downvotes}`;
-    fooditem.querySelector('.food-score').innerHTML = `Score: ${foodJSON.score}`;
+    fooditem.querySelector('.food-score').innerHTML = foodJSON.score;
 
-    btnUpvote.setAttribute('data-upvoted', foodJSON.personal.upvote);
-    btnDownvote.setAttribute('data-downvoted', foodJSON.personal.downvote);
-    btnFavorite.setAttribute('data-favorite', foodJSON.personal.favorite);
+    const btnUpvote = fooditem.querySelector('.btn_upvote');
+    const btnDownvote = fooditem.querySelector('.btn_downvote');
+    const btnFavorite = fooditem.querySelector('.btn_favorite');
 
     btnUpvote.classList.remove("active");
     btnDownvote.classList.remove("active");
@@ -242,12 +204,43 @@ const modifyFoodItem = (data, id) => {
     if (foodJSON.personal.downvote) btnDownvote.classList.add("active");
     if (foodJSON.personal.favorite) btnFavorite.classList.add("active");
 
+    const upvotebtnArrow = btnUpvote.querySelector('.vote_arrow');
+    const upvotebtnCount = btnUpvote.querySelector('.vote_count');
+    upvotebtnArrow.setAttribute('data-upvoted', foodJSON.personal.upvote);
+    upvotebtnCount.setAttribute('data-upvoted', foodJSON.personal.upvote);
+    upvotebtnArrow.innerHTML = foodJSON.personal.upvote ? '&#9650' : '&#9651';
+    upvotebtnCount.innerHTML = foodJSON.upvotes;
+
+    const downvotebtnArrow = btnDownvote.querySelector('.vote_arrow');
+    const downvotebtnCount = btnDownvote.querySelector('.vote_count');
+    downvotebtnArrow.setAttribute('data-downvoted', foodJSON.personal.downvote);
+    downvotebtnCount.setAttribute('data-downvoted', foodJSON.personal.downvote);
+    downvotebtnArrow.innerHTML = foodJSON.personal.downvote ? '&#9660' : '&#9661';
+    downvotebtnCount.innerHTML = foodJSON.downvotes;
+
+
+
+    btnFavorite.setAttribute('data-favorite', foodJSON.personal.favorite);
+
+
     const carouselitem = document.querySelector(`.food_carousel_item[data-id=ID_${id}]`);
 
     carouselitem.querySelector('.food-title').innerHTML = foodJSON.title;
     carouselitem.querySelector('.food-votes').innerHTML = `Votes: ${foodJSON.votes}`;
     carouselitem.querySelector('.food-score').innerHTML = `Score: ${foodJSON.score}`;
 }
+
+/*
+<div class="btn_upvote votebtn${foodJSON.personal.upvote ? ' active' : ''}">
+    <span class="btn_upvote_press vote_arrow" data-id="${id}" data-upvoted="${foodJSON.personal.upvote}">${foodJSON.personal.upvote ? '&#9650' : '&#9651'}</span>
+    <span class="btn_upvote_press vote_count" data-id="${id}" data-upvoted="${foodJSON.personal.upvote}">${foodJSON.upvotes}</span>
+</div>
+
+<div class="btn_downvote votebtn${foodJSON.personal.downvote ? ' active' : ''}">
+    <span class="btn_downvote_press vote_arrow" data-id="${id}" data-downvoted="${foodJSON.personal.downvote}">${foodJSON.personal.downvote ? '&#9660' : '&#9661'}</span>
+    <span class="btn_downvote_press vote_count" data-id="${id}" data-downvoted="${foodJSON.personal.downvote}">${foodJSON.downvotes}</span>
+</div>
+*/
 
 const removeFoodItem = (id) => {
     const fooditem = document.querySelector(`.fooditem[data-id=ID_${id}]`);
@@ -273,3 +266,48 @@ const showFoodWindow = (index) => {
         }, 200);
     }
 }
+
+const upvote = firebase.app().functions('europe-west1').httpsCallable('upvote');
+const downvote = firebase.app().functions('europe-west1').httpsCallable('downvote');
+const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
+
+fooditems.addEventListener('click', evt => {
+    if (evt.target.classList.contains('vote_count') || evt.target.classList.contains('vote_arrow')) {
+        console.log(evt.target);
+        const id = evt.target.getAttribute('data-id');
+        switch (evt.target.className.split(" ")[0]) {
+            case 'btn_upvote_press':
+                const upvoted = evt.target.getAttribute('data-upvoted') == 'true';
+                upvote({
+                    id,
+                    upvoted
+                }).catch(err => {
+                    //TODO: make nice and shiny error message for user
+                    console.log('ERROR: ', err.message);
+                });
+                break;
+            case 'btn_downvote_press':
+                const downvoted = evt.target.getAttribute('data-downvoted') == 'true';
+                downvote({
+                    id,
+                    downvoted
+                }).catch(err => {
+                    //TODO: make nice and shiny error message for user
+                    console.log('ERROR:', err.message);
+                });
+                break;
+            case 'btn_favorite':
+                const favorited = evt.target.getAttribute('data-favorite') == 'true';
+                favorite({
+                    id,
+                    favorited
+                }).catch(err => {
+                    //TODO: make nice and shiny error message for user
+                    console.log('ERROR:', err.message);
+                });
+                break;
+            default:
+                console.log(`Unknown class: ${evt.target.className.split(" ")[0]}`);
+        }
+    }
+});
