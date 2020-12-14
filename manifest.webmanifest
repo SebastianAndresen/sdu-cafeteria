@@ -3,11 +3,11 @@
   "short_name": "SDU",
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#DDCBA4",
-  "theme_color": "#E1BBB4",
-  "orientation": "portrait-primary",
+  "background_color": "#F2C75C",
+  "theme_color": "#789D4A",
+  "orientation": "portrait",
   "icons": [
-{
+    {
       "src": "/img/icons/icon-72x72.png",
       "type": "image/png",
       "sizes": "72x72"
