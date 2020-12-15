@@ -41,7 +41,6 @@ self.addEventListener('activate', evt => {
     //delete old cache versions.
     evt.waitUntil(
         caches.keys().then(keys => {
-            //console.log(keys);
             return Promise.all(keys
                 .filter(key => key !== staticCache && key !== dynamicCache)
                 .map(key => caches.delete(key)))
@@ -52,9 +51,6 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-    //console.log('fetch event', evt.request.url)
-    //console.log('fetch event', evt)
-
     if (evt.request.url.indexOf('firestore.googleapis.com') === -1) {
         //get assets from pre-cached assets if possible
         evt.respondWith(
@@ -67,16 +63,15 @@ self.addEventListener('fetch', evt => {
                     });
                 });
             }).catch(() => { //OFFLINE fallback
-                // If response to .html file request isn't in cache --> show fallback .html
                 if (evt.request.url.indexOf('.html') > -1) {
                     return caches.match('/pages/fallback.html');
                 }
-                /*if (evt.request.url.indexOf('.png') > -1) {
-                    caches.match('/img/fallback.png'); // IMAGE DOESN'T EXIST
-                }*/
-
             })
         )
     }
 });
+
+/*if (evt.request.url.indexOf('.png') > -1) {
+    caches.match('/img/fallback.png'); // IMAGE DOESN'T EXIST
+}*/
 
