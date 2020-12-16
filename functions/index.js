@@ -201,21 +201,18 @@ exports.unSubFromTopic = functions.https.onCall((data, context) => {
 });
 
 // ===================== SEND PUSH NOTIFICATIONS ========================
+//listens on every fooditem update
 exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
-    //listens on every fooditem update
     .onUpdate((change, context) => {
-        //console.log(context);
         const dataAfter = change.after.data();
         const dataBefore = change.before.data();
-        let meal_flag;
-        let condition;
+        const vegetarian = [4, 7, 8]; // restrictions: shellfish, fish, meat
+        const vegan = [0, 1, ...vegetarian]; //restrictions: dairy, eggs + vegetarian
+        let meal_flag, condition;
+
         // if the updated data isn't changing visibility (and the change isn't setting visibility to 1, return null
-        if (dataAfter.visible === dataBefore.visible || dataAfter.visible !== 1) {
-            console.log('we are only interested in events where visibility changes to 1..');
-            return null;
-        }
-        let vegetarian = [4, 7, 8]; // restrictions: shellfish, fish, meat
-        let vegan = [0, 1, ...vegetarian]; //restrictions: dairy, eggs + vegetarian
+        if (dataAfter.visible === dataBefore.visible || dataAfter.visible !== 1) return null;
+
         if (vegan.some(restriction => dataAfter.contains.includes(restriction))) {
             //fooditem contains at least one of 0,1,4,7,8 = vegan
             if (!vegetarian.some(restriction => dataAfter.contains.includes(restriction))) {
@@ -224,16 +221,10 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
                 meal_flag = 'vegetarian';
             }
         } else {
-            //condition = "'favorites' in topics || 'vegetarian' in topics || 'vegan' in topics";
             condition = "'vegetarian' in topics || 'vegan' in topics";
             meal_flag = 'vegan';
         }
-        //firestore.getAll() apparently doesn't work for JS. see https://cambaughn.medium.com/firestore-use-promise-all-instead-of-getall-on-the-web-301f4678bd05
-        /**
-         * for each id in fooditem.user_favorited
-         *      if collection('users').doc(id).contains a token AND that user has notification['favorites']:
-         *      send message to that token: "your favorite meal is available!"
-         */
+
         const getUsers = (user_ids, cb) => {
             let refs = user_ids.map(id => {
                 return admin.firestore().collection('users').doc(id).get();
@@ -265,7 +256,6 @@ exports.broadcast = functions.firestore.document('fooditems/{fooditemID}')
             return admin.messaging().sendMulticast(msg)
                 .then((response) => {
                     console.log(response.successCount + ' messages were sent successfully');
-                    console.log('response:', response);
                 });
         });
 
