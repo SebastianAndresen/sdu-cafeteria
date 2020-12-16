@@ -162,7 +162,6 @@ $(() => {
         const subToTopic = firebase.app().functions('europe-west1').httpsCallable('subToTopic');
         const unSubFromTopic = firebase.app().functions('europe-west1').httpsCallable('unSubFromTopic');
         const addToken = firebase.app().functions('europe-west1').httpsCallable('addToken');
-        console.log(cb_arr);
         setNotifications(cb_arr);
         messaging.getToken()
             .then(token => {
