@@ -48,8 +48,6 @@ exports.downvote = functions.https.onCall((data, context) => {
 
 // ===================== FAVORITE ========================
 exports.favorite = functions.https.onCall((data, context) => {
-    console.log(data.id);
-    console.log(context.auth.uid);
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
     }
