@@ -25,7 +25,6 @@ messaging.onBackgroundMessage(function(payload) {
 });
 self.addEventListener('notificationclick', function(event) {
     const urlToOpen = new URL('https://sdu-cafeteria.netlify.app/', self.location.origin).href;
-
     const promiseChain = clients.matchAll({
         type: 'window',
         includeUncontrolled: true
