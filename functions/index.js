@@ -48,12 +48,9 @@ exports.downvote = functions.https.onCall((data, context) => {
 
 // ===================== FAVORITE ========================
 exports.favorite = functions.https.onCall((data, context) => {
-    console.log(data.id);
-    console.log(context.auth.uid);
     if (!context.auth) {
         throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated.');
     }
-
     if (data.favorited) {
         return admin.firestore().collection('fooditems').doc(data.id).update({
             user_favorites: admin.firestore.FieldValue.arrayRemove(context.auth.uid)
@@ -64,6 +61,9 @@ exports.favorite = functions.https.onCall((data, context) => {
         });
     }
 });
+
+console.log(data.id);
+console.log(context.auth.uid);
 
 // ===================== ADMIN FUNCTIONS ========================
 exports.admincreatenew = functions.https.onCall((data, context) => {
@@ -148,7 +148,7 @@ exports.setNotifications = functions.https.onCall((data, context) => {
 // ===================== SET FILTERS ========================
 exports.setFilters = functions.https.onCall((data, context) => {
     if (!context.auth) {
-        throw new functions.https.HttpsError('unauthenticated', 'user is not authenticated');
+        throw new functions.https.HttpsError('unauthenticated', 'not authenticated');
     }
     return admin.firestore().collection('users').doc(context.auth.uid).update({
         filters: data

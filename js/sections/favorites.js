@@ -34,7 +34,6 @@ favoritesmenu.addEventListener('click', evt => {
 
 const modifyFavoriteItem = (data, id) => {
     const isFavorite = data.user_favorites.includes(user);    
-    
     removeFavoriteItem(id);
     if (isFavorite){
         renderFavoriteItem(data, id);

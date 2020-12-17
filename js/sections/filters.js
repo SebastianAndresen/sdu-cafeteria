@@ -45,7 +45,6 @@ const filterID = [
 
 //Initialize filter settings from database
 const initFilters = (user) =>{
-    //console.log("User ID: ", user);
     const doc = db.collection("users").doc(user).get().then((snapshot)=>{
         try {
             filterArray = snapshot.data().filters;
@@ -63,44 +62,12 @@ const initFilters = (user) =>{
 function filterFunction(array){
     const setFilters = firebase.app().functions('europe-west1').httpsCallable('setFilters');
     setFilters(array, user);
-    /*db.collection("fooditems").get().then((snapshot)=>{
-
-        snapshot.docs.forEach(doc => {
-
-            var showDish = true;
-
-            //Loop through the filters
-            for( var i = 0; i < array.length; i++){
-
-                //If the dish contains any ingredients that user has filtered away => removeFromDom
-                if(doc.data().contains.includes(filterArray[i])){
-                    showDish = false;
-                    removeFoodItem(doc.id);
-                    break;
-                }
-            }
-
-            //If dish doesn't contain any ingredients that user has filtered away => render to DOM
-            if(showDish){
-                //Remove from DOM in case it's already there, so we're not rendering twice.
-                removeFoodItem(doc.id);
-
-                //Render to DOM
-                renderFoodItem(doc.data(), doc.id);
-            }
-        });
-    });*/
-    
     const allfooditemsinfo = document.getElementsByClassName('fooditem');
-
     for (let i = 0; i < allfooditemsinfo.length; i++) {
-        
         const foodJSON = JSON.parse(allfooditemsinfo[i].getAttribute('data-jsoncontent'));
         const carouselitem = document.querySelector(`.food_carousel_item[data-id=ID_${foodJSON.id}]`);
-
         allfooditemsinfo[i].classList.remove('filterhide');
         carouselitem.classList.remove('filterhide');
-
         for (let j = 0; j < filterArray.length; j++) {
             if (foodJSON.contains.includes(filterArray[j])) {
                 allfooditemsinfo[i].classList.add('filterhide');
@@ -129,7 +96,33 @@ function checkboxClicked(filterCat){
 }
 
 
+    /*db.collection("fooditems").get().then((snapshot)=>{
 
+        snapshot.docs.forEach(doc => {
+
+            var showDish = true;
+
+            //Loop through the filters
+            for( var i = 0; i < array.length; i++){
+
+                //If the dish contains any ingredients that user has filtered away => removeFromDom
+                if(doc.data().contains.includes(filterArray[i])){
+                    showDish = false;
+                    removeFoodItem(doc.id);
+                    break;
+                }
+            }
+
+            //If dish doesn't contain any ingredients that user has filtered away => render to DOM
+            if(showDish){
+                //Remove from DOM in case it's already there, so we're not rendering twice.
+                removeFoodItem(doc.id);
+
+                //Render to DOM
+                renderFoodItem(doc.data(), doc.id);
+            }
+        });
+    });*/
 
 
 
