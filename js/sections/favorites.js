@@ -1,58 +1,43 @@
-const favorites = document.querySelector('#favorites');
+const favoritesmenu = document.querySelector('#favorites');
 
 const renderFavoriteItem = (data, id) => {
-    if (!data.visible) return;
-
     removeFavoriteItem(id);
 
     const isFavorite = data.user_favorites.includes(user);
-    if(isFavorite) {
+    if (isFavorite) {
         const html = `
-            <div class="favoriteitem card-panel white row" data-id="${id}">
-            <img src="${data.image}" alt="${data.title} image">
-            <div class="favorite-title">${data.title}</div>
-            <div class="favorite-price">${data.price}</div>
-
-            <i class="btn_favorite card-data material-icons${isFavorite ? ' active' : ''}" data-id="${id}" data-favorite="${isFavorite}">star_rate</i>
+            <div class="favoriteitem" data-id="ID_${id}">
+                <img src="${data.image}" alt="${data.title} image">
+                <div class="favorite-title-container">
+                    <div class="favorite-title">${data.title}</div>
+                </div>
+                <i class="btn_favorite material-icons" data-id="${id}">grade</i>
             </div>
         `;
-        favorites.innerHTML += html;
+        favoritesmenu.innerHTML += html;
     }
 }
 
-favorites.addEventListener('click', evt => {
-    const favorite = firebase.app().functions('europe-west1').httpsCallable('favorite');
+favoritesmenu.addEventListener('click', evt => {
     if (evt.target.tagName === 'I') {
-        const id = evt.target.getAttribute('data-id');
-        //switch (evt.target.className.split(" ")[0]) {
-          //  case 'btn_favorite':
-                const favorited = evt.target.getAttribute('data-favorite') == 'true';
-                favorite({
-                    id,
-                    favorited
-                }).catch(err => {
-                    //TODO: make nice and shiny error message for user
-                    console.log('ERROR:', err.message);
-                });
-            //    break;
-            //default:
-              //  console.log(`Unknown class: ${evt.target.className.split(" ")[0]}`);
-        //}
+        if (confirm("Remove this Item from Favorites?")) {
+            const id = evt.target.getAttribute('data-id');
+            favorite({
+                id,
+                favorited: true
+            }).catch(err => {
+                console.log('ERROR:', err.message);
+            });
+        }
     }
 });
 
 const modifyFavoriteItem = (data, id) => {
-    if (!data.visible) return;
-
     const isFavorite = data.user_favorites.includes(user);    
+    
+    removeFavoriteItem(id);
     if (isFavorite){
-        //Remove in case already rendered
-        removeFavoriteItem(id)
-
         renderFavoriteItem(data, id);
-    }
-    else {        
-        removeFavoriteItem(id);
     }
 }
 
